@@ -11,31 +11,11 @@ public class Villain extends GameElement {
         IsHenchman = isHenchman;
     }
 
-    public String GetMastermind() {
+    public String getMastermind() {
         return Mastermind;
     }
 
-    public boolean IsHenchman() {
+    public boolean isHenchman() {
         return IsHenchman;
-    }
-
-    @Override
-    public boolean equals (Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof Villain)) {
-            return false;
-        }
-
-        Villain villain = (Villain) o;
-
-        return GetName().equals(villain.GetName());
-    }
-
-    @Override
-    public int hashCode() {
-        return GetName().hashCode();
     }
 }

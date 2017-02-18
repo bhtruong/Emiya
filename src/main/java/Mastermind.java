@@ -9,7 +9,7 @@ public class Mastermind extends GameElement {
         GroupLed = groupLed;
     }
 
-    public String GetGroupLed() {
+    public String getGroupLed() {
         return GroupLed;
     }
 }

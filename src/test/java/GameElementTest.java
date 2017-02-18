@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 /**
  * Created by brian on 2/11/17.
  */
-public class HeroTest {
+public class GameElementTest {
     @Test
     public void equals() throws Exception {
         Hero hero = new Hero("Mr. Fantastic", "Fantastic Four");
@@ -17,5 +17,4 @@ public class HeroTest {
 
         assertFalse(hero.equals(duplicate));
     }
-
 }

@@ -3,14 +3,7 @@ va class files
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/compiler.xml
-.idea/dbnavigator.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/libraries
+.idea/
 
 target/
 pom.xml.tag

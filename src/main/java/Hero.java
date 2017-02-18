@@ -9,23 +9,7 @@ public class Hero extends GameElement {
         Team = team;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof Hero)) {
-            return false;
-        }
-
-        Hero hero = (Hero) o;
-
-        return GetName().equals(hero.GetName());
-    }
-
-    @Override
-    public int hashCode() {
-        return GetName().hashCode();
+    public String getTeam() {
+        return Team;
     }
 }

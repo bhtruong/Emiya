@@ -16,19 +16,19 @@ public class Setup {
         Heroes = heroes;
     }
 
-    public Scheme GetScheme() {
+    public Scheme getScheme() {
         return Scheme;
     }
 
-    public List<Mastermind> GetMasterminds() {
+    public List<Mastermind> getMasterminds() {
         return Masterminds;
     }
 
-    public List<Villain> GetVillains() {
+    public List<Villain> getVillains() {
         return Villains;
     }
 
-    public List<Hero> GetHeroes() {
+    public List<Hero> getHeroes() {
         return Heroes;
     }
 }

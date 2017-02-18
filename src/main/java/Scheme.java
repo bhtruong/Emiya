@@ -13,15 +13,15 @@ public class Scheme extends GameElement {
         ExtraHenchmanGroup = extraHenchmanGroup;
     }
 
-    public String[] GetVillainGroups() {
+    public String[] getVillainGroups() {
         return VillainGroups;
     }
 
-    public boolean GetExtraVillainGroup() {
+    public boolean getExtraVillainGroup() {
         return ExtraVillainGroup;
     }
 
-    public boolean GetExtraHenchmanGroup() {
+    public boolean getExtraHenchmanGroup() {
         return ExtraHenchmanGroup;
     }
 }
