@@ -1,4 +1,4 @@
-va class files
+# Java class files
 *.class
 
 # Intellij
@@ -17,3 +17,6 @@ buildNumber.properties
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
+
+# Project files
+/src/main/java/MySqlConfig.java

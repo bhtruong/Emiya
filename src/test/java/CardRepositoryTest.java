@@ -16,7 +16,7 @@ public class CardRepositoryTest {
     List<String> cardSets;
 
     @Before
-    public void Setup() {
+    public void setUp() {
         repository = new CardRepository(new MySqlDatabase());
 
         cardSets = new ArrayList<>();
@@ -26,16 +26,16 @@ public class CardRepositoryTest {
         cardSets.add("Secret Wars Vol. 1");
 
         try {
-            repository.OpenConnection();
+            repository.openConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @After
-    public void Teardown() {
+    public void tearDown() {
         try {
-            repository.CloseConnection();
+            repository.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,15 +46,13 @@ public class CardRepositoryTest {
         List<Scheme> schemes;
         Scheme lookup = new Scheme("The Kree-Skrull War", null, false, false);
         Scheme scheme;
-        int index;
 
         schemes = repository.getSchemes(cardSets);
 
-        index = schemes.indexOf(lookup);
-        scheme = schemes.get(index);
-
         assertNotNull(schemes);
         assertEquals(24, schemes.size());
+
+        scheme = SetupHelper.getGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup.getName(), scheme.getName());
@@ -63,8 +61,7 @@ public class CardRepositoryTest {
         assertFalse(scheme.getExtraHenchmanGroup());
 
         lookup = new Scheme("Forge the Infinity Gauntlet", null, false, false);
-        index = schemes.indexOf(lookup);
-        scheme = schemes.get(index);
+        scheme = SetupHelper.getGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup.getName(), scheme.getName());
@@ -73,8 +70,7 @@ public class CardRepositoryTest {
         assertFalse(scheme.getExtraHenchmanGroup());
 
         lookup = new Scheme("Intergalactic Kree Nega-Bomb", null, false, false);
-        index = schemes.indexOf(lookup);
-        scheme = schemes.get(index);
+        scheme = SetupHelper.getGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup.getName(), scheme.getName());
@@ -88,19 +84,24 @@ public class CardRepositoryTest {
         List<Mastermind> masterminds;
         Mastermind lookup = new Mastermind("Dr. Doom", null);
         Mastermind mastermind;
-        int index;
 
         masterminds = repository.getMasterminds(cardSets);
 
         assertNotNull(masterminds);
         assertEquals(12, masterminds.size());
 
-        index = masterminds.indexOf(lookup);
-        mastermind = masterminds.get(index);
+        mastermind = SetupHelper.getGameElement(masterminds, lookup);
 
         assertNotNull(mastermind);
         assertEquals("Dr. Doom", mastermind.getName());
         assertEquals("Doombot Legion", mastermind.getGroupLed());
+
+        lookup = new Mastermind("Magneto", "Brotherhood");
+        mastermind = SetupHelper.getGameElement(masterminds, lookup);
+
+        assertNotNull(mastermind);
+        assertEquals("Magneto", mastermind.getName());
+        assertEquals("Brotherhood", mastermind.getGroupLed());
     }
 
     @Test
@@ -108,20 +109,26 @@ public class CardRepositoryTest {
         List<Villain> villains;
         Villain lookup  = new Villain("Doombot Legion", null, false);
         Villain villain;
-        int index;
 
         villains = repository.getVillains(cardSets);
 
         assertNotNull(villains);
         assertEquals(24, villains.size());
 
-        index = villains.indexOf(lookup);
-        villain = villains.get(index);
+        villain = SetupHelper.getGameElement(villains, lookup);
 
         assertNotNull(villain);
         assertEquals("Doombot Legion", villain.getName());
         assertEquals("Dr. Doom", villain.getMastermind());
         assertEquals(true, villain.isHenchman());
+
+        lookup = new Villain("Brotherhood", null, false);
+        villain = SetupHelper.getGameElement(villains, lookup);
+
+        assertNotNull(villain);
+        assertEquals("Brotherhood", villain.getName());
+        assertEquals("Magneto", villain.getMastermind());
+        assertEquals(false, villain.isHenchman());
     }
 
     @Test
@@ -129,19 +136,16 @@ public class CardRepositoryTest {
         List<Hero> heroes;
         Hero lookup = new Hero("Mr. Fantastic", null);
         Hero hero;
-        int index;
 
         heroes = repository.getHeroes(cardSets);
 
         assertNotNull(heroes);
         assertEquals(38, heroes.size());
 
-        index = heroes.indexOf(lookup);
-        hero = heroes.get(index);
+        hero = SetupHelper.getGameElement(heroes, lookup);
 
         assertNotNull(hero);
         assertEquals("Mr. Fantastic", hero.getName());
         assertEquals("Fantastic Four", hero.getTeam());
     }
-
 }

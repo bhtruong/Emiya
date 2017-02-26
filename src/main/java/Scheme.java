@@ -2,26 +2,26 @@
  * Created by brian on 2/11/17.
  */
 public class Scheme extends GameElement {
-    private String[] VillainGroups;
-    private boolean ExtraVillainGroup;
-    private boolean ExtraHenchmanGroup;
+    private final String[] villainGroups;
+    private final boolean extraVillainGroup;
+    private final boolean extraHenchmanGroup;
 
-    public Scheme (String name, String[] villainGroups, boolean extraVillainGroup, boolean extraHenchmanGroup) {
+    Scheme (String name, String[] villainGroups, boolean extraVillainGroup, boolean extraHenchmanGroup) {
         super(name);
-        VillainGroups = villainGroups;
-        ExtraVillainGroup = extraVillainGroup;
-        ExtraHenchmanGroup = extraHenchmanGroup;
+        this.villainGroups = villainGroups;
+        this.extraVillainGroup = extraVillainGroup;
+        this.extraHenchmanGroup = extraHenchmanGroup;
     }
 
     public String[] getVillainGroups() {
-        return VillainGroups;
+        return villainGroups;
     }
 
     public boolean getExtraVillainGroup() {
-        return ExtraVillainGroup;
+        return extraVillainGroup;
     }
 
     public boolean getExtraHenchmanGroup() {
-        return ExtraHenchmanGroup;
+        return extraHenchmanGroup;
     }
 }

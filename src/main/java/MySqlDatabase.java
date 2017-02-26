@@ -5,12 +5,12 @@ import java.sql.SQLException;
 /**
  * Created by brian on 2/12/17.
  */
-class MySqlDatabase implements IDatabase {
+class MySqlDatabase extends Database {
 
-    public Connection getConnection() throws SQLException {
-        String url = MySqlConfig.URL;
-        String user = MySqlConfig.User;
-        String password = MySqlConfig.Password;
+    Connection getConnection() throws SQLException {
+        String url = MySqlConfig.url;
+        String user = MySqlConfig.user;
+        String password = MySqlConfig.password;
 
         return DriverManager.getConnection(url, user, password);
     }

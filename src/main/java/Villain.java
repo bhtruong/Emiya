@@ -2,20 +2,20 @@
  * Created by brian on 2/11/17.
  */
 public class Villain extends GameElement {
-    private String Mastermind;
-    private boolean IsHenchman;
+    private final String mastermind;
+    private final boolean isHenchman;
 
-    public Villain(String name, String mastermind, boolean isHenchman) {
+    Villain(String name, String mastermind, boolean isHenchman) {
         super(name);
-        Mastermind = mastermind;
-        IsHenchman = isHenchman;
+        this.mastermind = mastermind;
+        this.isHenchman = isHenchman;
     }
 
     public String getMastermind() {
-        return Mastermind;
+        return mastermind;
     }
 
     public boolean isHenchman() {
-        return IsHenchman;
+        return isHenchman;
     }
 }

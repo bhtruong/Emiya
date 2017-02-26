@@ -2,14 +2,14 @@
  * Created by brian on 2/11/17.
  */
 public class Hero extends GameElement {
-    private String Team;
+    private final String team;
 
-    public Hero(String name, String team) {
+    Hero(String name, String team) {
         super(name);
-        Team = team;
+        this.team = team;
     }
 
     public String getTeam() {
-        return Team;
+        return team;
     }
 }

@@ -1,15 +1,15 @@
 /**
  * Created by brian on 2/11/17.
  */
-public abstract class GameElement {
-    private String Name;
+abstract class GameElement {
+    private final String name;
 
-    public GameElement(String name) {
-        Name = name;
+    GameElement(String name) {
+        this.name = name;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     @Override
@@ -24,11 +24,11 @@ public abstract class GameElement {
 
         GameElement element = (GameElement) o;
 
-        return Name.equals(element.getName());
+        return name.equals(element.getName());
     }
 
     @Override
     public int hashCode() {
-        return Name.hashCode();
+        return name.hashCode();
     }
 }

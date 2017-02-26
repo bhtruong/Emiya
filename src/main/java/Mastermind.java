@@ -2,14 +2,14 @@
  * Created by brian on 2/11/17.
  */
 public class Mastermind extends GameElement {
-    private String GroupLed;
+    private final String groupLed;
 
-    public Mastermind(String name, String groupLed) {
+    Mastermind(String name, String groupLed) {
         super(name);
-        GroupLed = groupLed;
+        this.groupLed = groupLed;
     }
 
     public String getGroupLed() {
-        return GroupLed;
+        return groupLed;
     }
 }

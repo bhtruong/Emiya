@@ -9,25 +9,25 @@ import java.util.List;
  * Created by brian on 2/12/17.
  */
 class CardRepository {
-    private IDatabase Database;
-    private Connection Connection;
+    private final Database database;
+    private Connection connection;
 
-    public CardRepository(IDatabase database){
-        Database = database;
+    CardRepository(Database database){
+        this.database = database;
     }
 
-    public void OpenConnection() throws SQLException {
-        Connection = Database.getConnection();
+    void openConnection() throws SQLException {
+        connection = database.getConnection();
     }
 
-    public void CloseConnection() throws SQLException {
-        Connection.close();
+    void closeConnection() throws SQLException {
+        connection.close();
     }
 
-    public List<Scheme> getSchemes(List<String> cardSets) throws SQLException {
+    List<Scheme> getSchemes(List<String> cardSets) throws SQLException {
         List<Scheme> schemes = new ArrayList<>();
 
-        if (!Connection.isClosed()) {
+        if (!connection.isClosed()) {
             PreparedStatement stmt = createPreparedStatement("Schemes", cardSets);
             ResultSet rs = stmt.executeQuery();
 
@@ -49,10 +49,10 @@ class CardRepository {
         return schemes;
     }
 
-    public List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
+    List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
         List<Mastermind> masterminds = new ArrayList<>();
 
-        if (!Connection.isClosed()) {
+        if (!connection.isClosed()) {
             PreparedStatement stmt = createPreparedStatement("Masterminds", cardSets);
             ResultSet rs = stmt.executeQuery();
 
@@ -67,10 +67,10 @@ class CardRepository {
         return masterminds;
     }
 
-    public List<Villain> getVillains(List<String> cardSets) throws SQLException {
+    List<Villain> getVillains(List<String> cardSets) throws SQLException {
         List<Villain> villains = new ArrayList<>();
 
-        if (!Connection.isClosed()) {
+        if (!connection.isClosed()) {
             PreparedStatement stmt = createPreparedStatement("Villains", cardSets);
             ResultSet rs = stmt.executeQuery();
 
@@ -86,10 +86,10 @@ class CardRepository {
         return villains;
     }
 
-    public List<Hero> getHeroes(List<String> cardSets) throws SQLException {
+    List<Hero> getHeroes(List<String> cardSets) throws SQLException {
         List<Hero> heroes = new ArrayList<>();
 
-        if (!Connection.isClosed()) {
+        if (!connection.isClosed()) {
             PreparedStatement stmt = createPreparedStatement("Heroes", cardSets);
             ResultSet rs = stmt.executeQuery();
 
@@ -116,6 +116,6 @@ class CardRepository {
             }
         }
 
-        return Connection.prepareStatement(query);
+        return connection.prepareStatement(query);
     }
 }
