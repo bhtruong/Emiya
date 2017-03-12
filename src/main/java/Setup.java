@@ -6,13 +6,13 @@ import java.util.List;
 public class Setup {
     private final Scheme scheme;
     private final Mastermind mastermind;
-    private final List<Villain> villains;
+    private final List<VillainGroup> villainGroups;
     private final List<Hero> heroes;
 
-    public Setup(Scheme scheme, Mastermind mastermind, List<Villain> villains, List<Hero> heroes) {
+    public Setup(Scheme scheme, Mastermind mastermind, List<VillainGroup> villainGroups, List<Hero> heroes) {
         this.scheme = scheme;
         this.mastermind = mastermind;
-        this.villains = villains;
+        this.villainGroups = villainGroups;
         this.heroes = heroes;
     }
 
@@ -24,8 +24,8 @@ public class Setup {
         return mastermind;
     }
 
-    public List<Villain> getVillains() {
-        return villains;
+    public List<VillainGroup> getVillainGroups() {
+        return villainGroups;
     }
 
     public List<Hero> getHeroes() {

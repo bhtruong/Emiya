@@ -44,39 +44,82 @@ public class CardRepositoryTest {
     @Test
     public void getSchemes() throws Exception {
         List<Scheme> schemes;
-        Scheme lookup = new Scheme("The Kree-Skrull War", null, false, false);
+        Scheme lookup = new Scheme("The Kree-Skrull War", null, false, false, null);
         Scheme scheme;
+        String expectedCardSet = "Guardians of the Galaxy";
 
         schemes = repository.getSchemes(cardSets);
 
         assertNotNull(schemes);
         assertEquals(24, schemes.size());
 
-        scheme = SetupHelper.getGameElement(schemes, lookup);
+        scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup.getName(), scheme.getName());
         assertEquals(2, scheme.getVillainGroups().length);
         assertFalse(scheme.getExtraVillainGroup());
         assertFalse(scheme.getExtraHenchmanGroup());
+        assertEquals(expectedCardSet, scheme.getCardSet());
 
-        lookup = new Scheme("Forge the Infinity Gauntlet", null, false, false);
-        scheme = SetupHelper.getGameElement(schemes, lookup);
+        lookup = new Scheme("Forge the Infinity Gauntlet", null, false, false, null);
+        scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup.getName(), scheme.getName());
         assertEquals(1, scheme.getVillainGroups().length);
         assertFalse(scheme.getExtraVillainGroup());
         assertFalse(scheme.getExtraHenchmanGroup());
+        assertEquals(expectedCardSet, scheme.getCardSet());
 
-        lookup = new Scheme("Intergalactic Kree Nega-Bomb", null, false, false);
-        scheme = SetupHelper.getGameElement(schemes, lookup);
+        lookup = new Scheme("Intergalactic Kree Nega-Bomb", null, false, false, null);
+        scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup.getName(), scheme.getName());
         assertNull(scheme.getVillainGroups());
         assertFalse(scheme.getExtraVillainGroup());
         assertFalse(scheme.getExtraHenchmanGroup());
+        assertEquals(expectedCardSet, scheme.getCardSet());
+    }
+
+    @Test
+    public void getVillains() throws Exception {
+        List<VillainGroup> villainGroups;
+        List<VillainGroup> blacklist = new ArrayList<>();
+        VillainGroup lookup  = new VillainGroup("Doombot Legion", null, false);
+        VillainGroup villainGroup;
+
+        blacklist.add(new VillainGroup("Kree Starforce", null, false));
+        blacklist.add(new VillainGroup("Skrulls", null, false));
+
+        villainGroups = repository.getVillains(cardSets, null, null);
+
+        assertNotNull(villainGroups);
+        assertEquals(24, villainGroups.size());
+
+        villainGroup = SetupHelper.getAndRemoveGameElement(villainGroups, lookup);
+
+        assertNotNull(villainGroup);
+        assertEquals("Doombot Legion", villainGroup.getName());
+        assertEquals("Dr. Doom", villainGroup.getMastermind());
+        assertEquals(true, villainGroup.isHenchman());
+
+        lookup = new VillainGroup("Brotherhood", null, false);
+        villainGroup = SetupHelper.getAndRemoveGameElement(villainGroups, lookup);
+
+        assertNotNull(villainGroup);
+        assertEquals("Brotherhood", villainGroup.getName());
+        assertEquals("Magneto", villainGroup.getMastermind());
+        assertEquals(false, villainGroup.isHenchman());
+
+        villainGroups = repository.getVillains(cardSets, true, blacklist);
+
+        assertNotNull(villainGroups);
+        assertEquals(11, villainGroups.size());
+
+        villainGroups.addAll(repository.getVillains(cardSets, false, blacklist));
+        assertEquals(22, villainGroups.size());
     }
 
     @Test
@@ -90,45 +133,18 @@ public class CardRepositoryTest {
         assertNotNull(masterminds);
         assertEquals(12, masterminds.size());
 
-        mastermind = SetupHelper.getGameElement(masterminds, lookup);
+        mastermind = SetupHelper.getAndRemoveGameElement(masterminds, lookup);
 
         assertNotNull(mastermind);
         assertEquals("Dr. Doom", mastermind.getName());
         assertEquals("Doombot Legion", mastermind.getGroupLed());
 
         lookup = new Mastermind("Magneto", "Brotherhood");
-        mastermind = SetupHelper.getGameElement(masterminds, lookup);
+        mastermind = SetupHelper.getAndRemoveGameElement(masterminds, lookup);
 
         assertNotNull(mastermind);
         assertEquals("Magneto", mastermind.getName());
         assertEquals("Brotherhood", mastermind.getGroupLed());
-    }
-
-    @Test
-    public void getVillains() throws Exception {
-        List<Villain> villains;
-        Villain lookup  = new Villain("Doombot Legion", null, false);
-        Villain villain;
-
-        villains = repository.getVillains(cardSets);
-
-        assertNotNull(villains);
-        assertEquals(24, villains.size());
-
-        villain = SetupHelper.getGameElement(villains, lookup);
-
-        assertNotNull(villain);
-        assertEquals("Doombot Legion", villain.getName());
-        assertEquals("Dr. Doom", villain.getMastermind());
-        assertEquals(true, villain.isHenchman());
-
-        lookup = new Villain("Brotherhood", null, false);
-        villain = SetupHelper.getGameElement(villains, lookup);
-
-        assertNotNull(villain);
-        assertEquals("Brotherhood", villain.getName());
-        assertEquals("Magneto", villain.getMastermind());
-        assertEquals(false, villain.isHenchman());
     }
 
     @Test
@@ -142,7 +158,7 @@ public class CardRepositoryTest {
         assertNotNull(heroes);
         assertEquals(38, heroes.size());
 
-        hero = SetupHelper.getGameElement(heroes, lookup);
+        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
 
         assertNotNull(hero);
         assertEquals("Mr. Fantastic", hero.getName());

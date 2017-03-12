@@ -28,7 +28,7 @@ class CardRepository {
         List<Scheme> schemes = new ArrayList<>();
 
         if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("Schemes", cardSets);
+            PreparedStatement stmt = createPreparedStatement("`Schemes`", cardSets, false, null);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -37,23 +37,44 @@ class CardRepository {
                 String[] villains = null;
                 boolean extraVillainGroup = rs.getBoolean("ExtraVillainGroup");
                 boolean extraHenchmanGroup = rs.getBoolean("ExtraHenchmanGroup");
+                String cardSet = rs.getString("CardSet");
 
                 if (!villainGroups.isEmpty()) {
                     villains = villainGroups.split("\\s*,\\s*");
                 }
 
-                schemes.add(new Scheme(name, villains, extraVillainGroup, extraHenchmanGroup));
+                schemes.add(new Scheme(name, villains, extraVillainGroup, extraHenchmanGroup, cardSet));
             }
         }
 
         return schemes;
     }
 
+    List<VillainGroup> getVillains(List<String> cardSets, Boolean getMastermind, List<VillainGroup> blacklist) throws SQLException
+    {
+        List<VillainGroup> villainGroups = new ArrayList<>();
+
+        if (!connection.isClosed()) {
+            PreparedStatement stmt = createPreparedStatement("`Villains`", cardSets, getMastermind, blacklist);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("Name");
+                String mastermind = rs.getString("Mastermind");
+                boolean isHenchman = rs.getBoolean("IsHenchmanGroup");
+
+                villainGroups.add(new VillainGroup(name, mastermind, isHenchman));
+            }
+        }
+
+        return villainGroups;
+    }
+
     List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
         List<Mastermind> masterminds = new ArrayList<>();
 
         if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("Masterminds", cardSets);
+            PreparedStatement stmt = createPreparedStatement("`Masterminds`", cardSets, false, null);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -67,30 +88,11 @@ class CardRepository {
         return masterminds;
     }
 
-    List<Villain> getVillains(List<String> cardSets) throws SQLException {
-        List<Villain> villains = new ArrayList<>();
-
-        if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("Villains", cardSets);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String name = rs.getString("Name");
-                String mastermind = rs.getString("Mastermind");
-                boolean isHenchman = rs.getBoolean("IsHenchmanGroup");
-
-                villains.add(new Villain(name, mastermind, isHenchman));
-            }
-        }
-
-        return villains;
-    }
-
     List<Hero> getHeroes(List<String> cardSets) throws SQLException {
         List<Hero> heroes = new ArrayList<>();
 
         if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("Heroes", cardSets);
+            PreparedStatement stmt = createPreparedStatement("`Heroes`", cardSets, false, null);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -104,15 +106,47 @@ class CardRepository {
         return heroes;
     }
 
-    private PreparedStatement createPreparedStatement(String table, List<String> cardSets) throws SQLException {
+    private PreparedStatement createPreparedStatement(String table, List<String> cardSets, Boolean getMastermind,
+                                                      List<VillainGroup> blacklist) throws SQLException
+    {
         String query = "SELECT * FROM " + table + " WHERE ";
 
         for (int i = 0; i < cardSets.size(); i++) {
             if (i == 0) {
-                query += "CardSet='" + cardSets.get(i) + "'";
+                query += "(`CardSet`='" + cardSets.get(i) + "'";
             }
             else {
-                query += " OR CardSet='" + cardSets.get(i) + "'";
+                query += " OR `CardSet`='" + cardSets.get(i) + "'";
+            }
+        }
+
+        query += ")";
+
+        if (table.equals("`Villains`")) {
+
+            if (getMastermind != null) {
+
+                if (getMastermind == true) {
+                    query += " AND `Mastermind`!=''";
+                }
+                else {
+                    query += " AND `Mastermind`=''";
+                }
+            }
+
+            if (blacklist != null && !blacklist.isEmpty()) {
+
+                query += " AND (";
+
+                for (int i = 0; i < blacklist.size(); i++) {
+                    if (i == 0) {
+                        query += "`Name`!='" + blacklist.get(i).getName() + "'";
+                    } else {
+                        query += " AND `Name`!='" + blacklist.get(i).getName() + "'";
+                    }
+                }
+
+                query += ")";
             }
         }
 

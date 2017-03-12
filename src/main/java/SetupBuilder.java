@@ -19,8 +19,8 @@ abstract class SetupBuilder {
         cardRepository.closeConnection();
     }
 
-    abstract Scheme getScheme();
-    abstract List<Mastermind> getMastermind();
-    abstract List<Villain> getVillains();
-    abstract List<Hero> getHeroes();
+    abstract Scheme getScheme(List<String> cardSets) throws SQLException;
+    abstract List<VillainGroup> getVillains(List<String> cardSets, Scheme scheme) throws SQLException;
+    abstract Mastermind getMastermind(List<String> cardSets, List<VillainGroup> villainGroups) throws SQLException;
+    abstract List<Hero> getHeroes(List<String> cardSets, Scheme scheme, List<VillainGroup> villainGroups) throws SQLException;
 }

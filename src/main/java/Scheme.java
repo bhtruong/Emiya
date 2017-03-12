@@ -5,12 +5,15 @@ public class Scheme extends GameElement {
     private final String[] villainGroups;
     private final boolean extraVillainGroup;
     private final boolean extraHenchmanGroup;
+    private final String cardSet;
 
-    Scheme (String name, String[] villainGroups, boolean extraVillainGroup, boolean extraHenchmanGroup) {
+    Scheme (String name, String[] villainGroups, boolean extraVillainGroup, boolean extraHenchmanGroup, String cardSet)
+    {
         super(name);
         this.villainGroups = villainGroups;
         this.extraVillainGroup = extraVillainGroup;
         this.extraHenchmanGroup = extraHenchmanGroup;
+        this.cardSet = cardSet;
     }
 
     public String[] getVillainGroups() {
@@ -23,5 +26,9 @@ public class Scheme extends GameElement {
 
     public boolean getExtraHenchmanGroup() {
         return extraHenchmanGroup;
+    }
+
+    public String getCardSet() {
+        return cardSet;
     }
 }
