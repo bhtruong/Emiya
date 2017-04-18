@@ -30,13 +30,28 @@ class RandomizedSetupBuilder extends SetupBuilder {
     }
 
     @Override
-    List<VillainGroup> getVillains(List<String> cardSets, Scheme scheme) throws SQLException {
+    Mastermind getMastermind(List<String> cardSets, Scheme scheme) throws SQLException {
+        List<Mastermind> masterminds;
+
+        //TODO: Get Special Rules
+        if (scheme.getName() == "The Kree-Skrull War" && setupDetails.getNumberOfPlayers() == 2) {
+            masterminds = cardRepository.getMastermindsThatLedHenchmen(cardSets);
+            masterminds.add(cardRepository.getMastermind("Supreme Intelligence of the Kree"));
+        }
+        else {
+            masterminds = cardRepository.getMasterminds(cardSets);
+        }
+
+        return SetupHelper.getAndRemoveRandomGameElement(masterminds, randomizer);
+    }
+
+    @Override
+    List<VillainGroup> getVillains(List<String> cardSets, Scheme scheme, Mastermind mastermind) throws SQLException {
         List<String> schemeCardSets = new ArrayList<>();
         List<VillainGroup> allVillainGroups = new ArrayList<>();
         List<VillainGroup> villainGroups = new ArrayList<>();
         VillainGroup lookup, villainGroup;
         int totalVillains, numberOfVillains = 0, numberOfHenchman = 0;
-        boolean getMastermind = true; //initially no Mastermind has been selected
 
         if (scheme.getVillainGroups() != null) {
             schemeCardSets.add(scheme.getCardSet());
@@ -45,34 +60,37 @@ class RandomizedSetupBuilder extends SetupBuilder {
                 schemeCardSets.add("Legendary");
             }
 
-            allVillainGroups = cardRepository.getVillains(schemeCardSets, null, null);
+            allVillainGroups = cardRepository.getVillains(schemeCardSets, null);
 
             for (String schemeVillainName : scheme.getVillainGroups()) {
-                lookup = new VillainGroup(schemeVillainName, null, false);
+                lookup = new VillainGroup(schemeVillainName);
 
                 villainGroup = SetupHelper.getAndRemoveGameElement(allVillainGroups, lookup);
                 villainGroups.add(villainGroup);
-
-                if (villainGroup.getMastermind() != null) {
-                    getMastermind = false;
-                }
             }
         }
 
-        allVillainGroups.addAll(cardRepository.getVillains(cardSets, false, villainGroups));
+        villainGroup = new VillainGroup(mastermind.getGroupLed(), mastermind.getName(), mastermind.getLeadsHenchmanGroup());
 
-        if (getMastermind == true) {
-            allVillainGroups.addAll(cardRepository.getVillains(cardSets, true, villainGroups));
+        if (!villainGroups.contains(villainGroup)) {
+            villainGroups.add(villainGroup);
         }
+
+        allVillainGroups.addAll(cardRepository.getVillains(cardSets, villainGroups));
 
         totalVillains = setupDetails.getNumberOfVillains() + setupDetails.getNumberOfHenchman();
 
-        if (scheme.getExtraVillainGroup() || scheme.getExtraHenchmanGroup()) {
-            totalVillains++;
+        if (scheme.getExtraVillainGroup()) {
+            numberOfVillains--;
         }
 
-        for (VillainGroup schemeVillainGroup : villainGroups) {
-            if (schemeVillainGroup.isHenchman()) {
+        if (scheme.getExtraHenchmanGroup()) {
+            numberOfHenchman--;
+        }
+
+        //get scheme and mastermind villain groups
+        for (VillainGroup villains : villainGroups) {
+            if (villains.isHenchman()) {
                 numberOfHenchman++;
             }
             else {
@@ -80,32 +98,36 @@ class RandomizedSetupBuilder extends SetupBuilder {
             }
         }
 
+        //TODO: Get special rules
         while (numberOfVillains + numberOfHenchman < totalVillains) {
             villainGroup = SetupHelper.getAndRemoveRandomGameElement(allVillainGroups, randomizer);
 
-            if (villainGroup.isHenchman()) {
+            if (villainGroup.isHenchman() && numberOfHenchman < setupDetails.getNumberOfHenchman()) {
                 numberOfHenchman++;
+                villainGroups.add(villainGroup);
             }
-            else {
+            else if (!villainGroup.isHenchman() && numberOfVillains < setupDetails.getNumberOfVillains()) {
                 numberOfVillains++;
+                villainGroups.add(villainGroup);
             }
-
-            villainGroups.add(villainGroup);
         }
 
         return villainGroups;
     }
 
     @Override
-    Mastermind getMastermind(List<String> cardSets, List<VillainGroup> villainGroups) throws SQLException {
-        List<Mastermind> masterminds = cardRepository.getMasterminds(cardSets);
+    List<Hero> getHeroes(List<String> cardSets) throws SQLException {
+        List<Hero> allHeroes;
+        List<Hero> heroes = new ArrayList<>();
 
-        return SetupHelper.getAndRemoveRandomGameElement(masterminds, randomizer);
-    }
+        //TODO: Get Special Rules
+        allHeroes = cardRepository.getHeroes(cardSets);
 
-    @Override
-    List<Hero> getHeroes(List<String> cardSets, Scheme scheme, List<VillainGroup> villainGroups) throws SQLException {
-        return null;
+        while (heroes.size() < setupDetails.getNumberOfHeroes()) {
+            heroes.add(SetupHelper.getAndRemoveRandomGameElement(allHeroes, randomizer));
+        }
+
+        return heroes;
     }
 
     void setSetupDetails(SetupDetails setupDetails) {

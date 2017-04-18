@@ -7,13 +7,21 @@ public class Scheme extends GameElement {
     private final boolean extraHenchmanGroup;
     private final String cardSet;
 
-    Scheme (String name, String[] villainGroups, boolean extraVillainGroup, boolean extraHenchmanGroup, String cardSet)
+    Scheme(String name, String[] villainGroups, boolean extraVillainGroup, boolean extraHenchmanGroup, String cardSet)
     {
         super(name);
         this.villainGroups = villainGroups;
         this.extraVillainGroup = extraVillainGroup;
         this.extraHenchmanGroup = extraHenchmanGroup;
         this.cardSet = cardSet;
+    }
+
+    Scheme(String name) {
+        super(name);
+        this.villainGroups = null;
+        this.extraVillainGroup = false;
+        this.extraHenchmanGroup = false;
+        this.cardSet = null;
     }
 
     public String[] getVillainGroups() {

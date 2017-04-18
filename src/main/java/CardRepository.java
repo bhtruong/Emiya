@@ -28,7 +28,7 @@ class CardRepository {
         List<Scheme> schemes = new ArrayList<>();
 
         if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("`Schemes`", cardSets, false, null);
+            PreparedStatement stmt = createPreparedStatement("`Schemes`", cardSets, null);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -50,12 +50,65 @@ class CardRepository {
         return schemes;
     }
 
-    List<VillainGroup> getVillains(List<String> cardSets, Boolean getMastermind, List<VillainGroup> blacklist) throws SQLException
+    List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
+        List<Mastermind> masterminds = new ArrayList<>();
+
+        if (!connection.isClosed()) {
+            PreparedStatement stmt = createPreparedStatement("`Masterminds`", cardSets, null);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("Name");
+                String groupLed = rs.getString("GroupLed");
+                boolean leadsHenchmanGroup = rs.getBoolean("LeadsHenchmanGroup");
+
+                masterminds.add(new Mastermind(name, groupLed, leadsHenchmanGroup));
+            }
+        }
+
+        return masterminds;
+    }
+
+    Mastermind getMastermind(String mastermindName) throws SQLException {
+        String query = "SELECT * FROM `Masterminds` WHERE Name='" + mastermindName + "'";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        rs.next();
+
+        String name = rs.getString("Name");
+        String groupLed = rs.getString("GroupLed");
+        boolean leadsHenchmanGroup = rs.getBoolean("LeadsHenchmanGroup");
+
+        return new Mastermind(name, groupLed, leadsHenchmanGroup);
+    }
+
+    List<Mastermind> getMastermindsThatLedHenchmen(List<String> cardSets) throws SQLException {
+        List<Mastermind> masterminds = new ArrayList<>();
+        String query = "SELECT * FROM `Villains` WHERE IsHenchmanGroup=1 AND Mastermind!='' AND ";
+
+        query = appendCardSets(query, cardSets);
+
+        PreparedStatement stmt = connection.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String name = rs.getString("Mastermind");
+            String groupLed = rs.getString("Name");
+            boolean leadsHenchmanGroup = rs.getBoolean("IsHenchmanGroup");
+
+            masterminds.add(new Mastermind(name, groupLed, leadsHenchmanGroup));
+        }
+
+        return masterminds;
+    }
+
+    List<VillainGroup> getVillains(List<String> cardSets, List<VillainGroup> blacklist) throws SQLException
     {
         List<VillainGroup> villainGroups = new ArrayList<>();
 
         if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("`Villains`", cardSets, getMastermind, blacklist);
+            PreparedStatement stmt = createPreparedStatement("`Villains`", cardSets, blacklist);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -70,29 +123,11 @@ class CardRepository {
         return villainGroups;
     }
 
-    List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
-        List<Mastermind> masterminds = new ArrayList<>();
-
-        if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("`Masterminds`", cardSets, false, null);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String name = rs.getString("Name");
-                String groupLed = rs.getString("GroupLed");
-
-                masterminds.add(new Mastermind(name, groupLed));
-            }
-        }
-
-        return masterminds;
-    }
-
     List<Hero> getHeroes(List<String> cardSets) throws SQLException {
         List<Hero> heroes = new ArrayList<>();
 
         if (!connection.isClosed()) {
-            PreparedStatement stmt = createPreparedStatement("`Heroes`", cardSets, false, null);
+            PreparedStatement stmt = createPreparedStatement("`Heroes`", cardSets, null);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -106,33 +141,14 @@ class CardRepository {
         return heroes;
     }
 
-    private PreparedStatement createPreparedStatement(String table, List<String> cardSets, Boolean getMastermind,
+    private PreparedStatement createPreparedStatement(String table, List<String> cardSets,
                                                       List<VillainGroup> blacklist) throws SQLException
     {
         String query = "SELECT * FROM " + table + " WHERE ";
 
-        for (int i = 0; i < cardSets.size(); i++) {
-            if (i == 0) {
-                query += "(`CardSet`='" + cardSets.get(i) + "'";
-            }
-            else {
-                query += " OR `CardSet`='" + cardSets.get(i) + "'";
-            }
-        }
-
-        query += ")";
+        query = appendCardSets(query, cardSets);
 
         if (table.equals("`Villains`")) {
-
-            if (getMastermind != null) {
-
-                if (getMastermind == true) {
-                    query += " AND `Mastermind`!=''";
-                }
-                else {
-                    query += " AND `Mastermind`=''";
-                }
-            }
 
             if (blacklist != null && !blacklist.isEmpty()) {
 
@@ -151,5 +167,20 @@ class CardRepository {
         }
 
         return connection.prepareStatement(query);
+    }
+
+    private String appendCardSets(String query, List<String> cardSets) {
+        for (int i = 0; i < cardSets.size(); i++) {
+            if (i == 0) {
+                query += "(`CardSet`='" + cardSets.get(i) + "'";
+            }
+            else {
+                query += " OR `CardSet`='" + cardSets.get(i) + "'";
+            }
+        }
+
+        query += ")";
+
+        return query;
     }
 }

@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 public class GameElementTest {
     @Test
     public void equals() throws Exception {
-        Hero hero = new Hero("Mr. Fantastic", "Fantastic Four");
-        Hero duplicate = new Hero("Mr. Fantastic", "Illuminati");
+        Hero hero = new Hero("Mr. Fantastic");
+        Hero duplicate = new Hero("Mr. Fantastic");
 
         assertTrue(hero.equals(duplicate));
 
-        duplicate = new Hero("Iron Man", "Avengers");
+        duplicate = new Hero("Iron Man");
 
         assertFalse(hero.equals(duplicate));
     }

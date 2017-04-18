@@ -9,6 +9,11 @@ public class Hero extends GameElement {
         this.team = team;
     }
 
+    Hero(String name) {
+        super(name);
+        this.team = null;
+    }
+
     public String getTeam() {
         return team;
     }

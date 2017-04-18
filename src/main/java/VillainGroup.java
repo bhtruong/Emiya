@@ -11,6 +11,18 @@ public class VillainGroup extends GameElement {
         this.isHenchman = isHenchman;
     }
 
+    VillainGroup(String name, boolean isHenchman) {
+        super(name);
+        this.mastermind = null;
+        this.isHenchman = isHenchman;
+    }
+
+    VillainGroup(String name) {
+        super(name);
+        this.mastermind = null;
+        this.isHenchman = false;
+    }
+
     public String getMastermind() {
         return mastermind;
     }
