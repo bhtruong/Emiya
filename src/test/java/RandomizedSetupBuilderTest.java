@@ -87,7 +87,6 @@ public class RandomizedSetupBuilderTest {
         Scheme scheme = new Scheme("Negative Zone Prison Breakout", null, false, true, "Legendary");
         Mastermind mastermind = new Mastermind("Dr. Doom", "Doombot Legion", true);
         List<VillainGroup> villains;
-        VillainGroup villainGroup, lookup;
 
         setupBuilder.setSetupDetails(setupDetails);
 
@@ -108,7 +107,6 @@ public class RandomizedSetupBuilderTest {
         Scheme scheme = new Scheme("The Kree-Skrull War", new String[]{"Kree Starforce", "Skrulls"}, false, false, "Guardians of the Galaxy");
         Mastermind mastermind = new Mastermind("Suprememe Intelligence of the Kree", "Kree Starforce", false);
         List<VillainGroup> villains;
-        VillainGroup villainGroup, lookup;
 
         setupBuilder.setSetupDetails(setupDetails);
 
@@ -129,7 +127,6 @@ public class RandomizedSetupBuilderTest {
         Scheme scheme = new Scheme("Smash Two Dimensions Together", null, true, false, "Secret Wars Vol. 1");
         Mastermind mastermind = new Mastermind("Wasteland Hulk", "Wasteland", false);
         List<VillainGroup> villains;
-        VillainGroup villainGroup, lookup;
 
         setupBuilder.setSetupDetails(details);
 
@@ -152,7 +149,6 @@ public class RandomizedSetupBuilderTest {
         Scheme scheme = new Scheme("Build An Army of Annihilation", new String[]{"M.O.D.O.K.S"}, false, true, "Secret Wars Vol. 1");
         Mastermind mastermind = new Mastermind("Galactus", "Heralds of Galactus", false);
         List<VillainGroup> villains;
-        VillainGroup villainGroup, lookup;
 
         setupBuilder.setSetupDetails(details);
 
@@ -174,7 +170,6 @@ public class RandomizedSetupBuilderTest {
     public void getHeroes() throws Exception {
         SetupDetails setupDetails = SetupHelper.getSetupDetails(2);
         List<Hero> heroes;
-        Hero hero, lookup;
 
         setupBuilder.setSetupDetails(setupDetails);
 
@@ -183,34 +178,10 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(heroes);
         assertEquals(5, heroes.size());
 
-        lookup = new Hero("Spider-Man");
-        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
-
-        assertNotNull(hero);
-        assertEquals("Spider-Man", hero.getName());
-
-        lookup = new Hero("Mr. Fantastic");
-        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
-
-        assertNotNull(hero);
-        assertEquals("Mr. Fantastic", hero.getName());
-
-        lookup = new Hero("Invisible Woman");
-        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
-
-        assertNotNull(hero);
-        assertEquals("Invisible Woman", hero.getName());
-
-        lookup = new Hero("Human Touch");
-        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
-
-        assertNotNull(hero);
-        assertEquals("Human Touch", hero.getName());
-
-        lookup = new Hero("Thing");
-        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
-
-        assertNotNull(hero);
-        assertEquals("Thing", hero.getName());
+        TestHelper.validateHero(heroes, "Spider-Man");
+        TestHelper.validateHero(heroes, "Mr. Fantastic");
+        TestHelper.validateHero(heroes, "Invisible Woman");
+        TestHelper.validateHero(heroes, "Human Torch");
+        TestHelper.validateHero(heroes, "Thing");
     }
 }

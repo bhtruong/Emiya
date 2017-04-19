@@ -108,7 +108,7 @@ final class TestMocks {
         mockedHeroes.add(new Hero("Spider-Man"));
         mockedHeroes.add(new Hero("Mr. Fantastic"));
         mockedHeroes.add(new Hero("Invisible Woman"));
-        mockedHeroes.add(new Hero("Human Touch"));
+        mockedHeroes.add(new Hero("Human Torch"));
         mockedHeroes.add(new Hero("Thing"));
         mockedHeroes.add(new Hero("Black Panther"));
         mockedHeroes.add(new Hero("Doctor Strange"));

@@ -44,8 +44,7 @@ public class CardRepositoryTest {
     @Test
     public void getSchemes() throws Exception {
         List<Scheme> schemes;
-        Scheme lookup = new Scheme("The Kree-Skrull War");
-        Scheme scheme;
+        Scheme expectedScheme;
         String expectedCardSet = "Guardians of the Galaxy";
 
         schemes = repository.getSchemes(cardSets);
@@ -53,34 +52,45 @@ public class CardRepositoryTest {
         assertNotNull(schemes);
         assertEquals(24, schemes.size());
 
-        scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
+        expectedScheme = new Scheme("The Kree-Skrull War", null, false, false, expectedCardSet);
+        TestHelper.validateScheme(schemes, expectedScheme, 2);
 
-        assertNotNull(scheme);
-        assertEquals(lookup.getName(), scheme.getName());
-        assertEquals(2, scheme.getVillainGroups().length);
-        assertFalse(scheme.getExtraVillainGroup());
-        assertFalse(scheme.getExtraHenchmanGroup());
-        assertEquals(expectedCardSet, scheme.getCardSet());
+        expectedScheme = new Scheme("Forge the Infinity Gauntlet", null, false, false, expectedCardSet);
+        TestHelper.validateScheme(schemes, expectedScheme, 1);
 
-        lookup = new Scheme("Forge the Infinity Gauntlet");
-        scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
+        expectedScheme = new Scheme("Intergalactic Kree Nega-Bomb", null, false, false, expectedCardSet);
+        TestHelper.validateScheme(schemes, expectedScheme, null);
+    }
 
-        assertNotNull(scheme);
-        assertEquals(lookup.getName(), scheme.getName());
-        assertEquals(1, scheme.getVillainGroups().length);
-        assertFalse(scheme.getExtraVillainGroup());
-        assertFalse(scheme.getExtraHenchmanGroup());
-        assertEquals(expectedCardSet, scheme.getCardSet());
+    @Test
+    public void getMasterminds() throws Exception {
+        List<Mastermind> masterminds = repository.getMasterminds(cardSets);
 
-        lookup = new Scheme("Intergalactic Kree Nega-Bomb");
-        scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
+        assertNotNull(masterminds);
+        assertEquals(12, masterminds.size());
 
-        assertNotNull(scheme);
-        assertEquals(lookup.getName(), scheme.getName());
-        assertNull(scheme.getVillainGroups());
-        assertFalse(scheme.getExtraVillainGroup());
-        assertFalse(scheme.getExtraHenchmanGroup());
-        assertEquals(expectedCardSet, scheme.getCardSet());
+        TestHelper.validateMastermind(masterminds, "Dr. Doom", "Doombot Legion", true);
+        TestHelper.validateMastermind(masterminds, "Magneto", "Brotherhood", false);
+    }
+
+    @Test
+    public void getMastermind() throws SQLException {
+        Mastermind mastermind = repository.getMastermind("Supreme Intelligence of the Kree");
+
+        assertNotNull(mastermind);
+        assertEquals("Supreme Intelligence of the Kree", mastermind.getName());
+        assertEquals("Kree Starforce", mastermind.getGroupLed());
+        assertEquals(false, mastermind.getLeadsHenchmanGroup());
+    }
+
+    @Test
+    public void getMasterminds_LeadsHenchmen() throws SQLException {
+        List<Mastermind> masterminds = repository.getMastermindsThatLedHenchmen(cardSets);
+
+        assertNotNull(masterminds);
+        assertEquals(1, masterminds.size());
+
+        TestHelper.validateMastermind(masterminds, "Dr. Doom", "Doombot Legion", true);
     }
 
     @Test
@@ -118,76 +128,12 @@ public class CardRepositoryTest {
     }
 
     @Test
-    public void getMasterminds() throws Exception {
-        List<Mastermind> masterminds;
-        Mastermind lookup = new Mastermind("Dr. Doom");
-        Mastermind mastermind;
-
-        masterminds = repository.getMasterminds(cardSets);
-
-        assertNotNull(masterminds);
-        assertEquals(12, masterminds.size());
-
-        mastermind = SetupHelper.getAndRemoveGameElement(masterminds, lookup);
-
-        assertNotNull(mastermind);
-        assertEquals("Dr. Doom", mastermind.getName());
-        assertEquals("Doombot Legion", mastermind.getGroupLed());
-
-        lookup = new Mastermind("Magneto");
-        mastermind = SetupHelper.getAndRemoveGameElement(masterminds, lookup);
-
-        assertNotNull(mastermind);
-        assertEquals("Magneto", mastermind.getName());
-        assertEquals("Brotherhood", mastermind.getGroupLed());
-    }
-
-    @Test
-    public void getMastermind() throws SQLException {
-        Mastermind mastermind = repository.getMastermind("Supreme Intelligence of the Kree");
-
-        assertNotNull(mastermind);
-        assertEquals("Supreme Intelligence of the Kree", mastermind.getName());
-        assertEquals("Kree Starforce", mastermind.getGroupLed());
-        assertEquals(false, mastermind.getLeadsHenchmanGroup());
-    }
-
-    @Test
-    public void getMasterminds_LeadsHenchmen() throws SQLException {
-        List<Mastermind> masterminds;
-        Mastermind mastermind, lookup;
-
-        lookup = new Mastermind("Dr. Doom");
-
-        masterminds = repository.getMastermindsThatLedHenchmen(cardSets);
-
-        assertNotNull(masterminds);
-        assertEquals(1, masterminds.size());
-
-        mastermind = SetupHelper.getAndRemoveGameElement(masterminds, lookup);
-
-        assertNotNull(mastermind);
-        assertEquals("Dr. Doom", mastermind.getName());
-        assertEquals("Doombot Legion", mastermind.getGroupLed());
-        assertEquals(true, mastermind.getLeadsHenchmanGroup());
-    }
-
-
-    @Test
     public void getHeroes() throws Exception {
-        List<Hero> heroes;
-        Hero lookup = new Hero("Mr. Fantastic");
-        Hero hero;
-
-        heroes = repository.getHeroes(cardSets);
+        List<Hero> heroes = repository.getHeroes(cardSets);
 
         assertNotNull(heroes);
         assertEquals(38, heroes.size());
 
-        hero = SetupHelper.getAndRemoveGameElement(heroes, lookup);
-
-        assertNotNull(hero);
-        assertEquals("Mr. Fantastic", hero.getName());
-        assertEquals("Fantastic Four", hero.getTeam());
+        TestHelper.validateHero(heroes, "Mr. Fantastic");
     }
 }
