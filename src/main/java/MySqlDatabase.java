@@ -5,9 +5,9 @@ import java.sql.SQLException;
 /**
  * Created by brian on 2/12/17.
  */
-class MySqlDatabase extends Database {
+class MySqlDatabase implements Database {
 
-    Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         String url = MySqlConfig.url;
         String user = MySqlConfig.user;
         String password = MySqlConfig.password;

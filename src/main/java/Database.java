@@ -4,6 +4,6 @@ import java.sql.SQLException;
 /**
  * Created by brian on 2/12/17.
  */
-abstract class Database {
-    abstract Connection getConnection() throws SQLException;
+interface Database {
+    Connection getConnection() throws SQLException;
 }
