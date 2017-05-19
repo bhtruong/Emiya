@@ -1,3 +1,5 @@
+package emiya;
+
 import dagger.Component;
 import org.junit.After;
 import org.junit.Before;

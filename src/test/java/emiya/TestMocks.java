@@ -1,3 +1,10 @@
+package emiya;
+
+import emiya.Hero;
+import emiya.Mastermind;
+import emiya.Scheme;
+import emiya.VillainGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 

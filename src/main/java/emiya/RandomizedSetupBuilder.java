@@ -1,3 +1,5 @@
+package emiya;
+
 import javax.inject.Inject;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ import java.util.Random;
  */
 class RandomizedSetupBuilder extends SetupBuilder {
     private Random randomizer;
-    private SetupDetails setupDetails;
 
     @Inject
     RandomizedSetupBuilder(CardRepository cardRepository, Random randomizer) {
@@ -128,9 +129,5 @@ class RandomizedSetupBuilder extends SetupBuilder {
         }
 
         return heroes;
-    }
-
-    void setSetupDetails(SetupDetails setupDetails) {
-        this.setupDetails = setupDetails;
     }
 }

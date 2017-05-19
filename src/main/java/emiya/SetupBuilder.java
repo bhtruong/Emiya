@@ -1,3 +1,5 @@
+package emiya;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -6,6 +8,7 @@ import java.util.List;
  */
 abstract class SetupBuilder {
     protected CardRepository cardRepository;
+    protected SetupDetails setupDetails;
 
     SetupBuilder(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
@@ -17,6 +20,10 @@ abstract class SetupBuilder {
 
     protected void closeConnection() throws SQLException {
         cardRepository.closeConnection();
+    }
+
+    protected void setSetupDetails(SetupDetails setupDetails) {
+        this.setupDetails = setupDetails;
     }
 
     abstract Scheme getScheme(List<String> cardSets) throws SQLException;

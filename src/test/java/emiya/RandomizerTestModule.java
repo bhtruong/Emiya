@@ -1,3 +1,5 @@
+package emiya;
+
 import dagger.Module;
 import dagger.Provides;
 

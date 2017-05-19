@@ -1,3 +1,7 @@
+package emiya;
+
+import emiya.*;
+
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

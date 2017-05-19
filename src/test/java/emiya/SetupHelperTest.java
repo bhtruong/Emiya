@@ -1,3 +1,7 @@
+package emiya;
+
+import emiya.Scheme;
+import emiya.SetupHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +33,7 @@ public class SetupHelperTest {
         schemes.add(new Scheme("Unleash the Power of the Cosmic Cube"));
         schemes.add(new Scheme("Replace Earth's Leaders with Killbots"));
         schemes.add(new Scheme("Secret Invasion of the Skrull Shapeshifters"));
-        schemes.add(new Scheme("Super Hero Civil War"));
+        schemes.add(new Scheme("Super emiya.Hero Civil War"));
         schemes.add(new Scheme("Midtown Bank Robbery"));
     }
 
