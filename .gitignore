@@ -19,4 +19,4 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 # Project files
-/src/main/java/MySqlConfig.java
+/src/main/java/emiya/MySqlConfig.java
