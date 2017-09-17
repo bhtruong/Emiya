@@ -62,9 +62,9 @@ class CardRepository {
             while (rs.next()) {
                 String name = rs.getString("Name");
                 String groupLed = rs.getString("GroupLed");
-                boolean leadsHenchmanGroup = rs.getBoolean("LeadsHenchmanGroup");
+                boolean LeadsHenchmenGroup = rs.getBoolean("LeadsHenchmenGroup");
 
-                masterminds.add(new Mastermind(name, groupLed, leadsHenchmanGroup));
+                masterminds.add(new Mastermind(name, groupLed, LeadsHenchmenGroup));
             }
         }
 
@@ -80,9 +80,9 @@ class CardRepository {
 
         String name = rs.getString("Name");
         String groupLed = rs.getString("GroupLed");
-        boolean leadsHenchmanGroup = rs.getBoolean("LeadsHenchmanGroup");
+        boolean LeadsHenchmenGroup = rs.getBoolean("LeadsHenchmenGroup");
 
-        return new Mastermind(name, groupLed, leadsHenchmanGroup);
+        return new Mastermind(name, groupLed, LeadsHenchmenGroup);
     }
 
     List<Mastermind> getMastermindsThatLedHenchmen(List<String> cardSets) throws SQLException {
@@ -97,9 +97,9 @@ class CardRepository {
         while (rs.next()) {
             String name = rs.getString("Mastermind");
             String groupLed = rs.getString("Name");
-            boolean leadsHenchmanGroup = rs.getBoolean("IsHenchmanGroup");
+            boolean LeadsHenchmenGroup = rs.getBoolean("IsHenchmanGroup");
 
-            masterminds.add(new Mastermind(name, groupLed, leadsHenchmanGroup));
+            masterminds.add(new Mastermind(name, groupLed, LeadsHenchmenGroup));
         }
 
         return masterminds;
