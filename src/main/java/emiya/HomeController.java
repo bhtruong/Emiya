@@ -14,13 +14,13 @@ public class HomeController {
     }
 
     @GetMapping("/generateRandomSetup")
-    public String generateRandomSetup(Model model) {
+    public String randomSetupForm(Model model) {
         model.addAttribute("setupForm", new SetupForm());
         return "form";
     }
 
     @PostMapping("/generateRandomSetup")
-    public String generateRandomSetup(@ModelAttribute SetupForm setupForm) {
+    public String randomSetupResult(@ModelAttribute SetupForm setupForm) {
         System.out.println(setupForm.getLegendary());
         return "result";
     }
