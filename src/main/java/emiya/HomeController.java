@@ -2,9 +2,7 @@ package emiya;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
@@ -13,5 +11,17 @@ public class HomeController {
     {
         model.addAttribute("players", players);
         return "randomSetup";
+    }
+
+    @GetMapping("/generateRandomSetup")
+    public String generateRandomSetup(Model model) {
+        model.addAttribute("setupForm", new SetupForm());
+        return "form";
+    }
+
+    @PostMapping("/generateRandomSetup")
+    public String generateRandomSetup(@ModelAttribute SetupForm setupForm) {
+        System.out.println(setupForm.getLegendary());
+        return "result";
     }
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p>Get your random Legendary game setup! <a href="/randomSetup">here</a></p>
-<form action="#" th:action="@{/generateRandomSetup}" th:object="${/setupform}" method="post">
+<h1>Form</h1>
+<form action="#" th:action="@{/generateRandomSetup}" th:object="${setupForm}" method="post">
     <br/>
     Number of Players
     <input type="number" name="Players" min="1" max="5" />

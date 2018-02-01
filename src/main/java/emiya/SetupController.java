@@ -1,6 +1,7 @@
 package emiya;
 
 import dagger.Component;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,9 @@ public class SetupController {
     private SetupDirector setupDirector;
     private GameSetupDirector gameSetupDirector;
 
-    @RequestMapping(value = "/randomSetup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Setup randomSetup(@RequestBody List<String> cardSets,
-                             @RequestParam(value="players") int players) throws SQLException
+    @RequestMapping(value = "/setup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Setup generateRandomSetup(@RequestBody List<String> cardSets,
+                                     @RequestParam(value="players") int players) throws SQLException
     {
         SetupDetails setupDetails;
 
