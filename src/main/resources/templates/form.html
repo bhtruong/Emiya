@@ -65,16 +65,25 @@
             var villains = response.villainGroups
             var heroes = response.heroes
 
+            $(".scheme").empty()
+            $(".mastermind").empty()
+            $(".villains").empty()
+            $(".heroes").empty()
+
             console.log(scheme.name)
+            $(".scheme").text(scheme.name)
+
             console.log(mastermind.name)
+            $(".mastermind").text(mastermind.name)
 
             villains.forEach(function(villainGroup) {
                 console.log(villainGroup.name)
+                $(".villains").append("<li>" + villainGroup.name + "</li>")
             })
 
             heroes.forEach(function(hero) {
                 console.log(hero.name)
-                $(".heroes").append("<li>" + hero.name + "</li>")
+                $("<li>" + hero.name + "</li>").addClass("hero").appendTo(".heroes")
             })
         })
     });
