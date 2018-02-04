@@ -23,7 +23,7 @@ public class SetupController {
     private SetupDirector setupDirector;
     private GameSetupDirector gameSetupDirector;
 
-    @RequestMapping(value = "/setup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/randomSetup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Setup generateRandomSetup(@RequestBody List<String> cardSets,
                                      @RequestParam(value="players") int players) throws SQLException
     {
