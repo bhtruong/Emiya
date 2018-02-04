@@ -1,14 +1,93 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Emiya</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
 </head>
 <body>
-<p>Get your random Legendary game setup! <a href="/generateRandomSetup">here</a></p>
+<div class="center">
+    <h1>Emiya</h1>
+    <form action="#">
+        <br/>
+        Number of Players
+        <input class="players" type="number" name="Players" min="1" max="5" value="1" />
+        <br/>
+        <br/>
+        <input class="cardSet" type="checkbox" name="Legendary" value="Legendary" /> Legendary
+        <input class="cardSet" type="checkbox" name="Dark City" value="Dark City" /> Dark City
+        <input class="cardSet" type="checkbox" name="Fantastic Four" value="Fantastic Four" /> Fantastic Four
+        <br/>
+        <br/>
+        <input type="submit" value="Go!"/>
+        <input type="reset" value="Reset"/>
+        <div class="randomSetup">
+            <p class="scheme"></p>
+            <p class="mastermind"></p>
+            <ul class="villains"></ul>
+            <ul class="heroes"></ul>
+        </div>
+    </form>
+</div>
 </body>
 </html>
+<script>
+    $("form").submit(function(event) {
+        var players = 1;
+        var cardSets = []
+
+        event.preventDefault()
+
+        console.log($(".players").get(0).value)
+
+        players = $(".players").get(0).value
+
+        $(".cardSet").each(function(index) {
+            if (this.checked) {
+                cardSets.push(this.value)
+                console.log(this.value)
+            }
+        })
+
+        console.log(players)
+        console.log(cardSets)
+
+        $.ajax({
+            contentType: "application/json",
+            method: "POST",
+            url: "/api/randomSetup?players=" + players,
+            data: JSON.stringify(cardSets)
+        }).done(function(response) {
+            var scheme = response.scheme
+            var mastermind = response.mastermind
+            var villains = response.villainGroups
+            var heroes = response.heroes
+
+            $(".scheme").empty()
+            $(".mastermind").empty()
+            $(".villains").empty()
+            $(".heroes").empty()
+
+            console.log(scheme.name)
+            $(".scheme").text(scheme.name)
+
+            console.log(mastermind.name)
+            $(".mastermind").text(mastermind.name)
+
+            villains.forEach(function(villainGroup) {
+                console.log(villainGroup.name)
+                $(".villains").append("<li>" + villainGroup.name + "</li>")
+            })
+
+            heroes.forEach(function(hero) {
+                console.log(hero.name)
+                $("<li>" + hero.name + "</li>").addClass("hero").appendTo(".heroes")
+            })
+        })
+    });
+</script>
