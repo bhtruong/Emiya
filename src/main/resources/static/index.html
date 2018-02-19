@@ -29,11 +29,15 @@
         <br/>
         <br/>
         <input type="submit" value="Go!"/>
-        <input type="reset" value="Reset"/>
+        <input class="reset" type="reset" value="Reset"/>
         <div class="randomSetup">
+            <h4>Scheme</h4>
             <p class="scheme"></p>
+            <h4>Mastermind</h4>
             <p class="mastermind"></p>
+            <h4>Villains</h4>
             <ul class="villains"></ul>
+            <h4>Heroes</h4>
             <ul class="heroes"></ul>
         </div>
     </form>
@@ -41,6 +45,14 @@
 </body>
 </html>
 <script>
+    $(".reset").click(function(event) {
+        console.log("Reset")
+        $(".scheme").empty()
+        $(".mastermind").empty()
+        $(".villains").empty()
+        $(".heroes").empty()
+    })
+
     $("form").submit(function(event) {
         var players = 1;
         var cardSets = []
@@ -61,37 +73,39 @@
         console.log(players)
         console.log(cardSets)
 
-        $.ajax({
-            contentType: "application/json",
-            method: "POST",
-            url: "/api/randomSetup?players=" + players,
-            data: JSON.stringify(cardSets)
-        }).done(function(response) {
-            var scheme = response.scheme
-            var mastermind = response.mastermind
-            var villains = response.villainGroups
-            var heroes = response.heroes
+        if (cardSets.length) {
+            $.ajax({
+                contentType: "application/json",
+                method: "POST",
+                url: "/api/randomSetup?players=" + players,
+                data: JSON.stringify(cardSets)
+            }).done(function(response) {
+                var scheme = response.scheme
+                var mastermind = response.mastermind
+                var villains = response.villainGroups
+                var heroes = response.heroes
 
-            $(".scheme").empty()
-            $(".mastermind").empty()
-            $(".villains").empty()
-            $(".heroes").empty()
+                $(".scheme").empty()
+                $(".mastermind").empty()
+                $(".villains").empty()
+                $(".heroes").empty()
 
-            console.log(scheme.name)
-            $(".scheme").text(scheme.name)
+                console.log(scheme.name)
+                $(".scheme").text(scheme.name)
 
-            console.log(mastermind.name)
-            $(".mastermind").text(mastermind.name)
+                console.log(mastermind.name)
+                $(".mastermind").text(mastermind.name)
 
-            villains.forEach(function(villainGroup) {
-                console.log(villainGroup.name)
-                $(".villains").append("<li>" + villainGroup.name + "</li>")
+                villains.forEach(function(villainGroup) {
+                    console.log(villainGroup.name)
+                    $(".villains").append("<li>" + villainGroup.name + "</li>")
+                })
+
+                heroes.forEach(function(hero) {
+                    console.log(hero.name)
+                    $("<li>" + hero.name + "</li>").addClass("hero").appendTo(".heroes")
+                })
             })
-
-            heroes.forEach(function(hero) {
-                console.log(hero.name)
-                $("<li>" + hero.name + "</li>").addClass("hero").appendTo(".heroes")
-            })
-        })
+        }
     });
 </script>
