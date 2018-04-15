@@ -35,7 +35,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         List<Mastermind> masterminds;
 
         //TODO: Get Special Rules
-        if (scheme.getName() == "The Kree-Skrull War" && setupDetails.getNumberOfPlayers() == 2) {
+        if (scheme.getName().equals(Schemes.THE_KREE_SKRULL_WAR) && setupDetails.getNumberOfPlayers() == 2) {
             masterminds = cardRepository.getMastermindsThatLedHenchmen(cardSets);
             masterminds.add(cardRepository.getMastermind("Supreme Intelligence of the Kree"));
         }
@@ -48,20 +48,15 @@ class RandomizedSetupBuilder extends SetupBuilder {
 
     @Override
     List<VillainGroup> getVillains(List<String> cardSets, Scheme scheme, Mastermind mastermind) throws SQLException {
-        List<String> schemeCardSets = new ArrayList<>();
         List<VillainGroup> allVillainGroups = new ArrayList<>();
         List<VillainGroup> villainGroups = new ArrayList<>();
         VillainGroup lookup, villainGroup;
-        int totalVillains, numberOfVillains = 0, numberOfHenchman = 0;
+        int totalVillains, numberOfVillains, numberOfHenchman;
 
+        //get required villain groups for scheme
         if (scheme.getVillainGroups() != null) {
-            schemeCardSets.add(scheme.getCardSet());
 
-            if (scheme.getName().equals("The Kree-Skrull War")) {
-                schemeCardSets.add("Legendary");
-            }
-
-            allVillainGroups = cardRepository.getVillains(schemeCardSets, null);
+            allVillainGroups = getAllVillainGroups(scheme);
 
             for (String schemeVillainName : scheme.getVillainGroups()) {
                 lookup = new VillainGroup(schemeVillainName);
@@ -71,33 +66,21 @@ class RandomizedSetupBuilder extends SetupBuilder {
             }
         }
 
-        villainGroup = new VillainGroup(mastermind.getGroupLed(), mastermind.getName(), mastermind.getLeadsHenchmanGroup());
+        //get mastermind villain group
+        villainGroup = getMastermindVillainGroup(mastermind);
 
         if (!villainGroups.contains(villainGroup)) {
             villainGroups.add(villainGroup);
         }
 
+        //get remaining villain groups (non-duplicates)
         allVillainGroups.addAll(cardRepository.getVillains(cardSets, villainGroups));
 
-        totalVillains = setupDetails.getNumberOfVillains() + setupDetails.getNumberOfHenchman();
-
-        if (scheme.getExtraVillainGroup()) {
-            numberOfVillains--;
-        }
-
-        if (scheme.getExtraHenchmanGroup()) {
-            numberOfHenchman--;
-        }
-
-        //get scheme and mastermind villain groups
-        for (VillainGroup villains : villainGroups) {
-            if (villains.isHenchman()) {
-                numberOfHenchman++;
-            }
-            else {
-                numberOfVillains++;
-            }
-        }
+        //get villain and henchman group count
+        VillainGroupsSetup villainGroupsSetup = new VillainGroupsSetup(setupDetails, villainGroups, scheme);
+        totalVillains = villainGroupsSetup.getTotalVillainGroups();
+        numberOfVillains = villainGroupsSetup.getNumberOfVillainGroups();
+        numberOfHenchman = villainGroupsSetup.getNumberOfHenchmanGroups();
 
         //TODO: Get special rules
         while (numberOfVillains + numberOfHenchman < totalVillains) {
@@ -129,5 +112,21 @@ class RandomizedSetupBuilder extends SetupBuilder {
         }
 
         return heroes;
+    }
+
+    private List<VillainGroup> getAllVillainGroups(Scheme scheme) throws SQLException {
+        List<String> schemeCardSets = new ArrayList<>();
+
+        schemeCardSets.add(scheme.getCardSet());
+
+        if (scheme.getName().equals(Schemes.THE_KREE_SKRULL_WAR)) {
+            schemeCardSets.add(CardSets.LEGENDARY);
+        }
+
+        return cardRepository.getVillains(schemeCardSets, null);
+    }
+
+    private VillainGroup getMastermindVillainGroup(Mastermind mastermind) {
+        return new VillainGroup(mastermind.getGroupLed(), mastermind.getName(), mastermind.getLeadsHenchmanGroup());
     }
 }

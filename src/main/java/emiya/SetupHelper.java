@@ -19,19 +19,19 @@ final class SetupHelper {
     }
 
     static <T> T getAndRemoveGameElement(List<T> list, T element) {
-        int index = list.indexOf(element);
-        T result = list.get(index);
+        int index = list.indexOf(element);  //O(n)
+        T result = list.get(index);         //O(1)
 
-        list.remove(index);
+        list.remove(index);                 //O(n)
 
         return result;
     }
 
     static <T> T getAndRemoveRandomGameElement(List<T> list, Random randomizer) {
         int index = randomizer.nextInt(list.size());
-        T result = list.get(index);
+        T result = list.get(index);     //O(1)
 
-        list.remove(index);
+        list.remove(index);             //O(n)
 
         return result;
     }
