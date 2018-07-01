@@ -1,7 +1,5 @@
 package emiya;
 
-import emiya.Scheme;
-import emiya.SetupHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,13 +15,15 @@ import static org.mockito.Mockito.when;
  * Created by brian on 2/25/17.
  */
 public class SetupHelperTest {
-    List<Scheme> schemes;
-    Random randomizer;
+    private List<Scheme> schemes;
+    private Random randomizer;
+    private SetupHelper setupHelper;
 
     @Before
     public void setUp() {
         schemes = new ArrayList<>();
         randomizer = mock(Random.class);
+        setupHelper = new SetupHelper();
 
         when(randomizer.nextInt(schemes.size())).thenReturn(0);
 
@@ -38,19 +38,34 @@ public class SetupHelperTest {
     }
 
     @Test
-    public void getGameElement() throws Exception {
+    public void getGameElement() {
         Scheme lookup = new Scheme("The Legacy Virus");
-        Scheme scheme = SetupHelper.getAndRemoveGameElement(schemes, lookup);
+        Scheme scheme;
+
+        if (setupHelper.reset()) {
+            System.err.println("Error, couldn't reset SetupHelper");
+        }
+
+        scheme = setupHelper.getAndRemoveGameElement(schemes, lookup);
 
         assertNotNull(scheme);
         assertEquals(lookup, scheme);
+
+        scheme = setupHelper.getAndRemoveGameElement(schemes, lookup);
+        assertNull(scheme);
     }
 
     @Test
-    public void getAndRemoveRandomGameElement() throws Exception {
-        int expectedSize = schemes.size() - 1;
+    public void getAndRemoveRandomGameElement() {
+        int expectedSize = schemes.size();
         Scheme lookup = new Scheme("Portals to the Dark Dimension");
-        Scheme scheme = SetupHelper.getAndRemoveRandomGameElement(schemes, randomizer);
+        Scheme scheme;
+
+        if (setupHelper.reset()) {
+            System.err.println("Error, couldn't reset SetupHelper");
+        }
+
+        scheme = setupHelper.getAndRemoveRandomGameElement(schemes, randomizer);
 
         assertNotNull(scheme);
         assertEquals(expectedSize, schemes.size());

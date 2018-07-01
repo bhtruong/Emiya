@@ -19,14 +19,22 @@ public class RandomizedSetupBuilderTest {
         RandomizedSetupBuilder setupBuilder();
     }
 
-    RandomizedSetupBuilder setupBuilder;
+    private RandomizedSetupBuilder setupBuilder;
+    private SetupHelper setupHelper;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Builder builder = DaggerRandomizedSetupBuilderTest_Builder.create();
+
+        setupHelper = new SetupHelper();
+
         setupBuilder = builder.setupBuilder();
 
-        setupBuilder.openConnection();
+        try {
+            setupBuilder.openConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @After
@@ -35,7 +43,7 @@ public class RandomizedSetupBuilderTest {
     }
 
     @Test
-    public void testDI() throws Exception {
+    public void testDI() {
         assertNotNull(setupBuilder);
     }
 
@@ -44,7 +52,6 @@ public class RandomizedSetupBuilderTest {
         Scheme scheme = setupBuilder.getScheme(TestMocks.cardSets);
 
         assertNotNull(scheme);
-        assertEquals("Negative Zone Prison Breakout", scheme.getName());
     }
 
     @Test
@@ -55,7 +62,6 @@ public class RandomizedSetupBuilderTest {
 
         assertNotNull(scheme);
         assertNotEquals("The Kree-Skrull War", scheme.getName());
-        assertEquals("Forge the Infinity Gauntlet", scheme.getName());
     }
 
     @Test
@@ -66,12 +72,11 @@ public class RandomizedSetupBuilderTest {
         mastermind = setupBuilder.getMastermind(TestMocks.cardSets, scheme);
 
         assertNotNull(mastermind);
-        assertEquals("Dr. Doom", mastermind.getName());
     }
 
     @Test
     public void getMastermind_KreeSkrullWar_2Players() throws SQLException {
-        SetupDetails setupDetails = SetupHelper.getSetupDetails(2);
+        SetupDetails setupDetails = setupHelper.getSetupDetails(2);
         Scheme scheme = new Scheme("The Kree-Skrull War");
         Mastermind mastermind;
 
@@ -80,12 +85,11 @@ public class RandomizedSetupBuilderTest {
         mastermind = setupBuilder.getMastermind(TestMocks.cardSets, scheme);
 
         assertNotNull(mastermind);
-        assertEquals("Dr. Doom", mastermind.getName());
     }
 
     @Test
     public void getVillains_2Players_DoctorDoom() throws Exception {
-        SetupDetails setupDetails = SetupHelper.getSetupDetails(2);
+        SetupDetails setupDetails = setupHelper.getSetupDetails(2);
         Scheme scheme = new Scheme("Negative Zone Prison Breakout", null, false, true, "Legendary");
         Mastermind mastermind = new Mastermind("Dr. Doom", "Doombot Legion", true);
         List<VillainGroup> villains;
@@ -98,16 +102,14 @@ public class RandomizedSetupBuilderTest {
         assertEquals(4, villains.size());
 
         TestHelper.validateVillainGroup(villains, "Doombot Legion", true);
-        TestHelper.validateVillainGroup(villains, "Sentinel", true);
-        TestHelper.validateVillainGroup(villains, "Brotherhood", false);
-        TestHelper.validateVillainGroup(villains, "Enemies of Asgard", false);
+        TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 2, 2);
     }
 
     @Test
     public void getVillains_KreeSkrullWar_3Players_SupremeIntelligenceOfTheKree() throws SQLException {
-        SetupDetails setupDetails = SetupHelper.getSetupDetails(3);
+        SetupDetails setupDetails = setupHelper.getSetupDetails(3);
         Scheme scheme = new Scheme("The Kree-Skrull War", new String[]{"Kree Starforce", "Skrulls"}, false, false, "Guardians of the Galaxy");
-        Mastermind mastermind = new Mastermind("Suprememe Intelligence of the Kree", "Kree Starforce", false);
+        Mastermind mastermind = new Mastermind("The Supreme Intelligence of the Kree", "Kree Starforce", false);
         List<VillainGroup> villains;
 
         setupBuilder.setSetupDetails(setupDetails);
@@ -119,13 +121,12 @@ public class RandomizedSetupBuilderTest {
 
         TestHelper.validateVillainGroup(villains, "Kree Starforce", false);
         TestHelper.validateVillainGroup(villains, "Skrulls", false);
-        TestHelper.validateVillainGroup(villains, "Infinity Gems", false);
-        TestHelper.validateVillainGroup(villains, "Phalanx", true);
+        TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 3, 1);
     }
 
     @Test
     public void getVillains_SmashTwoDimensionsTogether_4Players() throws SQLException {
-        SetupDetails details = SetupHelper.getSetupDetails(4);
+        SetupDetails details = setupHelper.getSetupDetails(4);
         Scheme scheme = new Scheme("Smash Two Dimensions Together", null, true, false, "Secret Wars Vol. 1");
         Mastermind mastermind = new Mastermind("Wasteland Hulk", "Wasteland", false);
         List<VillainGroup> villains;
@@ -137,17 +138,13 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(villains);
         assertEquals(6, villains.size());
 
-        TestHelper.validateVillainGroup(villains, "The Deadlands", false);
         TestHelper.validateVillainGroup(villains, "Wasteland", false);
-        TestHelper.validateVillainGroup(villains, "Manhattan (Earth-1610)", false);
-        TestHelper.validateVillainGroup(villains, "Infinity Gems", false);
-        TestHelper.validateVillainGroup(villains, "Thor Corps", true);
-        TestHelper.validateVillainGroup(villains, "Ghost Racers", true);
+        TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 4, 2);
     }
 
     @Test
     public void getVillains_BuildAnArmyOfAnnihilation_5Players() throws SQLException {
-        SetupDetails details = SetupHelper.getSetupDetails(5);
+        SetupDetails details = setupHelper.getSetupDetails(5);
         Scheme scheme = new Scheme("Build An Army of Annihilation", new String[]{"M.O.D.O.K.S"}, false, true, "Secret Wars Vol. 1");
         Mastermind mastermind = new Mastermind("Galactus", "Heralds of Galactus", false);
         List<VillainGroup> villains;
@@ -159,18 +156,14 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(villains);
         assertEquals(7, villains.size());
 
-        TestHelper.validateVillainGroup(villains, "Kree Starforce", false);
-        TestHelper.validateVillainGroup(villains, "Skrulls", false);
         TestHelper.validateVillainGroup(villains, "Heralds of Galactus", false);
-        TestHelper.validateVillainGroup(villains, "Infinity Gems", false);
-        TestHelper.validateVillainGroup(villains, "Phalanx", true);
         TestHelper.validateVillainGroup(villains, "M.O.D.O.K.S", true);
-        TestHelper.validateVillainGroup(villains, "Sentinel", true);
+        TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 4, 3);
     }
 
     @Test
     public void getHeroes() throws Exception {
-        SetupDetails setupDetails = SetupHelper.getSetupDetails(2);
+        SetupDetails setupDetails = setupHelper.getSetupDetails(2);
         List<Hero> heroes;
 
         setupBuilder.setSetupDetails(setupDetails);
@@ -179,11 +172,5 @@ public class RandomizedSetupBuilderTest {
 
         assertNotNull(heroes);
         assertEquals(5, heroes.size());
-
-        TestHelper.validateHero(heroes, "Spider-Man");
-        TestHelper.validateHero(heroes, "Mr. Fantastic");
-        TestHelper.validateHero(heroes, "Invisible Woman");
-        TestHelper.validateHero(heroes, "Human Torch");
-        TestHelper.validateHero(heroes, "Thing");
     }
 }

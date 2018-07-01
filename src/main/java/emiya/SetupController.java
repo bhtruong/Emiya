@@ -27,12 +27,13 @@ public class SetupController {
     public Setup generateRandomSetup(@RequestBody List<String> cardSets,
                                      @RequestParam(value="players") int players) throws SQLException
     {
+        SetupHelper setupHelper = new SetupHelper();
         SetupDetails setupDetails;
 
         setupDirector = DaggerSetupController_SetupDirector.create();
         gameSetupDirector = setupDirector.setupDirector();
 
-        setupDetails = SetupHelper.getSetupDetails(players);
+        setupDetails = setupHelper.getSetupDetails(players);
         gameSetupDirector.setSetupDetails(setupDetails);
 
         return gameSetupDirector.buildSetup(cardSets);

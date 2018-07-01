@@ -11,11 +11,13 @@ import java.util.Random;
  */
 class RandomizedSetupBuilder extends SetupBuilder {
     private Random randomizer;
+    private SetupHelper setupHelper;
 
     @Inject
-    RandomizedSetupBuilder(CardRepository cardRepository, Random randomizer) {
+    RandomizedSetupBuilder(CardRepository cardRepository, Random randomizer, SetupHelper setupHelper) {
         super(cardRepository);
         this.randomizer = randomizer;
+        this.setupHelper = setupHelper;
     }
 
     @Override
@@ -24,7 +26,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         Scheme scheme;
 
         do {
-            scheme = SetupHelper.getAndRemoveRandomGameElement(schemes, randomizer);
+            scheme = setupHelper.getAndRemoveRandomGameElement(schemes, randomizer);
         } while(scheme.getName().equals(Schemes.THE_KREE_SKRULL_WAR) && !cardSets.contains(CardSets.LEGENDARY));
 
         return scheme;
@@ -43,7 +45,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
             masterminds = cardRepository.getMasterminds(cardSets);
         }
 
-        return SetupHelper.getAndRemoveRandomGameElement(masterminds, randomizer);
+        return setupHelper.getAndRemoveRandomGameElement(masterminds, randomizer);
     }
 
     @Override
@@ -51,7 +53,10 @@ class RandomizedSetupBuilder extends SetupBuilder {
         List<VillainGroup> allVillainGroups = new ArrayList<>();
         List<VillainGroup> villainGroups = new ArrayList<>();
         VillainGroup lookup, villainGroup;
-        int totalVillains, numberOfVillains, numberOfHenchman;
+
+        if (setupHelper.reset()) {
+            System.err.println("Error, couldn't reset SetupHelper");
+        }
 
         //get required villain groups for scheme
         if (scheme.getVillainGroups() != null) {
@@ -61,7 +66,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
             for (String schemeVillainName : scheme.getVillainGroups()) {
                 lookup = new VillainGroup(schemeVillainName);
 
-                villainGroup = SetupHelper.getAndRemoveGameElement(allVillainGroups, lookup);
+                villainGroup = setupHelper.getAndRemoveGameElement(allVillainGroups, lookup);
                 villainGroups.add(villainGroup);
             }
         }
@@ -80,7 +85,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         VillainGroupsSetup villainGroupsSetup = new VillainGroupsSetup(setupDetails, villainGroups, scheme);
 
 
-        return getVillainGroups(villainGroups, allVillainGroups, setupDetails, villainGroupsSetup);
+        return getVillainGroups(villainGroups, allVillainGroups, villainGroupsSetup);
     }
 
     @Override
@@ -88,11 +93,15 @@ class RandomizedSetupBuilder extends SetupBuilder {
         List<Hero> allHeroes;
         List<Hero> heroes = new ArrayList<>();
 
+        if (setupHelper.reset()) {
+            System.err.println("Error, couldn't reset SetupHelper");
+        }
+
         //TODO: Get Special Rules
         allHeroes = cardRepository.getHeroes(cardSets);
 
         while (heroes.size() < setupDetails.getNumberOfHeroes()) {
-            heroes.add(SetupHelper.getAndRemoveRandomGameElement(allHeroes, randomizer));
+            heroes.add(setupHelper.getAndRemoveRandomGameElement(allHeroes, randomizer));
         }
 
         return heroes;
@@ -114,7 +123,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         return new VillainGroup(mastermind.getGroupLed(), mastermind.getName(), mastermind.getLeadsHenchmanGroup());
     }
 
-    private List<VillainGroup> getVillainGroups(List<VillainGroup> villainGroups, List<VillainGroup> allVillainGroups, SetupDetails details, VillainGroupsSetup villainGroupsSetup) {
+    private List<VillainGroup> getVillainGroups(List<VillainGroup> villainGroups, List<VillainGroup> allVillainGroups, VillainGroupsSetup villainGroupsSetup) {
         VillainGroup villainGroup;
         int totalVillains = villainGroupsSetup.getTotalVillainGroups();
         int numberOfVillains = villainGroupsSetup.getNumberOfVillainGroups();
@@ -122,7 +131,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
 
         //TODO: Get special rules
         while (numberOfVillains + numberOfHenchman < totalVillains) {
-            villainGroup = SetupHelper.getAndRemoveRandomGameElement(allVillainGroups, randomizer);
+            villainGroup = setupHelper.getAndRemoveRandomGameElement(allVillainGroups, randomizer);
 
             if (villainGroup.isHenchman() && numberOfHenchman < setupDetails.getNumberOfHenchman()) {
                 numberOfHenchman++;

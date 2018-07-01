@@ -11,8 +11,8 @@ import java.util.Random;
  */
 @Module
 class RandomizerModule {
-    @Provides @Singleton static SetupBuilder providesSetupBuilder(CardRepository cardRepository, Random randomizer) {
-        return new RandomizedSetupBuilder(cardRepository, randomizer);
+    @Provides @Singleton static SetupBuilder providesSetupBuilder(CardRepository cardRepository, Random randomizer, SetupHelper setupHelper) {
+        return new RandomizedSetupBuilder(cardRepository, randomizer, setupHelper);
     }
 
     @Provides @Singleton static CardRepository providesCardRepository(Database database) {
@@ -21,6 +21,10 @@ class RandomizerModule {
 
     @Provides @Singleton static Database providesDatabase() {
         return new MySqlDatabase();
+    }
+
+    @Provides @Singleton static SetupHelper providesSetupHelper() {
+        return new SetupHelper();
     }
 
     @Provides @Singleton static Random providesRandomizer() {

@@ -2,6 +2,7 @@ package emiya;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -13,9 +14,11 @@ import static org.junit.Assert.*;
 /**
  * Created by brian on 2/12/17.
  */
+@Ignore
 public class CardRepositoryTest {
     CardRepository repository;
     List<String> cardSets;
+    SetupHelper setupHelper = new SetupHelper();
 
     @Before
     public void setUp() {
@@ -110,7 +113,7 @@ public class CardRepositoryTest {
         assertNotNull(villainGroups);
         assertEquals(24, villainGroups.size());
 
-        villainGroup = SetupHelper.getAndRemoveGameElement(villainGroups, lookup);
+        villainGroup = setupHelper.getAndRemoveGameElement(villainGroups, lookup);
 
         assertNotNull(villainGroup);
         assertEquals("Doombot Legion", villainGroup.getName());
@@ -118,7 +121,7 @@ public class CardRepositoryTest {
         assertEquals(true, villainGroup.isHenchman());
 
         lookup = new VillainGroup("Brotherhood", false);
-        villainGroup = SetupHelper.getAndRemoveGameElement(villainGroups, lookup);
+        villainGroup = setupHelper.getAndRemoveGameElement(villainGroups, lookup);
 
         assertNotNull(villainGroup);
         assertEquals("Brotherhood", villainGroup.getName());

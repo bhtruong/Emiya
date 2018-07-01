@@ -61,17 +61,11 @@ class RandomizerTestModule {
         return new MySqlDatabase();
     }
 
+    @Provides static SetupHelper providesSetupHelper() {
+        return new SetupHelper();
+    }
+
     @Provides static Random providesRandom() {
-        Random mockedRandom = mock(Random.class);
-
-        when(mockedRandom.nextInt(2)).thenReturn(0);
-        when(mockedRandom.nextInt(3)).thenReturn(0);
-        when(mockedRandom.nextInt(4)).thenReturn(0);
-        when(mockedRandom.nextInt(5)).thenReturn(0);
-        when(mockedRandom.nextInt(6)).thenReturn(0);
-        when(mockedRandom.nextInt(7)).thenReturn(0);
-        when(mockedRandom.nextInt(8)).thenReturn(0);
-
-        return mockedRandom;
+        return new Random();
     }
 }
