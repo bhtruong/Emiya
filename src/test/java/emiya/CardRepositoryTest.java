@@ -16,19 +16,19 @@ import static org.junit.Assert.*;
  */
 @Ignore
 public class CardRepositoryTest {
-    CardRepository repository;
-    List<String> cardSets;
-    SetupHelper setupHelper = new SetupHelper();
+    private CardRepository repository;
+    private List<String> cardSets;
+    private SetupHelper setupHelper = new SetupHelper();
 
     @Before
     public void setUp() {
         repository = new CardRepository(new MySqlDatabase());
 
         cardSets = new ArrayList<>();
-        cardSets.add("Legendary");
-        cardSets.add("Fantastic Four");
-        cardSets.add("Guardians of the Galaxy");
-        cardSets.add("Secret Wars Vol. 1");
+        cardSets.add(TestHelper.LEGENDARY);
+        cardSets.add(TestHelper.FANTASTIC_FOUR);
+        cardSets.add(TestHelper.GUARDIANS_OF_THE_GALAXY);
+        cardSets.add(TestHelper.SECRET_WARS_VOL_1);
 
         try {
             repository.openConnection();
@@ -50,20 +50,20 @@ public class CardRepositoryTest {
     public void getSchemes() throws Exception {
         List<Scheme> schemes;
         Scheme expectedScheme;
-        String expectedCardSet = "Guardians of the Galaxy";
+        String expectedCardSet = TestHelper.GUARDIANS_OF_THE_GALAXY;
 
         schemes = repository.getSchemes(cardSets);
 
         assertNotNull(schemes);
         assertEquals(24, schemes.size());
 
-        expectedScheme = new Scheme("The Kree-Skrull War", null, false, false, expectedCardSet);
+        expectedScheme = new Scheme(TestHelper.THE_KREE_SKRULL_WAR, null, false, false, expectedCardSet);
         TestHelper.validateScheme(schemes, expectedScheme, 2);
 
-        expectedScheme = new Scheme("Forge the Infinity Gauntlet", null, false, false, expectedCardSet);
+        expectedScheme = new Scheme(TestHelper.FORGE_THE_INFINITY_GAUNTLET, null, false, false, expectedCardSet);
         TestHelper.validateScheme(schemes, expectedScheme, 1);
 
-        expectedScheme = new Scheme("Intergalactic Kree Nega-Bomb", null, false, false, expectedCardSet);
+        expectedScheme = new Scheme(TestHelper.INTERGALACTIC_KREE_NEGA_BOMB, null, false, false, expectedCardSet);
         TestHelper.validateScheme(schemes, expectedScheme, null);
     }
 
@@ -74,17 +74,17 @@ public class CardRepositoryTest {
         assertNotNull(masterminds);
         assertEquals(12, masterminds.size());
 
-        TestHelper.validateMastermind(masterminds, "Dr. Doom", "Doombot Legion", true);
-        TestHelper.validateMastermind(masterminds, "Magneto", "Brotherhood", false);
+        TestHelper.validateMastermind(masterminds, TestHelper.DOCTOR_DOOM, TestHelper.DOOMBOT_LEGION, true);
+        TestHelper.validateMastermind(masterminds, TestHelper.MAGNETO, TestHelper.BROTHERHOOD, false);
     }
 
     @Test
     public void getMastermind() throws SQLException {
-        Mastermind mastermind = repository.getMastermind("Supreme Intelligence of the Kree");
+        Mastermind mastermind = repository.getMastermind(TestHelper.SUPREME_INTELLIGENCE_OF_THE_KREE);
 
         assertNotNull(mastermind);
-        assertEquals("Supreme Intelligence of the Kree", mastermind.getName());
-        assertEquals("Kree Starforce", mastermind.getGroupLed());
+        assertEquals(TestHelper.SUPREME_INTELLIGENCE_OF_THE_KREE, mastermind.getName());
+        assertEquals(TestHelper.KREE_STARFORCE, mastermind.getGroupLed());
         assertEquals(false, mastermind.getLeadsHenchmanGroup());
     }
 
@@ -95,18 +95,18 @@ public class CardRepositoryTest {
         assertNotNull(masterminds);
         assertEquals(1, masterminds.size());
 
-        TestHelper.validateMastermind(masterminds, "Dr. Doom", "Doombot Legion", true);
+        TestHelper.validateMastermind(masterminds, TestHelper.DOCTOR_DOOM, TestHelper.DOOMBOT_LEGION, true);
     }
 
     @Test
     public void getVillains() throws Exception {
         List<VillainGroup> villainGroups;
         List<VillainGroup> blacklist = new ArrayList<>();
-        VillainGroup lookup  = new VillainGroup("Doombot Legion", true);
+        VillainGroup lookup  = new VillainGroup(TestHelper.DOOMBOT_LEGION, true);
         VillainGroup villainGroup;
 
-        blacklist.add(new VillainGroup("Kree Starforce", false));
-        blacklist.add(new VillainGroup("Skrulls", false));
+        blacklist.add(new VillainGroup(TestHelper.KREE_STARFORCE, false));
+        blacklist.add(new VillainGroup(TestHelper.SKRULLS, false));
 
         villainGroups = repository.getVillains(cardSets, null);
 
@@ -116,17 +116,17 @@ public class CardRepositoryTest {
         villainGroup = setupHelper.getAndRemoveGameElement(villainGroups, lookup);
 
         assertNotNull(villainGroup);
-        assertEquals("Doombot Legion", villainGroup.getName());
-        assertEquals("Dr. Doom", villainGroup.getMastermind());
-        assertEquals(true, villainGroup.isHenchman());
+        assertEquals(TestHelper.DOOMBOT_LEGION, villainGroup.getName());
+        assertEquals(TestHelper.DOCTOR_DOOM, villainGroup.getMastermind());
+        assertTrue(villainGroup.isHenchman());
 
-        lookup = new VillainGroup("Brotherhood", false);
+        lookup = new VillainGroup(TestHelper.BROTHERHOOD, false);
         villainGroup = setupHelper.getAndRemoveGameElement(villainGroups, lookup);
 
         assertNotNull(villainGroup);
-        assertEquals("Brotherhood", villainGroup.getName());
-        assertEquals("Magneto", villainGroup.getMastermind());
-        assertEquals(false, villainGroup.isHenchman());
+        assertEquals(TestHelper.BROTHERHOOD, villainGroup.getName());
+        assertEquals(TestHelper.MAGNETO, villainGroup.getMastermind());
+        assertFalse(villainGroup.isHenchman());
 
         villainGroups = repository.getVillains(cardSets, blacklist);
         assertEquals(22, villainGroups.size());
@@ -139,6 +139,6 @@ public class CardRepositoryTest {
         assertNotNull(heroes);
         assertEquals(38, heroes.size());
 
-        TestHelper.validateHero(heroes, "Mr. Fantastic");
+        TestHelper.validateHero(heroes, TestHelper.MR_FANTASTIC);
     }
 }

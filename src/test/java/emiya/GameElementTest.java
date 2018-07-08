@@ -1,6 +1,5 @@
 package emiya;
 
-import emiya.Hero;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,14 +9,14 @@ import static org.junit.Assert.*;
  */
 public class GameElementTest {
     @Test
-    public void equals() throws Exception {
-        Hero hero = new Hero("Mr. Fantastic");
-        Hero duplicate = new Hero("Mr. Fantastic");
+    public void equals() {
+        Hero hero = new Hero(TestHelper.MR_FANTASTIC);
+        Hero duplicate = new Hero(TestHelper.MR_FANTASTIC);
 
-        assertTrue(hero.equals(duplicate));
+        assertEquals(hero, duplicate);
 
-        duplicate = new Hero("Iron Man");
+        duplicate = new Hero(TestHelper.IRON_MAN);
 
-        assertFalse(hero.equals(duplicate));
+        assertNotEquals(hero, duplicate);
     }
 }

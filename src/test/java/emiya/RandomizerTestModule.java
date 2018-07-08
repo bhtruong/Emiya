@@ -24,15 +24,15 @@ class RandomizerTestModule {
         List<VillainGroup> smashTwoDimensionsTogetherBlackList = new ArrayList<>();
         List<VillainGroup> buildAnArmyOfAnnihilationBlackList = new ArrayList<>();
 
-        doomBlacklist.add(new VillainGroup("Doombot Legion", "Dr. Doom", true));
+        doomBlacklist.add(new VillainGroup(TestHelper.DOOMBOT_LEGION, TestHelper.DOCTOR_DOOM, true));
 
-        kreeSkrullWarBlacklist.add(new VillainGroup("Kree Starforce"));
-        kreeSkrullWarBlacklist.add(new VillainGroup("Skrulls"));
+        kreeSkrullWarBlacklist.add(new VillainGroup(TestHelper.KREE_STARFORCE));
+        kreeSkrullWarBlacklist.add(new VillainGroup(TestHelper.SKRULLS));
 
-        smashTwoDimensionsTogetherBlackList.add(new VillainGroup("Wasteland", "Wasteland Hulk", false));
+        smashTwoDimensionsTogetherBlackList.add(new VillainGroup(TestHelper.WASTELAND, TestHelper.WASTELAND_HULK, false));
 
-        buildAnArmyOfAnnihilationBlackList.add(new VillainGroup("M.O.D.O.K.S"));
-        buildAnArmyOfAnnihilationBlackList.add(new VillainGroup("Heralds of Galactus", "Galactus", false));
+        buildAnArmyOfAnnihilationBlackList.add(new VillainGroup(TestHelper.MODOKS));
+        buildAnArmyOfAnnihilationBlackList.add(new VillainGroup(TestHelper.HERALDS_OF_GALACTUS, TestHelper.GALACTUS, false));
 
         try {
             when(mockedRepo.getSchemes(TestMocks.cardSets)).thenReturn(TestMocks.mockedSchemes);

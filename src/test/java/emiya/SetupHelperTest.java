@@ -27,23 +27,23 @@ public class SetupHelperTest {
 
         when(randomizer.nextInt(schemes.size())).thenReturn(0);
 
-        schemes.add(new Scheme("Portals to the Dark Dimension"));
-        schemes.add(new Scheme("Negative Zone Prison Breakout"));
-        schemes.add(new Scheme("The Legacy Virus"));
-        schemes.add(new Scheme("Unleash the Power of the Cosmic Cube"));
-        schemes.add(new Scheme("Replace Earth's Leaders with Killbots"));
-        schemes.add(new Scheme("Secret Invasion of the Skrull Shapeshifters"));
-        schemes.add(new Scheme("Super emiya.Hero Civil War"));
-        schemes.add(new Scheme("Midtown Bank Robbery"));
+        schemes.add(new Scheme(TestHelper.PORTALS_TO_THE_DARK_DIMENSION));
+        schemes.add(new Scheme(TestHelper.NEGATIVE_ZONE_PRISON_BREAKOUT));
+        schemes.add(new Scheme(TestHelper.THE_LEGACY_VIRUS));
+        schemes.add(new Scheme(TestHelper.UNLEASH_THE_POWER_OF_THE_COSMIC_CUBE));
+        schemes.add(new Scheme(TestHelper.REPLACE_EARTHS_LEADERS_WITH_KILLBOTS));
+        schemes.add(new Scheme(TestHelper.SECRET_INVASION_OF_THE_SKRULL_SHAPESHIFTERS));
+        schemes.add(new Scheme(TestHelper.SUPER_HERO_CIVIL_WAR));
+        schemes.add(new Scheme(TestHelper.MIDTOWN_BANK_ROBBERY));
     }
 
     @Test
     public void getGameElement() {
-        Scheme lookup = new Scheme("The Legacy Virus");
+        Scheme lookup = new Scheme(TestHelper.THE_LEGACY_VIRUS);
         Scheme scheme;
 
         if (setupHelper.reset()) {
-            System.err.println("Error, couldn't reset SetupHelper");
+            System.err.println(Debug.SETUP_HELPER_RESET_ERROR);
         }
 
         scheme = setupHelper.getAndRemoveGameElement(schemes, lookup);
@@ -58,11 +58,11 @@ public class SetupHelperTest {
     @Test
     public void getAndRemoveRandomGameElement() {
         int expectedSize = schemes.size();
-        Scheme lookup = new Scheme("Portals to the Dark Dimension");
+        Scheme lookup = new Scheme(TestHelper.PORTALS_TO_THE_DARK_DIMENSION);
         Scheme scheme;
 
         if (setupHelper.reset()) {
-            System.err.println("Error, couldn't reset SetupHelper");
+            System.err.println(Debug.SETUP_HELPER_RESET_ERROR);
         }
 
         scheme = setupHelper.getAndRemoveRandomGameElement(schemes, randomizer);

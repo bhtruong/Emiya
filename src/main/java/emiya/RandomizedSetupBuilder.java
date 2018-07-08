@@ -36,6 +36,10 @@ class RandomizedSetupBuilder extends SetupBuilder {
     Mastermind getMastermind(List<String> cardSets, Scheme scheme) throws SQLException {
         List<Mastermind> masterminds;
 
+        if (setupHelper.reset()) {
+            System.err.println(Debug.SETUP_HELPER_RESET_ERROR);
+        }
+
         //TODO: Get Special Rules
         if (scheme.getName().equals(Schemes.THE_KREE_SKRULL_WAR) && setupDetails.getNumberOfPlayers() == 2) {
             masterminds = cardRepository.getMastermindsThatLedHenchmen(cardSets);
@@ -55,7 +59,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         VillainGroup lookup, villainGroup;
 
         if (setupHelper.reset()) {
-            System.err.println("Error, couldn't reset SetupHelper");
+            System.err.println(Debug.SETUP_HELPER_RESET_ERROR);
         }
 
         //get required villain groups for scheme
@@ -94,7 +98,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         List<Hero> heroes = new ArrayList<>();
 
         if (setupHelper.reset()) {
-            System.err.println("Error, couldn't reset SetupHelper");
+            System.err.println(Debug.SETUP_HELPER_RESET_ERROR);
         }
 
         //TODO: Get Special Rules

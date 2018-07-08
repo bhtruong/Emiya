@@ -61,12 +61,12 @@ public class RandomizedSetupBuilderTest {
         scheme = setupBuilder.getScheme(TestMocks.incompatibleCardSets);
 
         assertNotNull(scheme);
-        assertNotEquals("The Kree-Skrull War", scheme.getName());
+        assertNotEquals(TestHelper.THE_KREE_SKRULL_WAR, scheme.getName());
     }
 
     @Test
     public void getMastermind() throws Exception {
-        Scheme scheme = new Scheme("Portals to the Dark Dimension");
+        Scheme scheme = new Scheme(TestHelper.PORTALS_TO_THE_DARK_DIMENSION);
         Mastermind mastermind;
 
         mastermind = setupBuilder.getMastermind(TestMocks.cardSets, scheme);
@@ -77,7 +77,7 @@ public class RandomizedSetupBuilderTest {
     @Test
     public void getMastermind_KreeSkrullWar_2Players() throws SQLException {
         SetupDetails setupDetails = setupHelper.getSetupDetails(2);
-        Scheme scheme = new Scheme("The Kree-Skrull War");
+        Scheme scheme = new Scheme(TestHelper.THE_KREE_SKRULL_WAR);
         Mastermind mastermind;
 
         setupBuilder.setSetupDetails(setupDetails);
@@ -90,8 +90,12 @@ public class RandomizedSetupBuilderTest {
     @Test
     public void getVillains_2Players_DoctorDoom() throws Exception {
         SetupDetails setupDetails = setupHelper.getSetupDetails(2);
-        Scheme scheme = new Scheme("Negative Zone Prison Breakout", null, false, true, "Legendary");
-        Mastermind mastermind = new Mastermind("Dr. Doom", "Doombot Legion", true);
+        Scheme scheme = new Scheme(TestHelper.NEGATIVE_ZONE_PRISON_BREAKOUT,
+                                    null,
+                                    false,
+                                    true,
+                                    TestHelper.LEGENDARY);
+        Mastermind mastermind = new Mastermind(TestHelper.DOCTOR_DOOM, TestHelper.DOOMBOT_LEGION, true);
         List<VillainGroup> villains;
 
         setupBuilder.setSetupDetails(setupDetails);
@@ -101,15 +105,19 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(villains);
         assertEquals(4, villains.size());
 
-        TestHelper.validateVillainGroup(villains, "Doombot Legion", true);
+        TestHelper.validateVillainGroup(villains, TestHelper.DOOMBOT_LEGION, true);
         TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 2, 2);
     }
 
     @Test
     public void getVillains_KreeSkrullWar_3Players_SupremeIntelligenceOfTheKree() throws SQLException {
         SetupDetails setupDetails = setupHelper.getSetupDetails(3);
-        Scheme scheme = new Scheme("The Kree-Skrull War", new String[]{"Kree Starforce", "Skrulls"}, false, false, "Guardians of the Galaxy");
-        Mastermind mastermind = new Mastermind("The Supreme Intelligence of the Kree", "Kree Starforce", false);
+        Scheme scheme = new Scheme(TestHelper.THE_KREE_SKRULL_WAR,
+                                    new String[]{TestHelper.KREE_STARFORCE, TestHelper.SKRULLS},
+                                    false,
+                                    false,
+                                    TestHelper.GUARDIANS_OF_THE_GALAXY);
+        Mastermind mastermind = new Mastermind(TestHelper.SUPREME_INTELLIGENCE_OF_THE_KREE, TestHelper.KREE_STARFORCE, false);
         List<VillainGroup> villains;
 
         setupBuilder.setSetupDetails(setupDetails);
@@ -119,16 +127,20 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(villains);
         assertEquals(4, villains.size());
 
-        TestHelper.validateVillainGroup(villains, "Kree Starforce", false);
-        TestHelper.validateVillainGroup(villains, "Skrulls", false);
+        TestHelper.validateVillainGroup(villains, TestHelper.KREE_STARFORCE, false);
+        TestHelper.validateVillainGroup(villains, TestHelper.SKRULLS, false);
         TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 3, 1);
     }
 
     @Test
     public void getVillains_SmashTwoDimensionsTogether_4Players() throws SQLException {
         SetupDetails details = setupHelper.getSetupDetails(4);
-        Scheme scheme = new Scheme("Smash Two Dimensions Together", null, true, false, "Secret Wars Vol. 1");
-        Mastermind mastermind = new Mastermind("Wasteland Hulk", "Wasteland", false);
+        Scheme scheme = new Scheme(TestHelper.SMASH_TWO_DIMENSIONS_TOGETHER,
+                                    null,
+                                    true,
+                                    false,
+                                    TestHelper.SECRET_WARS_VOL_1);
+        Mastermind mastermind = new Mastermind(TestHelper.WASTELAND_HULK, TestHelper.WASTELAND, false);
         List<VillainGroup> villains;
 
         setupBuilder.setSetupDetails(details);
@@ -138,15 +150,19 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(villains);
         assertEquals(6, villains.size());
 
-        TestHelper.validateVillainGroup(villains, "Wasteland", false);
+        TestHelper.validateVillainGroup(villains, TestHelper.WASTELAND, false);
         TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 4, 2);
     }
 
     @Test
     public void getVillains_BuildAnArmyOfAnnihilation_5Players() throws SQLException {
         SetupDetails details = setupHelper.getSetupDetails(5);
-        Scheme scheme = new Scheme("Build An Army of Annihilation", new String[]{"M.O.D.O.K.S"}, false, true, "Secret Wars Vol. 1");
-        Mastermind mastermind = new Mastermind("Galactus", "Heralds of Galactus", false);
+        Scheme scheme = new Scheme(TestHelper.BUILD_AN_ARMY_OF_ANNIHILATION,
+                                    new String[]{TestHelper.MODOKS},
+                                    false,
+                                    true,
+                                    TestHelper.SECRET_WARS_VOL_1);
+        Mastermind mastermind = new Mastermind(TestHelper.GALACTUS, TestHelper.HERALDS_OF_GALACTUS, false);
         List<VillainGroup> villains;
 
         setupBuilder.setSetupDetails(details);
@@ -156,8 +172,8 @@ public class RandomizedSetupBuilderTest {
         assertNotNull(villains);
         assertEquals(7, villains.size());
 
-        TestHelper.validateVillainGroup(villains, "Heralds of Galactus", false);
-        TestHelper.validateVillainGroup(villains, "M.O.D.O.K.S", true);
+        TestHelper.validateVillainGroup(villains, TestHelper.HERALDS_OF_GALACTUS, false);
+        TestHelper.validateVillainGroup(villains, TestHelper.MODOKS, true);
         TestHelper.validateNumberOfVillainGroupsAndHenchman(villains, 4, 3);
     }
 

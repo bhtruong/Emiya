@@ -1,10 +1,5 @@
 package emiya;
 
-import emiya.Hero;
-import emiya.Mastermind;
-import emiya.Scheme;
-import emiya.VillainGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,72 +48,73 @@ final class TestMocks {
         mockedHeroes = new ArrayList<>();
 
         //TODO 3/11/13: Read test data from a csv
-        cardSets.add("Legendary");
-        cardSets.add("Fantastic Four");
-        cardSets.add("Guardians of the Galaxy");
-        cardSets.add("Secret Wars Vol. 1");
+        cardSets.add(TestHelper.LEGENDARY);
+        cardSets.add(TestHelper.FANTASTIC_FOUR);
+        cardSets.add(TestHelper.GUARDIANS_OF_THE_GALAXY);
+        cardSets.add(TestHelper.SECRET_WARS_VOL_1);
 
-        incompatibleCardSets.add("Legendary Villains");
-        incompatibleCardSets.add("Guardians of the Galaxy");
+        incompatibleCardSets.add(TestHelper.LEGENDARY_VILLAINS);
+        incompatibleCardSets.add(TestHelper.GUARDIANS_OF_THE_GALAXY);
 
-        kreeSkrullWarCardSets.add("Guardians of the Galaxy");
-        kreeSkrullWarCardSets.add("Legendary");
+        kreeSkrullWarCardSets.add(TestHelper.GUARDIANS_OF_THE_GALAXY);
+        kreeSkrullWarCardSets.add(TestHelper.LEGENDARY);
 
-        secretWarsCardSets.add("Legendary");
-        secretWarsCardSets.add("Secret Wars Vol. 1");
+        secretWarsCardSets.add(TestHelper.LEGENDARY);
+        secretWarsCardSets.add(TestHelper.SECRET_WARS_VOL_1);
 
-        buildAnArmyOfAnnihilationCardSets.add("Secret Wars Vol. 1");
+        buildAnArmyOfAnnihilationCardSets.add(TestHelper.SECRET_WARS_VOL_1);
 
-        mockedSchemes.add(new Scheme("Negative Zone Prison Breakout"));
-        mockedSchemes.add(new Scheme("Portals to the Dark Dimension"));
+        mockedSchemes.add(new Scheme(TestHelper.NEGATIVE_ZONE_PRISON_BREAKOUT));
+        mockedSchemes.add(new Scheme(TestHelper.PORTALS_TO_THE_DARK_DIMENSION));
 
-        mockedIncompatibleSchemes.add(new Scheme("The Kree-Skrull War"));
-        mockedIncompatibleSchemes.add(new Scheme("Forge the Infinity Gauntlet"));
-        mockedIncompatibleSchemes.add(new Scheme("Intergalactic Kree Nega-Bomb"));
-        mockedIncompatibleSchemes.add(new Scheme("Unite the Shards"));
+        mockedIncompatibleSchemes.add(new Scheme(TestHelper.THE_KREE_SKRULL_WAR));
+        mockedIncompatibleSchemes.add(new Scheme(TestHelper.FORGE_THE_INFINITY_GAUNTLET));
+        mockedIncompatibleSchemes.add(new Scheme(TestHelper.INTERGALACTIC_KREE_NEGA_BOMB));
+        mockedIncompatibleSchemes.add(new Scheme(TestHelper.UNITE_THE_SHARDS));
 
-        mockedMasterminds.add(new Mastermind("Dr. Doom"));
-        mockedMasterminds.add(new Mastermind("Loki"));
-        mockedMasterminds.add(new Mastermind("Magneto"));
+        mockedMasterminds.add(new Mastermind(TestHelper.DOCTOR_DOOM));
+        mockedMasterminds.add(new Mastermind(TestHelper.LOKI));
+        mockedMasterminds.add(new Mastermind(TestHelper.MAGNETO));
 
-        mockedMastermindsThatLeadHenchmen.add(new Mastermind("Dr. Doom"));
+        mockedMastermindsThatLeadHenchmen.add(new Mastermind(TestHelper.DOCTOR_DOOM));
+        mockedMastermindsThatLeadHenchmen.add(new Mastermind(TestHelper.SPIDER_QUEEN));
 
-        mockedMastermind = new Mastermind("Supreme Intelligence of the Kree");
+        mockedMastermind = new Mastermind(TestHelper.SUPREME_INTELLIGENCE_OF_THE_KREE);
 
-        mockedVillains.add(new VillainGroup("Sentinel", true));
-        mockedVillains.add(new VillainGroup("Hand Ninjas", true));
-        mockedVillains.add(new VillainGroup("Brotherhood", false));
-        mockedVillains.add(new VillainGroup("Enemies of Asgard", false));
-        mockedVillains.add(new VillainGroup("Spider-Foes", false));
-        mockedVillains.add(new VillainGroup("Masters of Evil", false));
+        mockedVillains.add(new VillainGroup(TestHelper.SENTINEL, true));
+        mockedVillains.add(new VillainGroup(TestHelper.HAND_NINJAS, true));
+        mockedVillains.add(new VillainGroup(TestHelper.BROTHERHOOD, false));
+        mockedVillains.add(new VillainGroup(TestHelper.ENEMIES_OF_ASGARD, false));
+        mockedVillains.add(new VillainGroup(TestHelper.SPIDER_FOES, false));
+        mockedVillains.add(new VillainGroup(TestHelper.MASTERS_OF_EVIL, false));
 
-        mockedKreeSkrullWarSchemeVillains.add(new VillainGroup("Kree Starforce"));
-        mockedKreeSkrullWarSchemeVillains.add(new VillainGroup("Skrulls"));
+        mockedKreeSkrullWarSchemeVillains.add(new VillainGroup(TestHelper.KREE_STARFORCE));
+        mockedKreeSkrullWarSchemeVillains.add(new VillainGroup(TestHelper.SKRULLS));
 
-        mockedBuildAnArmyOfAnnihilationSchemeVillans.add(new VillainGroup("M.O.D.O.K.S", true));
+        mockedBuildAnArmyOfAnnihilationSchemeVillans.add(new VillainGroup(TestHelper.MODOKS, true));
 
-        mockedKreeSkrullWarVillains.add(new VillainGroup("Infinity Gems", false));
-        mockedKreeSkrullWarVillains.add(new VillainGroup("Phalanx", true));
+        mockedKreeSkrullWarVillains.add(new VillainGroup(TestHelper.INFINITY_GEMS, false));
+        mockedKreeSkrullWarVillains.add(new VillainGroup(TestHelper.PHALANX, true));
 
-        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup("Thor Corps", true));
-        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup("Ghost Racers", true));
-        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup("Manhattan (Earth-1610)", false));
-        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup("The Deadlands", false));
-        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup("Infinity Gems", false));
+        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup(TestHelper.THOR_CORPS, true));
+        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup(TestHelper.GHOST_RACERS, true));
+        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup(TestHelper.MANHATTAN_EARTH_1610, false));
+        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup(TestHelper.THE_DEADLANDS, false));
+        mockedSmashTwoDimensionsTogetherVillains.add(new VillainGroup(TestHelper.INFINITY_GEMS, false));
 
-        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup("Phalanx", true));
-        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup("Sentinel", true));
-        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup("Kree Starforce", false));
-        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup("Skrulls", false));
-        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup("Infinity Gems", false));
+        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup(TestHelper.PHALANX, true));
+        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup(TestHelper.SENTINEL, true));
+        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup(TestHelper.KREE_STARFORCE, false));
+        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup(TestHelper.SKRULLS, false));
+        mockedBuildAnArmyOfAnnihilationVillains.add(new VillainGroup(TestHelper.INFINITY_GEMS, false));
 
-        mockedHeroes.add(new Hero("Spider-Man"));
-        mockedHeroes.add(new Hero("Mr. Fantastic"));
-        mockedHeroes.add(new Hero("Invisible Woman"));
-        mockedHeroes.add(new Hero("Human Torch"));
-        mockedHeroes.add(new Hero("Thing"));
-        mockedHeroes.add(new Hero("Black Panther"));
-        mockedHeroes.add(new Hero("Doctor Strange"));
-        mockedHeroes.add(new Hero("Namor, The Sub-Mariner"));
+        mockedHeroes.add(new Hero(TestHelper.SPIDER_MAN));
+        mockedHeroes.add(new Hero(TestHelper.MR_FANTASTIC));
+        mockedHeroes.add(new Hero(TestHelper.INVISIBLE_WOMAN));
+        mockedHeroes.add(new Hero(TestHelper.HUMAN_TORCH));
+        mockedHeroes.add(new Hero(TestHelper.THING));
+        mockedHeroes.add(new Hero(TestHelper.BLACK_PANTHER));
+        mockedHeroes.add(new Hero(TestHelper.DOCTOR_STRANGE));
+        mockedHeroes.add(new Hero(TestHelper.NAMOR_THE_SUB_MARINER));
     }
 }
