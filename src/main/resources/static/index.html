@@ -8,11 +8,6 @@
           rel="stylesheet"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-    <script
-            src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-    </script>
 </head>
 <body>
 <div class="center">
@@ -23,13 +18,14 @@
         <input class="players" type="number" name="Players" min="1" max="5" value="1" />
         <br/>
         <br/>
+        <!-- TODO: generate on load -->
         <input class="cardSet" type="checkbox" name="Legendary" value="Legendary" /> Legendary
         <input class="cardSet" type="checkbox" name="Dark City" value="Dark City" /> Dark City
         <input class="cardSet" type="checkbox" name="Fantastic Four" value="Fantastic Four" /> Fantastic Four
         <br/>
         <br/>
         <input type="submit" value="Go!"/>
-        <input class="reset" type="reset" value="Reset"/>
+        <input class="reset" type="button" value="Reset"/>
         <div class="randomSetup">
             <h4>Scheme</h4>
             <p class="scheme"></p>
@@ -45,67 +41,113 @@
 </body>
 </html>
 <script>
-    $(".reset").click(function(event) {
-        console.log("Reset")
-        $(".scheme").empty()
-        $(".mastermind").empty()
-        $(".villains").empty()
-        $(".heroes").empty()
+    document.querySelector(".reset").addEventListener("click", function(event) {
+        resetForm()
     })
 
-    $("form").submit(function(event) {
-        var players = 1;
+    document.querySelector("form").addEventListener("submit", function(event) {
+        var players = document.querySelector(".players").value
         var cardSets = []
 
         event.preventDefault()
 
-        console.log($(".players").get(0).value)
-
-        players = $(".players").get(0).value
-
-        $(".cardSet").each(function(index) {
-            if (this.checked) {
-                cardSets.push(this.value)
-                console.log(this.value)
+        document.querySelectorAll(".cardSet").forEach(function(cardSet) {
+            if (cardSet.checked) {
+                cardSets.push(cardSet.value)
             }
         })
 
-        console.log(players)
-        console.log(cardSets)
+        renderMockedSetup(cardSets, players)
+    })
 
-        if (cardSets.length) {
-            $.ajax({
-                contentType: "application/json",
-                method: "POST",
-                url: "/api/randomSetup?players=" + players,
-                data: JSON.stringify(cardSets)
-            }).done(function(response) {
-                var scheme = response.scheme
-                var mastermind = response.mastermind
-                var villains = response.villainGroups
-                var heroes = response.heroes
-
-                $(".scheme").empty()
-                $(".mastermind").empty()
-                $(".villains").empty()
-                $(".heroes").empty()
-
-                console.log(scheme.name)
-                $(".scheme").text(scheme.name)
-
-                console.log(mastermind.name)
-                $(".mastermind").text(mastermind.name)
-
-                villains.forEach(function(villainGroup) {
-                    console.log(villainGroup.name)
-                    $(".villains").append("<li>" + villainGroup.name + "</li>")
-                })
-
-                heroes.forEach(function(hero) {
-                    console.log(hero.name)
-                    $("<li>" + hero.name + "</li>").addClass("hero").appendTo(".heroes")
-                })
-            })
+    function removeChildren(parent) {
+        while (parent.lastChild) {
+            parent.removeChild(parent.lastChild)
         }
-    });
+    }
+
+    function resetForm() {
+        removeChildren(document.querySelector(".scheme"))
+        removeChildren(document.querySelector(".mastermind"))
+        removeChildren(document.querySelector(".villains"))
+        removeChildren(document.querySelector(".heroes"))
+    }
+
+    function renderScheme(scheme) {
+        document.querySelector(".scheme").textContent = scheme.name
+    }
+
+    function renderMastermind(mastermind) {
+        document.querySelector(".mastermind").textContent = mastermind.name
+    }
+
+    function renderVillains(villains) {
+        var villainsNode = document.querySelector(".villains")
+
+        villains.forEach(function(villainGroup) {
+            var element = document.createElement("li")
+            element.innerHTML = villainGroup.name
+            villainsNode.appendChild(element)
+        })
+    }
+
+    function renderHeroes(heroes) {
+        var heroesNode = document.querySelector(".heroes")
+
+        heroes.forEach(function(hero) {
+            var element = document.createElement("li")
+            element.innerHTML = hero.name
+            heroesNode.appendChild(element)
+        })
+    }
+
+    function renderMockedSetup(cardSets, players) {
+        var mockedSetup = {
+            "scheme": {
+                "name": "Pull Reality into the Negative Zone"
+            },
+            "mastermind": {
+                "name": "Galactus"
+            },
+            "villains": [
+                {
+                    "name": "Heralds of Galactus"
+                },
+                {
+                    "name": "Subterranea"
+                },
+                {
+                    "name": "Skrulls"
+                },
+                {
+                    "name": "Doombot Legion"
+                },
+                {
+                    "name": "Savage Land Mutates"
+                }
+            ],
+            "heroes": [
+                {
+                    "name": "Mr. Fantastic"
+                },
+                {
+                    "name": "Invisible Woman"
+                },
+                {
+                    "name": "Human Touch"
+                },
+                {
+                    "name": "Thing"
+                },
+                {
+                    "name": "Spider-Man"
+                }
+            ]
+        }
+
+        renderScheme(mockedSetup["scheme"])
+        renderMastermind(mockedSetup["mastermind"])
+        renderVillains(mockedSetup["villains"])
+        renderHeroes(mockedSetup["heroes"])
+    }
 </script>
