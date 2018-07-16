@@ -18,11 +18,8 @@
         <input class="players" type="number" name="Players" min="1" max="5" value="1" />
         <br/>
         <br/>
-        <!-- TODO: generate on load -->
-        <input class="cardSet" type="checkbox" name="Legendary" value="Legendary" /> Legendary
-        <input class="cardSet" type="checkbox" name="Dark City" value="Dark City" /> Dark City
-        <input class="cardSet" type="checkbox" name="Fantastic Four" value="Fantastic Four" /> Fantastic Four
-        <br/>
+        <section class="cardSets">
+        </section>
         <br/>
         <input type="submit" value="Go!"/>
         <input class="reset" type="button" value="Reset"/>
@@ -41,6 +38,8 @@
 </body>
 </html>
 <script>
+    window.onload = init
+
     document.querySelector(".reset").addEventListener("click", function(event) {
         resetForm()
     })
@@ -59,6 +58,39 @@
 
         renderMockedSetup(cardSets, players)
     })
+
+    function init() {
+        generateCardSets()
+    }
+
+    function generateCardSets() {
+        var mockedCardSets = [
+            "Legendary",
+            "Dark City",
+            "Fantastic Four",
+            "Guardians of the Galaxy",
+            "Secret Wars Vol. 1"
+        ]
+        var cardSetsNode = document.querySelector(".cardSets")
+
+        mockedCardSets.forEach(function(cardSet) {
+            var containerElement = document.createElement("div")
+            var inputElement = document.createElement("input")
+            var spanElement = document.createElement("span")
+
+            inputElement.setAttribute("type", "checkbox")
+            inputElement.setAttribute("name", cardSet)
+            inputElement.setAttribute("value", cardSet)
+
+            spanElement.innerHTML = cardSet
+
+            containerElement.setAttribute("class", "cardSet")
+            containerElement.appendChild(inputElement)
+            containerElement.appendChild(spanElement)
+
+            cardSetsNode.appendChild(containerElement)
+        })
+    }
 
     function removeChildren(parent) {
         while (parent.lastChild) {
