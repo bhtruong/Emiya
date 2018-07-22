@@ -1,24 +1,24 @@
-window.onload = init
+window.onload = init;
 
-document.querySelector(".reset").addEventListener("click", () => resetForm())
+document.querySelector(".reset").addEventListener("click", () => resetForm());
 
 document.querySelector("form").addEventListener("submit", event => {
-    const players = document.querySelector(".players").value
-    let cardSets = []
+    const players = document.querySelector(".players").value;
+    let cardSets = [];
 
-    event.preventDefault()
+    event.preventDefault();
 
     document.querySelectorAll(".cardSet").forEach(cardSet => {
-        const inputIndex = 0
-        const inputElement = cardSet.childNodes[inputIndex]
+        const inputIndex = 0;
+        const inputElement = cardSet.childNodes[inputIndex];
 
         if (inputElement.checked) {
             cardSets.push(inputElement.value)
         }
-    })
+    });
 
-    renderMockedSetup(cardSets, players)
-})
+    renderStubbedSetup(cardSets, players)
+});
 
 function init() {
     generateCardSets()
@@ -31,23 +31,23 @@ function generateCardSets() {
         "Fantastic Four",
         "Guardians of the Galaxy",
         "Secret Wars Vol. 1"
-    ]
-    let cardSetsNode = document.querySelector(".cardSets")
+    ];
+    let cardSetsNode = document.querySelector(".cardSets");
 
     mockedCardSets.forEach(cardSet => {
-        let containerElement = document.createElement("div")
-        let inputElement = document.createElement("input")
-        let spanElement = document.createElement("span")
+        let containerElement = document.createElement("div");
+        let inputElement = document.createElement("input");
+        let spanElement = document.createElement("span");
 
-        inputElement.setAttribute("type", "checkbox")
-        inputElement.setAttribute("name", cardSet)
-        inputElement.setAttribute("value", cardSet)
+        inputElement.setAttribute("type", "checkbox");
+        inputElement.setAttribute("name", cardSet);
+        inputElement.setAttribute("value", cardSet);
 
-        spanElement.innerHTML = cardSet
+        spanElement.innerHTML = cardSet;
 
-        containerElement.setAttribute("class", "cardSet")
-        containerElement.appendChild(inputElement)
-        containerElement.appendChild(spanElement)
+        containerElement.setAttribute("class", "cardSet");
+        containerElement.appendChild(inputElement);
+        containerElement.appendChild(spanElement);
 
         cardSetsNode.appendChild(containerElement)
     })
@@ -60,9 +60,9 @@ function removeChildren(parent) {
 }
 
 function resetForm() {
-    removeChildren(document.querySelector(".scheme"))
-    removeChildren(document.querySelector(".mastermind"))
-    removeChildren(document.querySelector(".villains"))
+    removeChildren(document.querySelector(".scheme"));
+    removeChildren(document.querySelector(".mastermind"));
+    removeChildren(document.querySelector(".villains"));
     removeChildren(document.querySelector(".heroes"))
 }
 
@@ -75,32 +75,32 @@ function renderMastermind(mastermind) {
 }
 
 function renderVillains(villains) {
-    let villainsNode = document.querySelector(".villains")
+    let villainsNode = document.querySelector(".villains");
 
     villains.forEach(villainGroup => {
-        let element = document.createElement("li")
-        element.innerHTML = villainGroup.name
+        let element = document.createElement("li");
+        element.innerHTML = villainGroup.name;
         villainsNode.appendChild(element)
     })
 }
 
 function renderHeroes(heroes) {
-    let heroesNode = document.querySelector(".heroes")
+    let heroesNode = document.querySelector(".heroes");
 
     heroes.forEach(hero => {
-        let element = document.createElement("li")
-        element.innerHTML = hero.name
+        let element = document.createElement("li");
+        element.innerHTML = hero.name;
         heroesNode.appendChild(element)
     })
 }
 
-function renderMockedSetup(cardSets, players) {
-    let stubbedSetup = getStubbedSetup(cardSets, players)
+function renderStubbedSetup(cardSets, players) {
+    let stubbedSetup = getStubbedSetup(cardSets, players);
 
     stubbedSetup.then(setup => {
-        renderScheme(setup["scheme"])
-        renderMastermind(setup["mastermind"])
-        renderVillains(setup["villains"])
+        renderScheme(setup["scheme"]);
+        renderMastermind(setup["mastermind"]);
+        renderVillains(setup["villains"]);
         renderHeroes(setup["heroes"])
     })
 }
@@ -147,12 +147,12 @@ function getStubbedSetup(cardSets, players) {
                 "name": "Spider-Man"
             }
         ]
-    }
+    };
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout((cs, p) => {
-            console.log(`Players: ${p}`)
-            cs.forEach(set => console.log(`Card Set: ${set}`))
+            console.log(`Players: ${p}`);
+            cs.forEach(set => console.log(`Card Set: ${set}`));
 
             resolve(stubbedSetup)
         }, 2500, cardSets, players)
