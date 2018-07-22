@@ -4,12 +4,24 @@ ul {
     margin: 0;
 }
 
-.center {
-    margin-left: auto;
-    margin-right: auto;
-    width: 66%;
+.container {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.setup-generator {
     border: 3px solid blue;
+    width: 66%;
     text-align: center;
+    float: left;
+    margin-left: 17%;
+}
+
+.cleanup-generator {
+    border: 3px solid green;
+    width: 17%;
+    text-align: center;
+    float: right;
 }
 
 .randomSetup {

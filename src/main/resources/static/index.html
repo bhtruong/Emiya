@@ -10,19 +10,23 @@
           crossorigin="anonymous">
 </head>
 <body>
-    <div class="center">
-        <h1>Emiya</h1>
-        <form action="#">
-            <br/>
-            Number of Players
-            <input class="players" type="number" name="Players" min="1" max="5" value="1" />
-            <br/>
-            <br/>
-            <section class="cardSets">
-            </section>
-            <br/>
-            <input type="submit" value="Go!"/>
-            <input class="reset" type="button" value="Reset"/>
+    <div class="container">
+        <div class="setup-generator">
+            <h1>Emiya</h1>
+            <form action="#">
+                <br/>
+                <label>
+                    Number of Players
+                    <input class="players" type="number" name="Players" min="1" max="5" value="1"/>
+                </label>
+                <br/>
+                <br/>
+                <section class="cardSets">
+                </section>
+                <br/>
+                <input type="submit" value="Go!"/>
+                <input class="reset" type="button" value="Reset"/>
+            </form>
             <div class="randomSetup">
                 <h4>Scheme</h4>
                 <p class="scheme"></p>
@@ -33,7 +37,20 @@
                 <h4>Heroes</h4>
                 <ul class="heroes"></ul>
             </div>
-        </form>
+        </div>
+        <div class="cleanup-generator">
+            <h2>Clean up</h2>
+            <h4>Bystanders</h4>
+            <p class="bystanders"></p>
+            <h4>Wounds/Bindings</h4>
+            <p class="wounds-bindings"></p>
+            <h4>Shards</h4>
+            <p class="shards"></p>
+            <h4>Sidekicks</h4>
+            <p class="sidekicks"></p>
+            <h4>Ambitions</h4>
+            <p class="ambitions"></p>
+        </div>
     </div>
     <script type="text/javascript" src="app.js"></script>
 </body>

@@ -1,6 +1,9 @@
 window.onload = init;
 
-document.querySelector(".reset").addEventListener("click", () => resetForm());
+document.querySelector(".reset").addEventListener("click", () => {
+    resetForm();
+    resetCleanup()
+});
 
 document.querySelector("form").addEventListener("submit", event => {
     const players = document.querySelector(".players").value;
@@ -17,7 +20,8 @@ document.querySelector("form").addEventListener("submit", event => {
         }
     });
 
-    renderStubbedSetup(cardSets, players)
+    renderStubbedSetup(cardSets, players);
+    renderStubbedCleanup(cardSets)
 });
 
 function init() {
@@ -66,6 +70,14 @@ function resetForm() {
     removeChildren(document.querySelector(".heroes"))
 }
 
+function resetCleanup() {
+    removeChildren(document.querySelector(".bystanders"));
+    removeChildren(document.querySelector(".wounds-bindings"));
+    removeChildren(document.querySelector(".shards"));
+    removeChildren(document.querySelector(".sidekicks"));
+    removeChildren(document.querySelector(".ambitions"));
+}
+
 function renderScheme(scheme) {
     document.querySelector(".scheme").textContent = scheme.name
 }
@@ -94,6 +106,14 @@ function renderHeroes(heroes) {
     })
 }
 
+function renderCleanup(cleanup) {
+    document.querySelector(".bystanders").textContent = cleanup["bystanders"];
+    document.querySelector(".wounds-bindings").textContent = cleanup["wounds-bindings"];
+    document.querySelector(".shards").textContent = cleanup["shards"];
+    document.querySelector(".sidekicks").textContent = cleanup["sidekicks"];
+    document.querySelector(".ambitions").textContent = cleanup["ambitions"]
+}
+
 function renderStubbedSetup(cardSets, players) {
     let stubbedSetup = getStubbedSetup(cardSets, players);
 
@@ -103,6 +123,12 @@ function renderStubbedSetup(cardSets, players) {
         renderVillains(setup["villains"]);
         renderHeroes(setup["heroes"])
     })
+}
+
+function renderStubbedCleanup(cardSets) {
+    let stubbedCleanup = getStubbedCleanup(cardSets);
+
+    stubbedCleanup.then(cleanup => renderCleanup(cleanup))
 }
 
 function getStubbedSetup(cardSets, players) {
@@ -149,12 +175,32 @@ function getStubbedSetup(cardSets, players) {
         ]
     };
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         setTimeout((cs, p) => {
+            console.log(`Setup`);
             console.log(`Players: ${p}`);
             cs.forEach(set => console.log(`Card Set: ${set}`));
 
             resolve(stubbedSetup)
         }, 2500, cardSets, players)
+    })
+}
+
+function getStubbedCleanup(cardSets) {
+    const stubbedCleanup = {
+        "bystanders": 33,
+        "wounds-bindings": 30,
+        "shards": 18,
+        "sidekicks": 15,
+        "ambitions": 30
+    };
+
+    return new Promise(resolve => {
+        setTimeout(cs => {
+            console.log(`Cleanup`);
+            cs.forEach(set => console.log(`Card Set: ${set}`));
+
+            resolve(stubbedCleanup)
+        }, 3000, cardSets)
     })
 }
