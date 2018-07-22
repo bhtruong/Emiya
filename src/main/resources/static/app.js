@@ -3,14 +3,17 @@ window.onload = init
 document.querySelector(".reset").addEventListener("click", () => resetForm())
 
 document.querySelector("form").addEventListener("submit", event => {
-    var players = document.querySelector(".players").value
-    var cardSets = []
+    const players = document.querySelector(".players").value
+    let cardSets = []
 
     event.preventDefault()
 
     document.querySelectorAll(".cardSet").forEach(cardSet => {
-        if (cardSet.checked) {
-            cardSets.push(cardSet.value)
+        const inputIndex = 0
+        const inputElement = cardSet.childNodes[inputIndex]
+
+        if (inputElement.checked) {
+            cardSets.push(inputElement.value)
         }
     })
 
@@ -22,19 +25,19 @@ function init() {
 }
 
 function generateCardSets() {
-    var mockedCardSets = [
+    const mockedCardSets = [
         "Legendary",
         "Dark City",
         "Fantastic Four",
         "Guardians of the Galaxy",
         "Secret Wars Vol. 1"
     ]
-    var cardSetsNode = document.querySelector(".cardSets")
+    let cardSetsNode = document.querySelector(".cardSets")
 
     mockedCardSets.forEach(cardSet => {
-        var containerElement = document.createElement("div")
-        var inputElement = document.createElement("input")
-        var spanElement = document.createElement("span")
+        let containerElement = document.createElement("div")
+        let inputElement = document.createElement("input")
+        let spanElement = document.createElement("span")
 
         inputElement.setAttribute("type", "checkbox")
         inputElement.setAttribute("name", cardSet)
@@ -72,27 +75,38 @@ function renderMastermind(mastermind) {
 }
 
 function renderVillains(villains) {
-    var villainsNode = document.querySelector(".villains")
+    let villainsNode = document.querySelector(".villains")
 
     villains.forEach(villainGroup => {
-        var element = document.createElement("li")
+        let element = document.createElement("li")
         element.innerHTML = villainGroup.name
         villainsNode.appendChild(element)
     })
 }
 
 function renderHeroes(heroes) {
-    var heroesNode = document.querySelector(".heroes")
+    let heroesNode = document.querySelector(".heroes")
 
     heroes.forEach(hero => {
-        var element = document.createElement("li")
+        let element = document.createElement("li")
         element.innerHTML = hero.name
         heroesNode.appendChild(element)
     })
 }
 
 function renderMockedSetup(cardSets, players) {
-    var mockedSetup = {
+    let stubbedSetup = getStubbedSetup(cardSets, players)
+
+    stubbedSetup.then(setup => {
+        renderScheme(setup["scheme"])
+        renderMastermind(setup["mastermind"])
+        renderVillains(setup["villains"])
+        renderHeroes(setup["heroes"])
+    })
+}
+
+function getStubbedSetup(cardSets, players) {
+    let stubbedSetup = {
         "scheme": {
             "name": "Pull Reality into the Negative Zone"
         },
@@ -135,8 +149,12 @@ function renderMockedSetup(cardSets, players) {
         ]
     }
 
-    renderScheme(mockedSetup["scheme"])
-    renderMastermind(mockedSetup["mastermind"])
-    renderVillains(mockedSetup["villains"])
-    renderHeroes(mockedSetup["heroes"])
+    return new Promise((resolve, reject) => {
+        setTimeout((cs, p) => {
+            console.log(`Players: ${p}`)
+            cs.forEach(set => console.log(`Card Set: ${set}`))
+
+            resolve(stubbedSetup)
+        }, 2500, cardSets, players)
+    })
 }
