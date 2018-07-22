@@ -1,16 +1,14 @@
 window.onload = init
 
-document.querySelector(".reset").addEventListener("click", function(event) {
-    resetForm()
-})
+document.querySelector(".reset").addEventListener("click", () => resetForm())
 
-document.querySelector("form").addEventListener("submit", function(event) {
+document.querySelector("form").addEventListener("submit", event => {
     var players = document.querySelector(".players").value
     var cardSets = []
 
     event.preventDefault()
 
-    document.querySelectorAll(".cardSet").forEach(function(cardSet) {
+    document.querySelectorAll(".cardSet").forEach(cardSet => {
         if (cardSet.checked) {
             cardSets.push(cardSet.value)
         }
@@ -33,7 +31,7 @@ function generateCardSets() {
     ]
     var cardSetsNode = document.querySelector(".cardSets")
 
-    mockedCardSets.forEach(function(cardSet) {
+    mockedCardSets.forEach(cardSet => {
         var containerElement = document.createElement("div")
         var inputElement = document.createElement("input")
         var spanElement = document.createElement("span")
@@ -76,7 +74,7 @@ function renderMastermind(mastermind) {
 function renderVillains(villains) {
     var villainsNode = document.querySelector(".villains")
 
-    villains.forEach(function(villainGroup) {
+    villains.forEach(villainGroup => {
         var element = document.createElement("li")
         element.innerHTML = villainGroup.name
         villainsNode.appendChild(element)
@@ -86,7 +84,7 @@ function renderVillains(villains) {
 function renderHeroes(heroes) {
     var heroesNode = document.querySelector(".heroes")
 
-    heroes.forEach(function(hero) {
+    heroes.forEach(hero => {
         var element = document.createElement("li")
         element.innerHTML = hero.name
         heroesNode.appendChild(element)
