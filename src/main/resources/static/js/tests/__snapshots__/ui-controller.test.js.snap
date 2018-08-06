@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ui controller renders card sets correctly 1`] = `"<div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Legendary\\" value=\\"Legendary\\"><span>Legendary</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Dark City\\" value=\\"Dark City\\"><span>Dark City</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Fantastic Four\\" value=\\"Fantastic Four\\"><span>Fantastic Four</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Guardians of the Galaxy\\" value=\\"Guardians of the Galaxy\\"><span>Guardians of the Galaxy</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Secret Wars Vol. 1\\" value=\\"Secret Wars Vol. 1\\"><span>Secret Wars Vol. 1</span></div>"`;
+
+exports[`ui controller renders cleanup correctly 1`] = `
+"
+            <h2>Clean Up</h2>
+            <h4>Bystanders</h4>
+            <p class=\\"bystanders\\">33</p>
+            <h4>Wounds</h4>
+            <p class=\\"wounds\\">30</p>
+            <h4>Bindings</h4>
+            <p class=\\"bindings\\">0</p>
+            <h4>Shards</h4>
+            <p class=\\"shards\\">18</p>
+            <h4>Sidekicks</h4>
+            <p class=\\"sidekicks\\">15</p>
+            <h4>Ambitions</h4>
+            <p class=\\"ambitions\\">30</p>
+        "
+`;
+
+exports[`ui controller renders cleanup reset correctly 1`] = `
+"
+            <h2>Clean Up</h2>
+            <h4>Bystanders</h4>
+            <p class=\\"bystanders\\"></p>
+            <h4>Wounds</h4>
+            <p class=\\"wounds\\"></p>
+            <h4>Bindings</h4>
+            <p class=\\"bindings\\"></p>
+            <h4>Shards</h4>
+            <p class=\\"shards\\"></p>
+            <h4>Sidekicks</h4>
+            <p class=\\"sidekicks\\"></p>
+            <h4>Ambitions</h4>
+            <p class=\\"ambitions\\"></p>
+        "
+`;
+
+exports[`ui controller renders form reset correctly 1`] = `
+"
+            <h4>Scheme</h4>
+            <p class=\\"scheme\\"></p>
+            <h4>Mastermind</h4>
+            <p class=\\"mastermind\\"></p>
+            <h4>Villains</h4>
+            <ul class=\\"villains\\"></ul>
+            <h4>Heroes</h4>
+            <ul class=\\"heroes\\"></ul>
+        "
+`;
+
+exports[`ui controller renders setup correctly 1`] = `
+"
+            <h4>Scheme</h4>
+            <p class=\\"scheme\\">Pull Reality into the Negative Zone</p>
+            <h4>Mastermind</h4>
+            <p class=\\"mastermind\\">Galactus</p>
+            <h4>Villains</h4>
+            <ul class=\\"villains\\"><li>Heralds of Galactus</li><li>Subterranea</li><li>Skrulls</li><li>Doombot Legion</li><li>Savage Land Mutates</li></ul>
+            <h4>Heroes</h4>
+            <ul class=\\"heroes\\"><li>Mr. Fantastic</li><li>Invisible Woman</li><li>Human Touch</li><li>Thing</li><li>Spider-Man</li></ul>
+        "
+`;

@@ -1,0 +1,16 @@
+{
+  "name": "emiya",
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "babel-jest": "^23.4.2",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.4.2",
+    "regenerator-runtime": "^0.12.1"
+  }
+}

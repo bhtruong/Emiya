@@ -16,8 +16,10 @@ function renderCardSets(cardSets) {
         containerElement.appendChild(inputElement);
         containerElement.appendChild(spanElement);
 
-        cardSetsNode.appendChild(containerElement)
-    })
+        cardSetsNode.appendChild(containerElement);
+    });
+
+    return cardSetsNode.innerHTML
 }
 
 function renderScheme(scheme) {
@@ -52,15 +54,20 @@ function renderSetup(setup) {
     renderScheme(setup["scheme"]);
     renderMastermind(setup["mastermind"]);
     renderVillains(setup["villains"]);
-    renderHeroes(setup["heroes"])
+    renderHeroes(setup["heroes"]);
+
+    return document.querySelector(".randomSetup").innerHTML
 }
 
 function renderCleanup(cleanup) {
     document.querySelector(".bystanders").textContent = cleanup["bystanders"];
-    document.querySelector(".wounds-bindings").textContent = cleanup["wounds-bindings"];
+    document.querySelector(".wounds").textContent = cleanup["wounds"];
+    document.querySelector(".bindings").textContent = cleanup["bindings"];
     document.querySelector(".shards").textContent = cleanup["shards"];
     document.querySelector(".sidekicks").textContent = cleanup["sidekicks"];
-    document.querySelector(".ambitions").textContent = cleanup["ambitions"]
+    document.querySelector(".ambitions").textContent = cleanup["ambitions"];
+
+    return document.querySelector(".cleanup-generator").innerHTML
 }
 
 function removeChildren(parent) {
@@ -73,15 +80,20 @@ function resetForm() {
     removeChildren(document.querySelector(".scheme"));
     removeChildren(document.querySelector(".mastermind"));
     removeChildren(document.querySelector(".villains"));
-    removeChildren(document.querySelector(".heroes"))
+    removeChildren(document.querySelector(".heroes"));
+
+    return document.querySelector(".randomSetup").innerHTML
 }
 
 function resetCleanup() {
     removeChildren(document.querySelector(".bystanders"));
-    removeChildren(document.querySelector(".wounds-bindings"));
+    removeChildren(document.querySelector(".wounds"));
+    removeChildren(document.querySelector(".bindings"));
     removeChildren(document.querySelector(".shards"));
     removeChildren(document.querySelector(".sidekicks"));
     removeChildren(document.querySelector(".ambitions"));
+
+    return document.querySelector(".cleanup-generator").innerHTML
 }
 
 export default {
