@@ -38,7 +38,7 @@ export const SETUP = {
             name: "Invisible Woman"
         },
         {
-            name: "Human Touch"
+            name: "Human Torch"
         },
         {
             name: "Thing"

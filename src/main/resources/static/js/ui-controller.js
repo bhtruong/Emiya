@@ -35,7 +35,20 @@ function renderVillains(villains) {
 
     villains.forEach(villainGroup => {
         let element = document.createElement("li");
-        element.innerHTML = villainGroup.name;
+        let p = document.createElement("p");
+        let image = document.createElement("img");
+
+        element.classList.add("col-sm");
+
+        p.innerHTML = villainGroup.name;
+
+        p.classList.add("image-label");
+
+        image.setAttribute("src", "../img/legendary-captain-america.png");
+
+        element.appendChild(p);
+        element.appendChild(image);
+
         villainsNode.appendChild(element)
     })
 }
@@ -45,7 +58,20 @@ function renderHeroes(heroes) {
 
     heroes.forEach(hero => {
         let element = document.createElement("li");
-        element.innerHTML = hero.name;
+        let p = document.createElement("p");
+        let image = document.createElement("img");
+
+        // element.innerHTML = hero.name;
+        element.classList.add("col-sm");
+
+        p.classList.add("image-label");
+        p.innerHTML = hero.name;
+
+        image.setAttribute("src", "../img/legendary-cyclops.png");
+
+        element.appendChild(p);
+        element.appendChild(image);
+
         heroesNode.appendChild(element)
     })
 }

@@ -4,6 +4,11 @@ ul {
     margin: 0;
 }
 
+img {
+    border: 3px solid yellow;
+    width: 100%;
+}
+
 .container {
     margin-top: 10px;
     width: 100%;
@@ -26,4 +31,8 @@ ul {
 
 .randomSetup {
     margin-top: 10px;
+}
+
+.image-label {
+    height: 15%;
 }
