@@ -23,10 +23,22 @@ function renderCardSets(cardSets) {
 }
 
 function renderScheme(scheme) {
+    let img = document.createElement("img");
+
+    img.setAttribute("src", "../img/legendary-nick-fury.png");
+
+    document.querySelector(".scheme-container").appendChild(img);
+
     document.querySelector(".scheme").textContent = scheme.name
 }
 
 function renderMastermind(mastermind) {
+    let img = document.createElement("img");
+
+    img.setAttribute("src", "../img/legendary-iron-man.png");
+
+    document.querySelector(".mastermind-container").appendChild(img);
+
     document.querySelector(".mastermind").textContent = mastermind.name
 }
 
