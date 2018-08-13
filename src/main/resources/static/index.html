@@ -11,28 +11,28 @@
     <script type="module" src="app.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container app">
         <div class="setup-generator">
             <h1>Emiya</h1>
             <form action="#">
                 <br/>
-                <label>
-                    Number of Players
-                    <input class="players" type="number" name="Players" min="1" max="5" value="1"/>
-                </label>
-                <br/>
-                <br/>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Number of Players</span>
+                    </div>
+                    <input class="form-control players" type="number" name="Players" min="1" max="5" value="1"/>
+                </div>
                 <section class="cardSets">
                 </section>
                 <br/>
-                <input type="submit" value="Go!"/>
-                <input class="reset" type="button" value="Reset"/>
+                <input class="btn-sm btn-dark" type="submit" value="Go!"/>
+                <input class="btn-sm btn-dark reset" type="button" value="Reset"/>
             </form>
             <div class="randomSetup">
 
                 <div class="scheme-container">
-                    <h4>Scheme</h4>
-                    <p class="scheme"></p>
+                    <h4 class="text-danger">Scheme</h4>
+                    <p class="text-danger scheme"></p>
                 </div>
 
 
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="villains-container">
-                    <h4>Villains</h4>
+                    <h4 class="text-danger">Villains</h4>
                     <ul class="villains row"></ul>
                 </div>
 

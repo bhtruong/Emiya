@@ -3,7 +3,11 @@ export const CARD_SETS = [
     "Dark City",
     "Fantastic Four",
     "Guardians of the Galaxy",
-    "Secret Wars Vol. 1"
+    "Paint the Town Red",
+    "Secret Wars Vol. 1",
+    "Secret Wars Vol. 2",
+    "X-Men",
+    "World War Hulk"
 ];
 
 export const SETUP = {

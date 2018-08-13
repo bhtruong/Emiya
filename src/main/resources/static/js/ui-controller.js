@@ -1,22 +1,33 @@
+const BUTTONS_PER_ROW = 4;
+
 function renderCardSets(cardSets) {
     let cardSetsNode = document.querySelector(".cardSets");
+    let rows = Math.ceil(cardSets.length / BUTTONS_PER_ROW);
+    let rowElements = [];
 
-    cardSets.forEach(cardSet => {
-        let containerElement = document.createElement("div");
-        let inputElement = document.createElement("input");
-        let spanElement = document.createElement("span");
+    for (let i = 0; i < rows; i++) {
+        let section = document.createElement("section");
 
-        inputElement.setAttribute("type", "checkbox");
-        inputElement.setAttribute("name", cardSet);
-        inputElement.setAttribute("value", cardSet);
+        section.classList.add("row");
 
-        spanElement.innerHTML = cardSet;
+        rowElements.push(section)
+    }
 
-        containerElement.setAttribute("class", "cardSet");
-        containerElement.appendChild(inputElement);
-        containerElement.appendChild(spanElement);
+    rowElements.forEach((row, rowNumber) => {
+        row.classList.add(`button-row-${rowNumber}`);
+        cardSetsNode.appendChild(row)
+    });
 
-        cardSetsNode.appendChild(containerElement);
+    cardSets.forEach((cardSet, index) => {
+        let rowNumber = Math.floor(index / BUTTONS_PER_ROW);
+        let row = document.querySelector(`.button-row-${rowNumber}`);
+
+        let button = document.createElement("button");
+        button.classList.add("btn-sm", "btn-dark");
+        button.setAttribute("type", "button");
+        button.innerText = cardSet;
+
+        row.appendChild(button)
     });
 
     return cardSetsNode.innerHTML
@@ -26,6 +37,7 @@ function renderScheme(scheme) {
     let img = document.createElement("img");
 
     img.setAttribute("src", "../img/legendary-nick-fury.png");
+    img.classList.add("card-image");
 
     document.querySelector(".scheme-container").appendChild(img);
 
@@ -36,6 +48,7 @@ function renderMastermind(mastermind) {
     let img = document.createElement("img");
 
     img.setAttribute("src", "../img/legendary-iron-man.png");
+    img.classList.add("card-image");
 
     document.querySelector(".mastermind-container").appendChild(img);
 
@@ -54,7 +67,7 @@ function renderVillains(villains) {
 
         p.innerHTML = villainGroup.name;
 
-        p.classList.add("image-label");
+        p.classList.add("text-danger", "image-label");
 
         image.setAttribute("src", "../img/legendary-captain-america.png");
 
@@ -114,11 +127,20 @@ function removeChildren(parent) {
     }
 }
 
+function removeImage(parent) {
+    let img = document.querySelector(".card-image");
+
+    parent.removeChild(img)
+}
+
 function resetForm() {
     removeChildren(document.querySelector(".scheme"));
     removeChildren(document.querySelector(".mastermind"));
     removeChildren(document.querySelector(".villains"));
     removeChildren(document.querySelector(".heroes"));
+
+    removeImage(document.querySelector(".scheme-container"));
+    removeImage(document.querySelector(".mastermind-container"));
 
     return document.querySelector(".randomSetup").innerHTML
 }
