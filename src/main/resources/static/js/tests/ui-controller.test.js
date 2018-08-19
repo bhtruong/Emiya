@@ -4,16 +4,31 @@ import UIController from "../ui-controller.js";
 beforeAll(() => {
     document.body.innerHTML = `
         <section class="cardSets"></section>
+        
         <div class="randomSetup">
-            <h4>Scheme</h4>
-            <p class="scheme"></p>
-            <h4>Mastermind</h4>
-            <p class="mastermind"></p>
-            <h4>Villains</h4>
-            <ul class="villains"></ul>
-            <h4>Heroes</h4>
-            <ul class="heroes"></ul>
+        
+            <div class="scheme-container">
+                <h4 class="text-danger">Scheme</h4>
+                <p class="text-danger scheme"></p>
+            </div>
+            
+            <div class="mastermind-container">
+                <h4>Mastermind</h4>
+                <p class="mastermind"></p>
+            </div>
+            
+            <div class="villains-container">
+                <h4 class="text-danger">Villains</h4>
+                <ul class="villains row"></ul>
+            </div>
+            
+            <div class="heroes-container">
+                <h4>Heroes</h4>
+                <ul class="heroes row"></ul>
+            </div>
+            
         </div>
+        
         <div class="cleanup-generator">
             <h2>Clean Up</h2>
             <h4>Bystanders</h4>

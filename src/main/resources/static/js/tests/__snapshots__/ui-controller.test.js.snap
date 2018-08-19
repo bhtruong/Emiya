@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ui controller renders card sets correctly 1`] = `"<div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Legendary\\" value=\\"Legendary\\"><span>Legendary</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Dark City\\" value=\\"Dark City\\"><span>Dark City</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Fantastic Four\\" value=\\"Fantastic Four\\"><span>Fantastic Four</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Guardians of the Galaxy\\" value=\\"Guardians of the Galaxy\\"><span>Guardians of the Galaxy</span></div><div class=\\"cardSet\\"><input type=\\"checkbox\\" name=\\"Secret Wars Vol. 1\\" value=\\"Secret Wars Vol. 1\\"><span>Secret Wars Vol. 1</span></div>"`;
+exports[`ui controller renders card sets correctly 1`] = `"<section class=\\"row button-row-0\\"><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button></section><section class=\\"row button-row-1\\"><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button></section><section class=\\"row button-row-2\\"><button class=\\"btn-sm btn-dark\\" type=\\"button\\"></button></section>"`;
 
 exports[`ui controller renders cleanup correctly 1`] = `
 "
@@ -40,26 +40,52 @@ exports[`ui controller renders cleanup reset correctly 1`] = `
 
 exports[`ui controller renders form reset correctly 1`] = `
 "
-            <h4>Scheme</h4>
-            <p class=\\"scheme\\"></p>
-            <h4>Mastermind</h4>
-            <p class=\\"mastermind\\"></p>
-            <h4>Villains</h4>
-            <ul class=\\"villains\\"></ul>
-            <h4>Heroes</h4>
-            <ul class=\\"heroes\\"></ul>
+        
+            <div class=\\"scheme-container\\">
+                <h4 class=\\"text-danger\\">Scheme</h4>
+                <p class=\\"text-danger scheme\\"></p>
+            </div>
+            
+            <div class=\\"mastermind-container\\">
+                <h4>Mastermind</h4>
+                <p class=\\"mastermind\\"></p>
+            </div>
+            
+            <div class=\\"villains-container\\">
+                <h4 class=\\"text-danger\\">Villains</h4>
+                <ul class=\\"villains row\\"></ul>
+            </div>
+            
+            <div class=\\"heroes-container\\">
+                <h4>Heroes</h4>
+                <ul class=\\"heroes row\\"></ul>
+            </div>
+            
         "
 `;
 
 exports[`ui controller renders setup correctly 1`] = `
 "
-            <h4>Scheme</h4>
-            <p class=\\"scheme\\">Pull Reality into the Negative Zone</p>
-            <h4>Mastermind</h4>
-            <p class=\\"mastermind\\">Galactus</p>
-            <h4>Villains</h4>
-            <ul class=\\"villains\\"><li>Heralds of Galactus</li><li>Subterranea</li><li>Skrulls</li><li>Doombot Legion</li><li>Savage Land Mutates</li></ul>
-            <h4>Heroes</h4>
-            <ul class=\\"heroes\\"><li>Mr. Fantastic</li><li>Invisible Woman</li><li>Human Touch</li><li>Thing</li><li>Spider-Man</li></ul>
+        
+            <div class=\\"scheme-container\\">
+                <h4 class=\\"text-danger\\">Scheme</h4>
+                <p class=\\"text-danger scheme\\">Pull Reality into the Negative Zone</p>
+            <img src=\\"../img/legendary-nick-fury.png\\" class=\\"card-image\\"></div>
+            
+            <div class=\\"mastermind-container\\">
+                <h4>Mastermind</h4>
+                <p class=\\"mastermind\\">Galactus</p>
+            <img src=\\"../img/legendary-iron-man.png\\" class=\\"card-image\\"></div>
+            
+            <div class=\\"villains-container\\">
+                <h4 class=\\"text-danger\\">Villains</h4>
+                <ul class=\\"villains row\\"><li class=\\"col-sm\\"><p class=\\"text-danger image-label\\">Heralds of Galactus</p><img src=\\"../img/legendary-captain-america.png\\"></li><li class=\\"col-sm\\"><p class=\\"text-danger image-label\\">Subterranea</p><img src=\\"../img/legendary-captain-america.png\\"></li><li class=\\"col-sm\\"><p class=\\"text-danger image-label\\">Skrulls</p><img src=\\"../img/legendary-captain-america.png\\"></li><li class=\\"col-sm\\"><p class=\\"text-danger image-label\\">Doombot Legion</p><img src=\\"../img/legendary-captain-america.png\\"></li><li class=\\"col-sm\\"><p class=\\"text-danger image-label\\">Savage Land Mutates</p><img src=\\"../img/legendary-captain-america.png\\"></li></ul>
+            </div>
+            
+            <div class=\\"heroes-container\\">
+                <h4>Heroes</h4>
+                <ul class=\\"heroes row\\"><li class=\\"col-sm\\"><p class=\\"image-label\\">Mr. Fantastic</p><img src=\\"../img/legendary-cyclops.png\\"></li><li class=\\"col-sm\\"><p class=\\"image-label\\">Invisible Woman</p><img src=\\"../img/legendary-cyclops.png\\"></li><li class=\\"col-sm\\"><p class=\\"image-label\\">Human Torch</p><img src=\\"../img/legendary-cyclops.png\\"></li><li class=\\"col-sm\\"><p class=\\"image-label\\">Thing</p><img src=\\"../img/legendary-cyclops.png\\"></li><li class=\\"col-sm\\"><p class=\\"image-label\\">Spider-Man</p><img src=\\"../img/legendary-cyclops.png\\"></li></ul>
+            </div>
+            
         "
 `;

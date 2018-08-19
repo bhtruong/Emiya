@@ -1,3 +1,10 @@
+export const TYPE = {
+    'SCHEME': 0,
+    'MASTERMIND': 1,
+    'VILLAIN': 2,
+    'HERO': 3
+};
+
 export const CARD_SETS = [
     "Legendary",
     "Dark City",
@@ -12,10 +19,14 @@ export const CARD_SETS = [
 
 export const SETUP = {
     scheme: {
-        name: "Pull Reality into the Negative Zone"
+        type: TYPE.SCHEME,
+        name: "Pull Reality into the Negative Zone",
+        imageURL: "../img/legendary-nick-fury.png"
     },
     mastermind: {
-        name: "Galactus"
+        type: TYPE.MASTERMIND,
+        name: "Galactus",
+        imageURL: "../img/legendary-iron-man.png"
     },
     villains: [
         {

@@ -1,3 +1,5 @@
+import { TYPE } from './tests/data.js';
+
 const BUTTONS_PER_ROW = 4;
 
 function renderCardSets(cardSets) {
@@ -55,6 +57,25 @@ function renderMastermind(mastermind) {
     document.querySelector(".mastermind").textContent = mastermind.name
 }
 
+function renderSingle(data) {
+    let containerSelector = "", nameSelector = "";
+    let img = document.createElement("img");
+
+    img.setAttribute("src", data.imageURL);
+    img.classList.add("card-image");
+
+    if (data.type === TYPE.SCHEME) {
+        containerSelector = ".scheme-container";
+        nameSelector = ".scheme";
+    } else if (data.type === TYPE.MASTERMIND) {
+        containerSelector = ".mastermind-container";
+        nameSelector = ".mastermind";
+    }
+
+    document.querySelector(containerSelector).appendChild(img);
+    document.querySelector(nameSelector).textContent = data.name;
+}
+
 function renderVillains(villains) {
     let villainsNode = document.querySelector(".villains");
 
@@ -102,8 +123,8 @@ function renderHeroes(heroes) {
 }
 
 function renderSetup(setup) {
-    renderScheme(setup["scheme"]);
-    renderMastermind(setup["mastermind"]);
+    renderSingle(setup["scheme"]);
+    renderSingle(setup["mastermind"]);
     renderVillains(setup["villains"]);
     renderHeroes(setup["heroes"]);
 
