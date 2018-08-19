@@ -1,8 +1,8 @@
 export const TYPE = {
     'SCHEME': 0,
     'MASTERMIND': 1,
-    'VILLAIN': 2,
-    'HERO': 3
+    'VILLAINS': 2,
+    'HEROES': 3
 };
 
 export const CARD_SETS = [
@@ -28,40 +28,55 @@ export const SETUP = {
         name: "Galactus",
         imageURL: "../img/legendary-iron-man.png"
     },
-    villains: [
-        {
-            name: "Heralds of Galactus"
-        },
-        {
-            name: "Subterranea"
-        },
-        {
-            name: "Skrulls"
-        },
-        {
-            name: "Doombot Legion"
-        },
-        {
-            name: "Savage Land Mutates"
-        }
-    ],
-    heroes: [
-        {
-            name: "Mr. Fantastic"
-        },
-        {
-            name: "Invisible Woman"
-        },
-        {
-            name: "Human Torch"
-        },
-        {
-            name: "Thing"
-        },
-        {
-            name: "Spider-Man"
-        }
-    ]
+    villains: {
+        type: TYPE.VILLAINS,
+        elements: [
+            {
+                name: "Heralds of Galactus",
+                imageURL: "../img/legendary-captain-america.png"
+            },
+            {
+                name: "Subterranea",
+                imageURL: "../img/legendary-captain-america.png"
+            },
+            {
+                name: "Skrulls",
+                imageURL: "../img/legendary-captain-america.png"
+            },
+            {
+                name: "Doombot Legion",
+                imageURL: "../img/legendary-captain-america.png"
+            },
+            {
+                name: "Savage Land Mutates",
+                imageURL: "../img/legendary-captain-america.png"
+            }]
+    },
+    heroes: {
+        type: TYPE.HEROES,
+        elements: [
+            {
+                name: "Mr. Fantastic",
+                imageURL: "../img/legendary-cyclops.png"
+            },
+            {
+                name: "Invisible Woman",
+                imageURL: "../img/legendary-cyclops.png"
+            },
+            {
+                name: "Human Torch",
+                imageURL: "../img/legendary-cyclops.png"
+            },
+            {
+                name: "Thing",
+                imageURL: "../img/legendary-cyclops.png"
+            },
+            {
+                name: "Spider-Man",
+                imageURL: "../img/legendary-cyclops.png"
+            }
+        ]
+    }
 };
 
 export const CLEANUP = {

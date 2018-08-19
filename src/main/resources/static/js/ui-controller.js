@@ -35,34 +35,12 @@ function renderCardSets(cardSets) {
     return cardSetsNode.innerHTML
 }
 
-function renderScheme(scheme) {
-    let img = document.createElement("img");
-
-    img.setAttribute("src", "../img/legendary-nick-fury.png");
-    img.classList.add("card-image");
-
-    document.querySelector(".scheme-container").appendChild(img);
-
-    document.querySelector(".scheme").textContent = scheme.name
-}
-
-function renderMastermind(mastermind) {
-    let img = document.createElement("img");
-
-    img.setAttribute("src", "../img/legendary-iron-man.png");
-    img.classList.add("card-image");
-
-    document.querySelector(".mastermind-container").appendChild(img);
-
-    document.querySelector(".mastermind").textContent = mastermind.name
-}
-
 function renderSingle(data) {
     let containerSelector = "", nameSelector = "";
-    let img = document.createElement("img");
+    let image = document.createElement("img");
 
-    img.setAttribute("src", data.imageURL);
-    img.classList.add("card-image");
+    image.setAttribute("src", data.imageURL);
+    image.classList.add("card-image");
 
     if (data.type === TYPE.SCHEME) {
         containerSelector = ".scheme-container";
@@ -72,61 +50,49 @@ function renderSingle(data) {
         nameSelector = ".mastermind";
     }
 
-    document.querySelector(containerSelector).appendChild(img);
+    document.querySelector(containerSelector).appendChild(image);
     document.querySelector(nameSelector).textContent = data.name;
 }
 
-function renderVillains(villains) {
-    let villainsNode = document.querySelector(".villains");
+function renderMultiple(data) {
+    let rowSelector = "", row = null;
 
-    villains.forEach(villainGroup => {
-        let element = document.createElement("li");
-        let p = document.createElement("p");
-        let image = document.createElement("img");
+    if (data.type === TYPE.VILLAINS) {
+        rowSelector = '.villains'
+    } else if (data.type === TYPE.HEROES) {
+        rowSelector = '.heroes'
+    }
 
-        element.classList.add("col-sm");
+    row = document.querySelector(rowSelector);
 
-        p.innerHTML = villainGroup.name;
+    data.elements.forEach(element => {
+        let col = document.createElement('div');
+        let name = document.createElement('p');
+        let image = document.createElement('img');
 
-        p.classList.add("text-danger", "image-label");
+        col.classList.add('col-sm');
 
-        image.setAttribute("src", "../img/legendary-captain-america.png");
+        if (data.type === TYPE.VILLAINS) {
+            name.classList.add('text-danger')
+        }
 
-        element.appendChild(p);
-        element.appendChild(image);
+        name.classList.add('image-label');
+        name.innerHTML = element.name;
 
-        villainsNode.appendChild(element)
-    })
-}
+        image.setAttribute('src', element.imageURL);
 
-function renderHeroes(heroes) {
-    let heroesNode = document.querySelector(".heroes");
+        col.append(name);
+        col.append(image);
 
-    heroes.forEach(hero => {
-        let element = document.createElement("li");
-        let p = document.createElement("p");
-        let image = document.createElement("img");
-
-        // element.innerHTML = hero.name;
-        element.classList.add("col-sm");
-
-        p.classList.add("image-label");
-        p.innerHTML = hero.name;
-
-        image.setAttribute("src", "../img/legendary-cyclops.png");
-
-        element.appendChild(p);
-        element.appendChild(image);
-
-        heroesNode.appendChild(element)
+        row.appendChild(col);
     })
 }
 
 function renderSetup(setup) {
     renderSingle(setup["scheme"]);
     renderSingle(setup["mastermind"]);
-    renderVillains(setup["villains"]);
-    renderHeroes(setup["heroes"]);
+    renderMultiple(setup["villains"]);
+    renderMultiple(setup["heroes"]);
 
     return document.querySelector(".randomSetup").innerHTML
 }
