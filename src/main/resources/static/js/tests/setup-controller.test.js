@@ -1,8 +1,8 @@
-import { CARD_SETS, SETUP, CLEANUP } from "./data.js";
-import SetupController from "../setup-controller.js";
+import { CARD_SETS, SETUP, CLEANUP } from './data.js';
+import SetupController from '../setup-controller.js';
 
-describe("setup controller gets", () => {
-    test("card sets correctly", () => {
+describe('setup controller gets', () => {
+    test('card sets correctly', () => {
         let response = SetupController.getCardSets();
 
         expect.assertions(1);
@@ -12,7 +12,7 @@ describe("setup controller gets", () => {
         })
     });
 
-    test("setup correctly", () => {
+    test('setup correctly', () => {
         const players = 4;
         let response = SetupController.getSetup(CARD_SETS, players);
 
@@ -23,7 +23,7 @@ describe("setup controller gets", () => {
         })
     });
 
-    test("cleanup correctly", () => {
+    test('cleanup correctly', () => {
         let response = SetupController.getCleanup(CARD_SETS);
 
         expect.assertions(1);

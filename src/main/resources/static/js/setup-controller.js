@@ -1,4 +1,4 @@
-import { CARD_SETS, SETUP, CLEANUP } from "./tests/data.js";
+import { CARD_SETS, SETUP, CLEANUP } from './tests/data.js';
 
 function getStubbedCardSets() {
     return new Promise(resolve => {

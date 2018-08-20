@@ -1,10 +1,10 @@
-import UIController from "./js/ui-controller.js";
-import SetupController from "./js/setup-controller.js";
+import UIController from './js/ui-controller.js';
+import SetupController from './js/setup-controller.js';
 
 let userCardSets = new Set();
 
 function addCardSetClickListener() {
-    document.querySelector(".cardSets").addEventListener("click", event => {
+    document.querySelector('.cardSets').addEventListener('click', event => {
         let cardSet = event.target.innerText;
 
         if (userCardSets.has(cardSet)) {
@@ -17,14 +17,14 @@ function addCardSetClickListener() {
 
 //event listener to render game setup
 function addSubmitEventListener() {
-    document.querySelector("form").addEventListener("submit", event => {
-        if (userCardSets.has("Legendary") || userCardSets.has("Legendary Villains")) {
-            const players = document.querySelector(".players").value;
+    document.querySelector('form').addEventListener('submit', event => {
+        if (userCardSets.has('Legendary') || userCardSets.has('Legendary Villains')) {
+            const players = document.querySelector('.players').value;
             let cardSets = [], setup, cleanup;
 
             event.preventDefault();
 
-            document.querySelectorAll(".cardSet").forEach(cardSet => {
+            document.querySelectorAll('.cardSet').forEach(cardSet => {
                 //markup specific logic
                 const inputIndex = 0;
                 const inputElement = cardSet.childNodes[inputIndex];
@@ -46,7 +46,7 @@ function addSubmitEventListener() {
 
 //event listener to clear game setup and cleanup
 function addResetEventListener() {
-    document.querySelector(".reset").addEventListener("click", () => {
+    document.querySelector('.reset').addEventListener('click', () => {
         UIController.resetForm();
         UIController.resetCleanup()
     });

@@ -1,5 +1,5 @@
-import { CARD_SETS, SETUP, CLEANUP } from "./data.js";
-import UIController from "../ui-controller.js";
+import { CARD_SETS, SETUP, CLEANUP } from './data.js';
+import UIController from '../ui-controller.js';
 
 beforeAll(() => {
     document.body.innerHTML = `
@@ -46,32 +46,32 @@ beforeAll(() => {
         </div>`;
 });
 
-describe("ui controller renders", () => {
-    test("card sets correctly", () => {
+describe('ui controller renders', () => {
+    test('card sets correctly', () => {
         const html = UIController.renderCardSets(CARD_SETS);
 
         expect(html).toMatchSnapshot()
     });
 
-    test("setup correctly", () => {
+    test('setup correctly', () => {
         const html = UIController.renderSetup(SETUP);
 
         expect(html).toMatchSnapshot()
     });
 
-    test("cleanup correctly", () => {
+    test('cleanup correctly', () => {
         const html = UIController.renderCleanup(CLEANUP);
 
         expect(html).toMatchSnapshot()
     });
 
-    test("form reset correctly", () => {
+    test('form reset correctly', () => {
         const html = UIController.resetForm();
 
         expect(html).toMatchSnapshot()
     });
 
-    test("cleanup reset correctly", () => {
+    test('cleanup reset correctly', () => {
         const html = UIController.resetCleanup();
 
         expect(html).toMatchSnapshot()
