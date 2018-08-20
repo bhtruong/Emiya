@@ -47,6 +47,8 @@ function addSubmitEventListener() {
 //event listener to clear game setup and cleanup
 function addResetEventListener() {
     document.querySelector('.reset').addEventListener('click', () => {
+        resetUserCardSets();
+
         UIController.resetForm();
         UIController.resetCleanup()
     });
