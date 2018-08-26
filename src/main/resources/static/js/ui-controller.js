@@ -88,6 +88,16 @@ function renderMultiple(data) {
     })
 }
 
+function toggleButtonColor(button) {
+    if (button.classList.contains('btn-dark')) {
+        button.classList.replace('btn-dark', 'btn-light');
+    } else if (button.classList.contains('btn-light')) {
+        button.classList.replace('btn-light', 'btn-dark');
+    }
+
+    return button.classList
+}
+
 function renderSetup(setup) {
     renderSingle(setup['scheme']);
     renderSingle(setup['mastermind']);
@@ -148,5 +158,6 @@ export default {
     renderSetup: renderSetup,
     renderCleanup: renderCleanup,
     resetForm: resetForm,
-    resetCleanup: resetCleanup
+    resetCleanup: resetCleanup,
+    toggleButtonColor: toggleButtonColor
 };

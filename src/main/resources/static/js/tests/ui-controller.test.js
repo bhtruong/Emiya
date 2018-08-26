@@ -46,34 +46,48 @@ beforeAll(() => {
         </div>`;
 });
 
-describe('ui controller renders', () => {
-    test('card sets correctly', () => {
+describe('ui controller', () => {
+    test('renders card sets correctly', () => {
         const html = UIController.renderCardSets(CARD_SETS);
 
         expect(html).toMatchSnapshot()
     });
 
-    test('setup correctly', () => {
+    test('renders setup correctly', () => {
         const html = UIController.renderSetup(SETUP);
 
         expect(html).toMatchSnapshot()
     });
 
-    test('cleanup correctly', () => {
+    test('renders cleanup correctly', () => {
         const html = UIController.renderCleanup(CLEANUP);
 
         expect(html).toMatchSnapshot()
     });
 
-    test('form reset correctly', () => {
+    test('renders form reset correctly', () => {
         const html = UIController.resetForm();
 
         expect(html).toMatchSnapshot()
     });
 
-    test('cleanup reset correctly', () => {
+    test('renders cleanup reset correctly', () => {
         const html = UIController.resetCleanup();
 
         expect(html).toMatchSnapshot()
     });
+
+    test('toggles buttons correctly', () => {
+        UIController.renderCardSets(CARD_SETS);
+
+        let button = document.querySelector('.btn-sm');
+
+        let classList = UIController.toggleButtonColor(button);
+
+        expect(classList.contains('btn-light')).toBeTruthy();
+
+        classList = UIController.toggleButtonColor(button);
+
+        expect(classList.contains('btn-dark')).toBeTruthy()
+    })
 });

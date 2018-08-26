@@ -12,6 +12,8 @@ function addCardSetClickListener() {
         } else {
             userCardSets.add(cardSet)
         }
+
+        UIController.toggleButtonColor(event.target)
     });
 }
 
