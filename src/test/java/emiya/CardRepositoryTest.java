@@ -22,7 +22,7 @@ public class CardRepositoryTest {
 
     @Before
     public void setUp() {
-        repository = new CardRepository(new MySqlDatabase());
+        repository = new CardRepository(new MySqlDatabase(new MySqlCredentials()));
 
         cardSets = new ArrayList<>();
         cardSets.add(TestHelper.LEGENDARY);

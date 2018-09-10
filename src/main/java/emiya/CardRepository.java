@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by brian on 2/12/17.
  */
-class CardRepository {
+class CardRepository implements Repository {
     private final Database database;
     private Connection connection;
 
@@ -18,15 +18,15 @@ class CardRepository {
         this.database = database;
     }
 
-    void openConnection() throws SQLException {
+    public void openConnection() throws SQLException {
         connection = database.getConnection();
     }
 
-    void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         connection.close();
     }
 
-    List<Scheme> getSchemes(List<String> cardSets) throws SQLException {
+    public List<Scheme> getSchemes(List<String> cardSets) throws SQLException {
         List<Scheme> schemes = new ArrayList<>();
 
         if (!connection.isClosed()) {
@@ -52,7 +52,7 @@ class CardRepository {
         return schemes;
     }
 
-    List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
+    public List<Mastermind> getMasterminds(List<String> cardSets) throws SQLException {
         List<Mastermind> masterminds = new ArrayList<>();
 
         if (!connection.isClosed()) {
@@ -71,7 +71,7 @@ class CardRepository {
         return masterminds;
     }
 
-    Mastermind getMastermind(String mastermindName) throws SQLException {
+    public Mastermind getMastermind(String mastermindName) throws SQLException {
         String query = "SELECT * FROM `Masterminds` WHERE Name='" + mastermindName + "'";
         PreparedStatement stmt = connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
@@ -85,7 +85,7 @@ class CardRepository {
         return new Mastermind(name, groupLed, LeadsHenchmenGroup);
     }
 
-    List<Mastermind> getMastermindsThatLedHenchmen(List<String> cardSets) throws SQLException {
+    public List<Mastermind> getMastermindsThatLedHenchmen(List<String> cardSets) throws SQLException {
         List<Mastermind> masterminds = new ArrayList<>();
         String query = "SELECT * FROM `Villains` WHERE IsHenchmanGroup=1 AND Mastermind!='' AND ";
 
@@ -105,7 +105,7 @@ class CardRepository {
         return masterminds;
     }
 
-    List<VillainGroup> getVillains(List<String> cardSets, List<VillainGroup> blacklist) throws SQLException
+    public List<VillainGroup> getVillains(List<String> cardSets, List<VillainGroup> blacklist) throws SQLException
     {
         List<VillainGroup> villainGroups = new ArrayList<>();
 
@@ -125,7 +125,7 @@ class CardRepository {
         return villainGroups;
     }
 
-    List<Hero> getHeroes(List<String> cardSets) throws SQLException {
+    public List<Hero> getHeroes(List<String> cardSets) throws SQLException {
         List<Hero> heroes = new ArrayList<>();
 
         if (!connection.isClosed()) {

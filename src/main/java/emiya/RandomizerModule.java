@@ -11,16 +11,16 @@ import java.util.Random;
  */
 @Module
 class RandomizerModule {
-    @Provides @Singleton static SetupBuilder providesSetupBuilder(CardRepository cardRepository, Random randomizer, SetupHelper setupHelper) {
-        return new RandomizedSetupBuilder(cardRepository, randomizer, setupHelper);
+    @Provides @Singleton static SetupBuilder providesSetupBuilder(Repository repository, Random randomizer, SetupHelper setupHelper) {
+        return new RandomizedSetupBuilder(repository, randomizer, setupHelper);
     }
 
-    @Provides @Singleton static CardRepository providesCardRepository(Database database) {
-        return new CardRepository(database);
+    @Provides @Singleton static Repository providesRepository() {
+        return new StubbedCardRepository();
     }
 
-    @Provides @Singleton static Database providesDatabase() {
-        return new MySqlDatabase();
+    @Provides @Singleton static DatabaseCredentials providesDatabaseCredentials() {
+        return new MySqlCredentials();
     }
 
     @Provides @Singleton static SetupHelper providesSetupHelper() {

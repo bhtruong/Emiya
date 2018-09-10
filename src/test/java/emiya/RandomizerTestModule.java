@@ -16,8 +16,8 @@ import static org.mockito.Mockito.when;
  */
 @Module
 class RandomizerTestModule {
-    @Provides static CardRepository providesCardRepository(Database database) {
-        CardRepository mockedRepo = mock(CardRepository.class);
+    @Provides static Repository providesRepository() {
+        Repository mockedRepo = mock(Repository.class);
 
         List<VillainGroup> doomBlacklist = new ArrayList<>();
         List<VillainGroup> kreeSkrullWarBlacklist = new ArrayList<>();
@@ -57,8 +57,12 @@ class RandomizerTestModule {
         return mockedRepo;
     }
 
-    @Provides static Database providesDatabase() {
-        return new MySqlDatabase();
+    @Provides static Database providesDatabase(DatabaseCredentials databaseCredentials) {
+        return new MySqlDatabase(databaseCredentials);
+    }
+
+    @Provides static DatabaseCredentials providesDatabaseCredentials() {
+        return new MySqlCredentials();
     }
 
     @Provides static SetupHelper providesSetupHelper() {

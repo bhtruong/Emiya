@@ -7,19 +7,19 @@ import java.util.List;
  * Created by brian on 2/19/17.
  */
 abstract class SetupBuilder {
-    protected CardRepository cardRepository;
+    protected Repository repository;
     protected SetupDetails setupDetails;
 
-    SetupBuilder(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
+    SetupBuilder(Repository repository) {
+        this.repository = repository;
     }
 
     protected void openConnection() throws SQLException {
-        cardRepository.openConnection();
+        repository.openConnection();
     }
 
     protected void closeConnection() throws SQLException {
-        cardRepository.closeConnection();
+        repository.closeConnection();
     }
 
     protected void setSetupDetails(SetupDetails setupDetails) {

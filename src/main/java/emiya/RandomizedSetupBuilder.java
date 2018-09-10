@@ -14,15 +14,15 @@ class RandomizedSetupBuilder extends SetupBuilder {
     private SetupHelper setupHelper;
 
     @Inject
-    RandomizedSetupBuilder(CardRepository cardRepository, Random randomizer, SetupHelper setupHelper) {
-        super(cardRepository);
+    RandomizedSetupBuilder(Repository repository, Random randomizer, SetupHelper setupHelper) {
+        super(repository);
         this.randomizer = randomizer;
         this.setupHelper = setupHelper;
     }
 
     @Override
     Scheme getScheme(List<String> cardSets) throws SQLException {
-        List<Scheme> schemes = cardRepository.getSchemes(cardSets);
+        List<Scheme> schemes = repository.getSchemes(cardSets);
         Scheme scheme;
 
         do {
@@ -42,11 +42,11 @@ class RandomizedSetupBuilder extends SetupBuilder {
 
         //TODO: Get Special Rules
         if (scheme.getName().equals(Schemes.THE_KREE_SKRULL_WAR) && setupDetails.getNumberOfPlayers() == 2) {
-            masterminds = cardRepository.getMastermindsThatLedHenchmen(cardSets);
-            masterminds.add(cardRepository.getMastermind(Masterminds.SUPREME_INTELLIGENCE_OF_THE_KREE));
+            masterminds = repository.getMastermindsThatLedHenchmen(cardSets);
+            masterminds.add(repository.getMastermind(Masterminds.SUPREME_INTELLIGENCE_OF_THE_KREE));
         }
         else {
-            masterminds = cardRepository.getMasterminds(cardSets);
+            masterminds = repository.getMasterminds(cardSets);
         }
 
         return setupHelper.getAndRemoveRandomGameElement(masterminds, randomizer);
@@ -83,7 +83,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         }
 
         //get remaining villain groups (non-duplicates)
-        allVillainGroups.addAll(cardRepository.getVillains(cardSets, villainGroups));
+        allVillainGroups.addAll(repository.getVillains(cardSets, villainGroups));
 
         //get villain and henchman group count
         VillainGroupsSetup villainGroupsSetup = new VillainGroupsSetup(setupDetails, villainGroups, scheme);
@@ -102,7 +102,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
         }
 
         //TODO: Get Special Rules
-        allHeroes = cardRepository.getHeroes(cardSets);
+        allHeroes = repository.getHeroes(cardSets);
 
         while (heroes.size() < setupDetails.getNumberOfHeroes()) {
             heroes.add(setupHelper.getAndRemoveRandomGameElement(allHeroes, randomizer));
@@ -120,7 +120,7 @@ class RandomizedSetupBuilder extends SetupBuilder {
             schemeCardSets.add(CardSets.LEGENDARY);
         }
 
-        return cardRepository.getVillains(schemeCardSets, null);
+        return repository.getVillains(schemeCardSets, null);
     }
 
     private VillainGroup getMastermindVillainGroup(Mastermind mastermind) {
