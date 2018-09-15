@@ -18,7 +18,7 @@ class GameSetupDirector {
         this.builder = builder;
     }
 
-    Setup buildSetup(List<String> cardSets) throws SQLException {
+    SetupDTO buildSetup(List<String> cardSets) throws SQLException {
         Scheme scheme;
         Mastermind mastermind;
         List<VillainGroup> villainGroups;
@@ -34,7 +34,7 @@ class GameSetupDirector {
 
         builder.closeConnection();
 
-        return new Setup(scheme, mastermind, villainGroups, heroes);
+        return new SetupDTO(scheme, mastermind, villainGroups, heroes);
     }
 
     void setSetupDetails(SetupDetails setupDetails) {

@@ -1,6 +1,5 @@
 package emiya;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -9,16 +8,9 @@ import java.util.Random;
  * Created by brian on 2/25/17.
  */
 class SetupHelper {
-    private final static HashMap<Integer, SetupDetails> setupDetails = new HashMap<>();
     private static HashSet<Integer> usedGameElements;
 
     SetupHelper() {
-        setupDetails.put(1, new SetupDetails(1, 1, 1, 3));
-        setupDetails.put(2, new SetupDetails(2, 2, 1, 5));
-        setupDetails.put(3, new SetupDetails(3, 3, 1, 5));
-        setupDetails.put(4, new SetupDetails(4, 3, 2, 5));
-        setupDetails.put(5, new SetupDetails(5, 4, 2, 6));
-
         usedGameElements = new HashSet<>();
     }
 
@@ -53,9 +45,5 @@ class SetupHelper {
 
         //inverted method to avoid warning
         return !usedGameElements.isEmpty();
-    }
-
-    SetupDetails getSetupDetails(int numberOfPlayers) {
-        return setupDetails.get(numberOfPlayers);
     }
 }

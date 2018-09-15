@@ -1,8 +1,8 @@
 export const TYPE = {
-    'SCHEME': 0,
-    'MASTERMIND': 1,
-    'VILLAINS': 2,
-    'HEROES': 3
+    'SCHEME': 'SCHEME',
+    'MASTERMIND': 'MASTERMIND',
+    'VILLAINS': 'VILLAINS',
+    'HEROES': 'HEROES'
 };
 
 export const CARD_SETS = [
@@ -50,7 +50,8 @@ export const SETUP = {
             {
                 name: 'Savage Land Mutates',
                 imageURL: '../img/legendary-captain-america.png'
-            }]
+            }
+        ]
     },
     heroes: {
         type: TYPE.HEROES,

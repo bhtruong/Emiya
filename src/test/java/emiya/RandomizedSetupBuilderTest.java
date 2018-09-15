@@ -76,7 +76,7 @@ public class RandomizedSetupBuilderTest {
 
     @Test
     public void getMastermind_KreeSkrullWar_2Players() throws SQLException {
-        SetupDetails setupDetails = setupHelper.getSetupDetails(2);
+        SetupDetails setupDetails = SetupDetailsFactory.getSetupDetails(2);
         Scheme scheme = new Scheme(TestHelper.THE_KREE_SKRULL_WAR);
         Mastermind mastermind;
 
@@ -89,7 +89,7 @@ public class RandomizedSetupBuilderTest {
 
     @Test
     public void getVillains_2Players_DoctorDoom() throws Exception {
-        SetupDetails setupDetails = setupHelper.getSetupDetails(2);
+        SetupDetails setupDetails = SetupDetailsFactory.getSetupDetails(2);
         Scheme scheme = new Scheme(TestHelper.NEGATIVE_ZONE_PRISON_BREAKOUT,
                                     null,
                                     false,
@@ -111,7 +111,7 @@ public class RandomizedSetupBuilderTest {
 
     @Test
     public void getVillains_KreeSkrullWar_3Players_SupremeIntelligenceOfTheKree() throws SQLException {
-        SetupDetails setupDetails = setupHelper.getSetupDetails(3);
+        SetupDetails setupDetails = SetupDetailsFactory.getSetupDetails(3);
         Scheme scheme = new Scheme(TestHelper.THE_KREE_SKRULL_WAR,
                                     new String[]{TestHelper.KREE_STARFORCE, TestHelper.SKRULLS},
                                     false,
@@ -134,7 +134,7 @@ public class RandomizedSetupBuilderTest {
 
     @Test
     public void getVillains_SmashTwoDimensionsTogether_4Players() throws SQLException {
-        SetupDetails details = setupHelper.getSetupDetails(4);
+        SetupDetails details = SetupDetailsFactory.getSetupDetails(4);
         Scheme scheme = new Scheme(TestHelper.SMASH_TWO_DIMENSIONS_TOGETHER,
                                     null,
                                     true,
@@ -156,7 +156,7 @@ public class RandomizedSetupBuilderTest {
 
     @Test
     public void getVillains_BuildAnArmyOfAnnihilation_5Players() throws SQLException {
-        SetupDetails details = setupHelper.getSetupDetails(5);
+        SetupDetails details = SetupDetailsFactory.getSetupDetails(5);
         Scheme scheme = new Scheme(TestHelper.BUILD_AN_ARMY_OF_ANNIHILATION,
                                     new String[]{TestHelper.MODOKS},
                                     false,
@@ -179,7 +179,7 @@ public class RandomizedSetupBuilderTest {
 
     @Test
     public void getHeroes() throws Exception {
-        SetupDetails setupDetails = setupHelper.getSetupDetails(2);
+        SetupDetails setupDetails = SetupDetailsFactory.getSetupDetails(2);
         List<Hero> heroes;
 
         setupBuilder.setSetupDetails(setupDetails);
