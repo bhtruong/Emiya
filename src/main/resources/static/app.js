@@ -20,20 +20,14 @@ function addCardSetClickListener() {
 //event listener to render game setup
 function addSubmitEventListener() {
     document.querySelector('form').addEventListener('submit', event => {
+        event.preventDefault();
+
         if (userCardSets.has('Legendary') || userCardSets.has('Legendary Villains')) {
             const players = document.querySelector('.players').value;
             let cardSets = [], setup, cleanup;
 
-            event.preventDefault();
-
-            document.querySelectorAll('.cardSet').forEach(cardSet => {
-                //markup specific logic
-                const inputIndex = 0;
-                const inputElement = cardSet.childNodes[inputIndex];
-
-                if (inputElement.checked) {
-                    cardSets.push(inputElement.value)
-                }
+            userCardSets.forEach(cardSet => {
+                cardSets.push(cardSet)
             });
 
             setup = SetupController.getSetup(cardSets, players);
@@ -41,16 +35,16 @@ function addSubmitEventListener() {
 
             setup.then(s => UIController.renderSetup(s));
             cleanup.then(c => UIController.renderCleanup(c));
+        } else {
+            //TODO: display message to user
+            alert('Missing base set')
         }
-        //TODO: display message to user
     });
 }
 
 //event listener to clear game setup and cleanup
 function addResetEventListener() {
     document.querySelector('.reset').addEventListener('click', () => {
-        resetUserCardSets();
-
         UIController.resetForm();
         UIController.resetCleanup()
     });

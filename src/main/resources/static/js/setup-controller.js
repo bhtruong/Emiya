@@ -24,6 +24,21 @@ function getStubbedCleanup(cardSets) {
     })
 }
 
+const getRandomSetup = (cardSets, players) => {
+    const url = `/api/randomSetup?players=${players}`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cardSets)
+    };
+
+    return fetch(url, options).then(response => {
+        return response.json()
+    })
+};
+
 export default {
     getCardSets: getStubbedCardSets,
     getSetup: getStubbedSetup,

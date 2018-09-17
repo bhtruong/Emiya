@@ -8,7 +8,7 @@ public class MastermindDTO {
     MastermindDTO(Mastermind mastermind) {
         this.type = CardType.MASTERMIND;
         this.name = mastermind.getName();
-        this.imageURL = "/img/legendary-iron-man";
+        this.imageURL = "/img/legendary-iron-man.png";
     }
 
     public CardType getType() {

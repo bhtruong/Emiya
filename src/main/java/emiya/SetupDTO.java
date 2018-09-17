@@ -8,13 +8,13 @@ import java.util.List;
 public class SetupDTO {
     private final SchemeDTO scheme;
     private final MastermindDTO mastermind;
-    private final VillainGroupsDTO villainGroups;
+    private final VillainGroupsDTO villains;
     private final HeroesDTO heroes;
 
-    public SetupDTO(Scheme scheme, Mastermind mastermind, List<VillainGroup> villainGroups, List<Hero> heroes) {
+    public SetupDTO(Scheme scheme, Mastermind mastermind, List<VillainGroup> villains, List<Hero> heroes) {
         this.scheme = new SchemeDTO(scheme);
         this.mastermind = new MastermindDTO(mastermind);
-        this.villainGroups = new VillainGroupsDTO(villainGroups);
+        this.villains = new VillainGroupsDTO(villains);
         this.heroes = new HeroesDTO(heroes);
     }
 
@@ -26,8 +26,8 @@ public class SetupDTO {
         return mastermind;
     }
 
-    public VillainGroupsDTO getVillainGroups() {
-        return villainGroups;
+    public VillainGroupsDTO getVillains() {
+        return villains;
     }
 
     public HeroesDTO getHeroes() {
