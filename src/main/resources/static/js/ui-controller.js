@@ -36,22 +36,21 @@ function renderCardSets(cardSets) {
 }
 
 function renderSingle(data) {
-    let containerSelector = '', nameSelector = '';
-    let image = document.createElement('img');
-
-    image.setAttribute('src', data.imageURL);
-    image.classList.add('card-image');
+    let containerSelector = '', titleClass = '', htmlTemplate;
 
     if (data.type === TYPE.SCHEME) {
-        containerSelector = '.scheme-container';
-        nameSelector = '.scheme';
+        containerSelector = '.scheme';
+        titleClass = '"text-danger"';
     } else if (data.type === TYPE.MASTERMIND) {
-        containerSelector = '.mastermind-container';
-        nameSelector = '.mastermind';
+        containerSelector = '.mastermind';
     }
 
-    document.querySelector(containerSelector).appendChild(image);
-    document.querySelector(nameSelector).textContent = data.name;
+    htmlTemplate = `
+        <p class=${titleClass}>${data.name}</p>
+        <img src=${data.imageURL}>
+    `;
+
+    document.querySelector(containerSelector).innerHTML = htmlTemplate;
 }
 
 function renderMultiple(data) {
@@ -118,37 +117,26 @@ function renderCleanup(cleanup) {
     return document.querySelector('.cleanup-generator').innerHTML
 }
 
-function removeChildren(parent) {
-    while (parent.lastChild) {
-        parent.removeChild(parent.lastChild)
-    }
-}
-
-function removeImage(parent) {
-    let img = document.querySelector('.card-image');
-
-    parent.removeChild(img)
+function clearInnerHTML(parent) {
+    parent.innerHTML = '';
 }
 
 function resetForm() {
-    removeChildren(document.querySelector('.scheme'));
-    removeChildren(document.querySelector('.mastermind'));
-    removeChildren(document.querySelector('.villains'));
-    removeChildren(document.querySelector('.heroes'));
-
-    removeImage(document.querySelector('.scheme-container'));
-    removeImage(document.querySelector('.mastermind-container'));
+    clearInnerHTML(document.querySelector('.scheme'));
+    clearInnerHTML(document.querySelector('.mastermind'));
+    clearInnerHTML(document.querySelector('.villains'));
+    clearInnerHTML(document.querySelector('.heroes'));
 
     return document.querySelector('.randomSetup').innerHTML
 }
 
 function resetCleanup() {
-    removeChildren(document.querySelector('.bystanders'));
-    removeChildren(document.querySelector('.wounds'));
-    removeChildren(document.querySelector('.bindings'));
-    removeChildren(document.querySelector('.shards'));
-    removeChildren(document.querySelector('.sidekicks'));
-    removeChildren(document.querySelector('.ambitions'));
+    clearInnerHTML(document.querySelector('.bystanders'));
+    clearInnerHTML(document.querySelector('.wounds'));
+    clearInnerHTML(document.querySelector('.bindings'));
+    clearInnerHTML(document.querySelector('.shards'));
+    clearInnerHTML(document.querySelector('.sidekicks'));
+    clearInnerHTML(document.querySelector('.ambitions'));
 
     return document.querySelector('.cleanup-generator').innerHTML
 }

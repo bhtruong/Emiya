@@ -69,13 +69,19 @@ exports[`ui controller renders setup correctly 1`] = `
         
             <div class=\\"scheme-container\\">
                 <h4 class=\\"text-danger\\">Scheme</h4>
-                <p class=\\"text-danger scheme\\">Pull Reality into the Negative Zone</p>
-            <img src=\\"../img/legendary-nick-fury.png\\" class=\\"card-image\\"></div>
+                <p class=\\"text-danger scheme\\">
+        <p class=\\"text-danger\\">Pull Reality into the Negative Zone</p>
+        <img src=\\"../img/legendary-nick-fury.png\\">
+    </p>
+            </div>
             
             <div class=\\"mastermind-container\\">
                 <h4>Mastermind</h4>
-                <p class=\\"mastermind\\">Galactus</p>
-            <img src=\\"../img/legendary-iron-man.png\\" class=\\"card-image\\"></div>
+                <p class=\\"mastermind\\">
+        <p class=\\"\\">Galactus</p>
+        <img src=\\"../img/legendary-iron-man.png\\">
+    </p>
+            </div>
             
             <div class=\\"villains-container\\">
                 <h4 class=\\"text-danger\\">Villains</h4>
