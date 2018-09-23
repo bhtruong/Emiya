@@ -54,7 +54,7 @@ function renderSingle(data) {
 }
 
 function renderMultiple(data) {
-    let rowSelector = '', row = null;
+    let rowSelector = '', row = null, elementTemplate;
 
     if (data.type === TYPE.VILLAINS) {
         rowSelector = '.villains'
@@ -65,25 +65,20 @@ function renderMultiple(data) {
     row = document.querySelector(rowSelector);
 
     data.elements.forEach(element => {
-        let col = document.createElement('div');
-        let name = document.createElement('p');
-        let image = document.createElement('img');
-
-        col.classList.add('col-sm');
+        let containerClass = 'col-sm', titleClass = 'image-label';
 
         if (data.type === TYPE.VILLAINS) {
-            name.classList.add('text-danger')
+            titleClass += ' text-danger';
         }
 
-        name.classList.add('image-label');
-        name.innerHTML = element.name;
+        elementTemplate = `
+            <div class="${containerClass}">
+                <p class="${titleClass}">${element.name}</p>
+                <img src=${element.imageURL}>
+            </div>   
+        `;
 
-        image.setAttribute('src', element.imageURL);
-
-        col.append(name);
-        col.append(image);
-
-        row.appendChild(col);
+        row.insertAdjacentHTML('beforeend', elementTemplate);
     })
 }
 
