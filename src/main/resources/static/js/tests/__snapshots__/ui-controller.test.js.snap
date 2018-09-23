@@ -40,52 +40,52 @@ exports[`ui controller renders cleanup reset correctly 1`] = `
 
 exports[`ui controller renders form reset correctly 1`] = `
 "
-        
+
             <div class=\\"scheme-container\\">
                 <h4 class=\\"text-danger\\">Scheme</h4>
-                <p class=\\"text-danger scheme\\"></p>
+                <div class=\\"scheme\\"></div>
             </div>
-            
+
             <div class=\\"mastermind-container\\">
                 <h4>Mastermind</h4>
-                <p class=\\"mastermind\\"></p>
+                <div class=\\"mastermind\\"></div>
             </div>
-            
+
             <div class=\\"villains-container\\">
                 <h4 class=\\"text-danger\\">Villains</h4>
-                <ul class=\\"villains row\\"></ul>
+                <section class=\\"villains row\\"></section>
             </div>
-            
+
             <div class=\\"heroes-container\\">
                 <h4>Heroes</h4>
-                <ul class=\\"heroes row\\"></ul>
+                <section class=\\"heroes row\\"></section>
             </div>
-            
+
         "
 `;
 
 exports[`ui controller renders setup correctly 1`] = `
 "
-        
+
             <div class=\\"scheme-container\\">
                 <h4 class=\\"text-danger\\">Scheme</h4>
-                <p class=\\"text-danger scheme\\">
+                <div class=\\"scheme\\">
         <p class=\\"text-danger\\">Pull Reality into the Negative Zone</p>
         <img src=\\"../img/legendary-nick-fury.png\\">
-    </p>
+    </div>
             </div>
-            
+
             <div class=\\"mastermind-container\\">
                 <h4>Mastermind</h4>
-                <p class=\\"mastermind\\">
+                <div class=\\"mastermind\\">
         <p class=\\"\\">Galactus</p>
         <img src=\\"../img/legendary-iron-man.png\\">
-    </p>
+    </div>
             </div>
-            
+
             <div class=\\"villains-container\\">
                 <h4 class=\\"text-danger\\">Villains</h4>
-                <ul class=\\"villains row\\">
+                <section class=\\"villains row\\">
             <div class=\\"col-sm\\">
                 <p class=\\"image-label text-danger\\">Heralds of Galactus</p>
                 <img src=\\"../img/legendary-captain-america.png\\">
@@ -110,12 +110,12 @@ exports[`ui controller renders setup correctly 1`] = `
                 <p class=\\"image-label text-danger\\">Savage Land Mutates</p>
                 <img src=\\"../img/legendary-captain-america.png\\">
             </div>   
-        </ul>
+        </section>
             </div>
-            
+
             <div class=\\"heroes-container\\">
                 <h4>Heroes</h4>
-                <ul class=\\"heroes row\\">
+                <section class=\\"heroes row\\">
             <div class=\\"col-sm\\">
                 <p class=\\"image-label\\">Mr. Fantastic</p>
                 <img src=\\"../img/legendary-cyclops.png\\">
@@ -140,8 +140,8 @@ exports[`ui controller renders setup correctly 1`] = `
                 <p class=\\"image-label\\">Spider-Man</p>
                 <img src=\\"../img/legendary-cyclops.png\\">
             </div>   
-        </ul>
+        </section>
             </div>
-            
+
         "
 `;
