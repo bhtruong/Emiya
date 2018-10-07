@@ -88,3 +88,8 @@ export const CLEANUP = {
     sidekicks: 15,
     ambitions: 30
 };
+
+export const HTTP_RESPONSE = {
+    'status': '200',
+    'content-type': 'application/json;charset=UTF-8'
+};

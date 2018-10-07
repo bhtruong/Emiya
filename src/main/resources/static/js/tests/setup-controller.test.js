@@ -1,11 +1,13 @@
-import { CARD_SETS, SETUP, CLEANUP } from './data.js';
+import { CARD_SETS, SETUP, CLEANUP, HTTP_RESPONSE } from './data.js';
 import SetupController from '../setup-controller.js';
+
+beforeEach(() => {
+    global.fetch = jest.fn().mockImplementation(() => new Promise(resolve => resolve(HTTP_RESPONSE)));
+});
 
 describe('setup controller gets', () => {
     test('card sets correctly', () => {
         let response = SetupController.getCardSets();
-
-        expect.assertions(1);
 
         return response.then(cardSets => {
             expect(cardSets).toBe(CARD_SETS)
@@ -14,11 +16,16 @@ describe('setup controller gets', () => {
 
     test('setup correctly', () => {
         const players = 4;
-        let response = SetupController.getSetup(CARD_SETS, players);
+        const promise = new Promise(resolve => resolve(SETUP));
+        const mockCallback = jest.fn(() => promise);
 
-        expect.assertions(1);
+        let response = SetupController.getSetup(CARD_SETS, players, mockCallback);
+
+        expect.assertions(3);
 
         return response.then(setup => {
+            expect(mockCallback.mock.calls.length).toBe(1);
+            expect(mockCallback.mock.results[0].value).toBe(promise);
             expect(setup).toBe(SETUP)
         })
     });
