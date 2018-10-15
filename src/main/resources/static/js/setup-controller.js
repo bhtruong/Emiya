@@ -45,6 +45,6 @@ const getRandomSetup = (cardSets, players, callback = response => response.json(
 
 export default {
     getCardSets: getStubbedCardSets,
-    getSetup: getRandomSetup,
+    getSetup: getStubbedSetup,
     getCleanup: getStubbedCleanup
 };
