@@ -1,16 +1,16 @@
 html {
-    background-color: gray;
+    background-color: darkred;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+/*
+    min-height: 100 view height (100% browser's viewport)
+    position: relative (allows for absolutely positioned elements, headers/footers)
+    margin: 0 prevents unwanted scrollbars
+*/
+body {
+    min-height: 100vh;
+    position: relative;
     margin: 0;
-}
-
-.app {
-    margin-top: 10px;
-    width: 100%;
 }
 
 .setup-generator {
@@ -29,21 +29,7 @@ ul {
     float: right;
 }
 
-.randomSetup {
-    margin-top: 10px;
-}
-
-section.row {
-    margin: auto;
-    justify-content: center;
-}
-
 .btn-sm {
-    width: 25%;
-}
-
-.scheme-container img,
-.mastermind-container img {
     width: 25%;
 }
 
@@ -61,6 +47,24 @@ section.row {
     height: 15%;
 }
 
-.col-sm img {
-    width: 100%;
+/*
+    horizontal flexbox container
+*/
+.horizontalContainer {
+    width: 67vw;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardImageContainer {
+    flex: 1 16.66%;
+    height: auto;
+    margin: auto;
+}
+
+.cardImage {
+    width: 100px;
+    height: auto;
 }

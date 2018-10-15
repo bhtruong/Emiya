@@ -37,6 +37,7 @@ function renderCardSets(cardSets) {
 
 function renderSingle(data) {
     let containerSelector = '', titleClass = '', htmlTemplate;
+    let containerClass = 'cardImageContainer', imageClass = 'cardImage';
 
     if (data.type === TYPE.SCHEME) {
         containerSelector = '.scheme';
@@ -46,8 +47,10 @@ function renderSingle(data) {
     }
 
     htmlTemplate = `
-        <p class=${titleClass}>${data.name}</p>
-        <img src=${data.imageURL}>
+        <div class="${containerClass}">
+            <p class=${titleClass}>${data.name}</p>
+            <img class="${imageClass}" src=${data.imageURL}>
+        </div>
     `;
 
     document.querySelector(containerSelector).innerHTML = htmlTemplate;
@@ -65,7 +68,8 @@ function renderMultiple(data) {
     row = document.querySelector(rowSelector);
 
     data.elements.forEach(element => {
-        let containerClass = 'col-sm', titleClass = 'image-label';
+        let containerClass = 'cardImageContainer', titleClass = 'image-label';
+        let imageClass = 'cardImage';
 
         if (data.type === TYPE.VILLAINS) {
             titleClass += ' text-danger';
@@ -74,7 +78,7 @@ function renderMultiple(data) {
         elementTemplate = `
             <div class="${containerClass}">
                 <p class="${titleClass}">${element.name}</p>
-                <img src=${element.imageURL}>
+                <img class="${imageClass}" src=${element.imageURL}>
             </div>   
         `;
 
